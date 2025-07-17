@@ -13,9 +13,10 @@ website:
         href: https://twitter.com
 format:
   html:
-    theme:
-      - flatly
     css: styles.css
+    toc: true
+    theme: default
+    number-sections: true
 
 
 
