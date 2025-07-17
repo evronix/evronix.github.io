@@ -1,0 +1,9 @@
+---
+title: "RL + DOB"
+author: "Jihong Kim"
+date: "2025-07-17"
+categories: [paper, code, analysis]
+image: "image.jpg"
+---
+
+This is a post with executable code. !!
