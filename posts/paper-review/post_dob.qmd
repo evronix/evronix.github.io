@@ -185,3 +185,11 @@ $$
 ---
 
 이러한 구조를 통해 RL 에이전트는 **과거 H 스텝 동안 누적된 외란의 영향을 인지하며** 보다 견고한 행동을 선택할 수 있게 됩니다.
+
+
+## 정리
+
+역동역학 모델은 **non-randomized 시뮬레이션 환경**에서 사전학습됩니다. 이때 사용되는 정책은 **nominal agent (첫번째 policy)**, 즉 정상 시스템 기준을 제공하는 사전 정의된 policy입니다.  
+이후 학습되는 **disturbance-aware agent (두번째 policy)**는, 이 nominal policy가 생성했을 법한 행동과 실제 행동 간의 차이를 외란으로 간주합니다.  
+
+첫번째 policy를 학습한 환경은 non-randomized 이기 때문에 저자들은 이를 ideal policy (optimal policy)로 간주합니다. 즉 **첫번째 policy가 이상적인 환경에서 보여주었던 성능 수준을, 교란이 존재하는 불확실한 환경 에서도 유지할 수 있는 두번째 policy를 만든것**입니다.
