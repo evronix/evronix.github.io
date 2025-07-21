@@ -17,6 +17,10 @@ format:
     toc: true
     theme: default
     number-sections: true
+  pdf:
+    documentclass: article
+    latex-engine: lualatex
+    include-in-header: preamble.tex
 
 
 

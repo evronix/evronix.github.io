@@ -9,7 +9,7 @@
 <meta name="author" content="Jihong Kim">
 <meta name="dcterms.date" content="2025-07-17">
 
-<title>RL + DOB – evronix.github.io</title>
+<title>DiAReL 리뷰 – evronix.github.io</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -144,7 +144,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">RL + DOB</h1>
+      <h1 class="title">DiAReL 리뷰</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">paper</div>
                 <div class="quarto-category">code</div>
@@ -215,7 +215,7 @@ window.Quarto = {
 <p><strong><em>Learning Agile and Dynamic Motor Skills for Legged Robots</em></strong> 이 논문에서는 이 문제를 해결하기 위한 새로운 접근법을 제안했습니다. 바로 실제 액추에이터의 특성을 신경망을 이용하여 모델링하는 방법입니다.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="actuator_net.png" class="img-fluid figure-img"></p>
+<p><img src="post_dob_img/actuator_net.png" class="img-fluid figure-img"></p>
 <figcaption>Actuator Network 구조</figcaption>
 </figure>
 </div>
@@ -229,7 +229,7 @@ window.Quarto = {
 기본 아이디어는 간단합니다. 학습 과정에서 로봇의 질량, 관성, 지형의 마찰계수 및 특성, 물체의 크기와 색상, 빛의 반사 특정, 센서 노이즈 등의 파라미터를 고정하지 않고 매 업데이트마다 무작위로 변경하는것입니다.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="DR.png" class="img-fluid figure-img"></p>
+<p><img src="post_dob_img/DR.png" class="img-fluid figure-img"></p>
 <figcaption>Domain Randomization Table</figcaption>
 </figure>
 </div>
@@ -252,7 +252,7 @@ window.Quarto = {
 <h3 data-number="4.1" class="anchored" data-anchor-id="역동역학-모델-학습-과정"><span class="header-section-number">4.1</span> 역동역학 모델 학습 과정</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="fig1.png" class="img-fluid figure-img"></p>
+<p><img src="post_dob_img/fig1.png" class="img-fluid figure-img"></p>
 <figcaption>llustration of how the inverse model is trained with data of non-randomized simulation</figcaption>
 </figure>
 </div>
@@ -288,7 +288,7 @@ y_k, \; y_{k-1}, \; y_{k-2}, \dots, y_{k-L}
 <h3 data-number="4.2" class="anchored" data-anchor-id="disturbance-aware-rl"><span class="header-section-number">4.2</span> Disturbance Aware RL</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="fig2.png" class="img-fluid figure-img"></p>
+<p><img src="post_dob_img/fig2.png" class="img-fluid figure-img"></p>
 <figcaption>Disturbance-aware RL-based controller uses the delay-resolved DOB with the trained inverse model to achieve control robustness against simulated disturbance</figcaption>
 </figure>
 </div>
