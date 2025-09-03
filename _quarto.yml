@@ -11,6 +11,8 @@ website:
         href: https://github.com/
       - icon: twitter
         href: https://twitter.com
+  google-analytics: "G-Q3HR0GH2ZQ"
+
 format:
   html:
     css: styles.css

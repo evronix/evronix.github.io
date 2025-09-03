@@ -1,5 +1,5 @@
 ---
-title: "evronix.github.io"
+title: "WorkSpace"
 listing:
   contents: posts
   sort: "date desc"
@@ -9,6 +9,19 @@ listing:
   filter-ui: false
 page-layout: full
 title-block-banner: true
+format:
+  html:
+    toc: false
 ---
 
+<style>
+.gh-chart{ margin-bottom: 4rem; }  /* ← 글 목록과의 간격 */
+.gh-chart img{
+  max-width:900px; width:100%; display:block;
+  margin:0 auto;                 /* 가운데 정렬 */
+}
+</style>
 
+<div class="gh-chart">
+  <img src="https://ghchart.rshah.org/3b82f6/evronix" alt="GitHub contributions" loading="lazy">
+</div>
