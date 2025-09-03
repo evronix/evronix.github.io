@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jihong Kim">
+<meta name="dcterms.date" content="2025-09-01">
+
+<title>Unified Force and Position Control 리뷰 – evronix.github.io</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d6e031b110e580bd284b866af807ec24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">evronix.github.io</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Unified Force and Position Control 리뷰</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">paper</div>
+                <div class="quarto-category">RL</div>
+                <div class="quarto-category">analysis</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Jihong Kim </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 1, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#배경-및-문제-정의" id="toc-배경-및-문제-정의" class="nav-link active" data-scroll-target="#배경-및-문제-정의"><span class="header-section-number">1</span> 배경 및 문제 정의</a></li>
+  <li><a href="#주요-기여contributions" id="toc-주요-기여contributions" class="nav-link" data-scroll-target="#주요-기여contributions"><span class="header-section-number">2</span> 주요 기여(Contributions)</a></li>
+  <li><a href="#methods-개요" id="toc-methods-개요" class="nav-link" data-scroll-target="#methods-개요"><span class="header-section-number">3</span> Methods 개요</a>
+  <ul class="collapse">
+  <li><a href="#unified-formulation-for-forceposition-control" id="toc-unified-formulation-for-forceposition-control" class="nav-link" data-scroll-target="#unified-formulation-for-forceposition-control"><span class="header-section-number">3.1</span> Unified Formulation for Force–Position Control</a></li>
+  <li><a href="#learning-a-unified-policy" id="toc-learning-a-unified-policy" class="nav-link" data-scroll-target="#learning-a-unified-policy"><span class="header-section-number">3.2</span> Learning a Unified Policy</a></li>
+  <li><a href="#build-a-diffusion-policy" id="toc-build-a-diffusion-policy" class="nav-link" data-scroll-target="#build-a-diffusion-policy"><span class="header-section-number">3.3</span> Build a Diffusion Policy</a></li>
+  </ul></li>
+  <li><a href="#experiments" id="toc-experiments" class="nav-link" data-scroll-target="#experiments"><span class="header-section-number">4</span> Experiments</a>
+  <ul class="collapse">
+  <li><a href="#force-and-position-command-tracking" id="toc-force-and-position-command-tracking" class="nav-link" data-scroll-target="#force-and-position-command-tracking"><span class="header-section-number">4.1</span> Force and Position Command tracking</a></li>
+  <li><a href="#force-aware-imitation-learning" id="toc-force-aware-imitation-learning" class="nav-link" data-scroll-target="#force-aware-imitation-learning"><span class="header-section-number">4.2</span> Force-aware Imitation Learning</a></li>
+  <li><a href="#basic-manipulation-policies" id="toc-basic-manipulation-policies" class="nav-link" data-scroll-target="#basic-manipulation-policies"><span class="header-section-number">4.3</span> Basic Manipulation Policies</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5</span> Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled" title="🔗 Links">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🔗 Links
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://unified-force.github.io/">🌐 Project Page</a></li>
+<li><a href="https://arxiv.org/html/2505.20829v1">📄 Paper (arXiv)</a></li>
+<li><a href="">📦 Code</a></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A framework for legged robots without force/torque sensors, enabling contact-rich loco-manipulation by <strong>estimating external forces</strong> from past states and <strong>modulating position/velocity commands</strong> for stable and adaptive interaction.</p>
+</div>
+</div>
+<section id="배경-및-문제-정의" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 배경 및 문제 정의</h1>
+<p>현대 loco-manipulation에서는 로봇이 환경과 접촉하며 물체를 밀고/당기는 등의 작업을 수행합니다. 그러나 다음의 제약이 존재합니다.</p>
+<ul>
+<li><strong>높은 자유도와 복잡성</strong>: legged robot은 운동학적으로 복잡하고, manipulation 과제가 추가되면 난도가 더 증가합니다.<br>
+</li>
+<li><strong>접촉 힘 모델링의 중요성</strong>: 원하는 동작을 위해서는 <strong>접촉 힘(contact force)</strong>의 정확한 모델링이 필수입니다.<br>
+</li>
+<li><strong>힘 센서의 부재</strong>: 비용·무게 등의 이유로 <strong>F/T 센서가 없는</strong> 경우가 많아 접촉력 정보가 부족합니다.<br>
+</li>
+<li><strong>분절된 제어 패러다임</strong>: 최근 RL 프레임워크는 <strong>position control</strong> 또는 <strong>force control</strong> 중 한 가지에만 초점을 두는 경향이 있습니다.<br>
+</li>
+<li><strong>통합 학습의 부족</strong>: 위치·힘 제어를 동시에 학습/통합하는 연구가 부족해 <strong>복잡한 실세계 접촉 작업</strong>을 다루기 어렵습니다.<br>
+</li>
+<li><strong>모방학습의 한계</strong>: 대규모 데이터셋도 <strong>reference trajectory 중심</strong>이며, 힘 정보가 빠져 있어 <strong>간단한 접촉 작업</strong>에도 한계가 드러납니다.</li>
+</ul>
+<blockquote class="blockquote">
+<p>결론적으로, <strong>순수 위치 제어만으로는 섬세한 접촉 작업을 수행하기 어렵다</strong>는 근본적 한계가 있습니다. 본 논문은 <strong>힘 센서 없이</strong>도 위치·힘 제어를 <strong>통합적으로 학습·활용</strong>하는 방법을 제시합니다.</p>
+</blockquote>
+</section>
+<section id="주요-기여contributions" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 주요 기여(Contributions)</h1>
+<ol type="1">
+<li><strong>힘 센서 없이</strong> 위치–힘 제어를 <strong>통합 학습</strong>하는 최초의 프레임워크 제안.<br>
+</li>
+<li>해당 프레임워크로 <strong>position tracking, force application, force tracking, compliant interaction</strong> 등 <strong>다양한 조작 행동</strong>을 구현.<br>
+</li>
+<li><strong>히스토리 데이터</strong>로부터 <strong>외력(반력 포함)을 추정</strong>하고, 이를 바탕으로 <strong>목표 위치/속도 보상</strong>을 수행 → <strong>무센서 힘 제어</strong>를 가능하게 하는 핵심.</li>
+</ol>
+</section>
+<section id="methods-개요" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Methods 개요</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Unified_Force_img/fig1.png" class="img-fluid figure-img"></p>
+<figcaption>Overview of the framework</figcaption>
+</figure>
+</div>
+<p>본 방법론은 크게 세가지 부분으로 구성됩니다.</p>
+<ul>
+<li><p><strong>Unified Control Formulation</strong></p></li>
+<li><p>로봇이 외부 힘과 상호작용할 때 이상적으로 어떻게 움직여야하는가를 수학적으로 정의합니다. 강화학습의 목표 (target position/velocity)를 계산하기 위해 기본 방정식을 이용합니다.</p></li>
+<li><p><strong>Learning a Unified Policy</strong></p></li>
+<li><p>위에서 정의된 이상적인 목표에 따라 <strong>주어진 힘/위치 명령을 실제로 어떻게 수행할 것인가</strong>를 배우는 저수준 제어 정책을 강화학습으로 구현합니다. 이때 힘 센서 없이 외부 힘을 추정하는 네트워크도 함께 학습합니다.</p></li>
+<li><p><strong>Build a Diffusion Policy</strong></p></li>
+<li><p>로봇이 실제 세계의 복잡한 작업을 보고 <strong>무엇을 해야할지</strong> (적절한 힘/위치 명령을 결정하는 고수준 정책)을 모방학습으로 만듭니다. 이 과정에서 위에서 학습한 힘 추정 네트워크를 활용합니다.</p></li>
+</ul>
+<section id="unified-formulation-for-forceposition-control" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="unified-formulation-for-forceposition-control"><span class="header-section-number">3.1</span> Unified Formulation for Force–Position Control</h2>
+<p>기본 아이디어는 실제 위치/속도와 목표 값의 오차에 비례하는 힘을 생성해 원하는 움직임을 유도하는 것입니다. 고전적 임피던스 제어는</p>
+<p><span class="math display">\[
+\mathbf{F} = K(\mathbf{x}-\mathbf{x}^{\mathrm{des}})\;+\;D(\dot{\mathbf{x}}-\dot{\mathbf{x}}^{\mathrm{des}})\;+\;M(\ddot{\mathbf{x}}-\ddot{\mathbf{x}}^{\mathrm{des}})
+\]</span></p>
+<p>로 표현됩니다. 여기서 (K,D,M)은 각각 <strong>stiffness, damping, equivalent mass/inertia</strong> 입니다.</p>
+<p><strong>quasi-static</strong>에서는 (!!^{})이고 (!!^{})라 가정하면</p>
+<p><span class="math display">\[
+\mathbf{F}\;\approx\;K(\mathbf{x}-\mathbf{x}^{\mathrm{des}})
+\]</span></p>
+<p>로 단순화할 수 있습니다.</p>
+<p>이때 총 힘 ()는 다음 3가지 구성으로 해석합니다.</p>
+<ul>
+<li><strong>Active force (^{})</strong>: 로봇이 환경에 <strong>가하고자 하는 명령 힘</strong><br>
+</li>
+<li><strong>Passive reaction (^{})</strong>: 환경이 로봇에 <strong>되받아치는 반력</strong><br>
+</li>
+<li><strong>External disturbances (^{})</strong>: 외부에서 가해지는 교란</li>
+</ul>
+<p>이를 고려하면 <strong>엔드 이펙터 목표 위치</strong>는</p>
+<p><span class="math display">\[
+\mathbf{x}^{\mathrm{target}}
+=
+\mathbf{x}^{\mathrm{cmd}}
++
+\frac{\mathbf{F}^{\mathrm{ext}}+\big(\mathbf{F}^{\mathrm{cmd}}-\mathbf{F}^{\mathrm{react}}\big)}{K}
+\]</span></p>
+<p>로 정의됩니다. 로봇은 단순히 (^{})만 추종하지 않고, <strong>외력/반력에 따라 목표를 보정</strong>해 <strong>힘 명령을 만족</strong>시키도록 동작합니다.<br>
+예시: - (<sup>{}=0,;</sup>{}=0 <sup>{}=</sup>{}) → <strong>순수 위치 제어</strong><br>
+- (^{}=0 <sup>{}=</sup>{}+^{}/K) → <strong>외력에 유연한 순응</strong><br>
+- (^{}) → 반력 (^{})가 (^{})와 일치하도록 (^{})이 <strong>자동 조정</strong></p>
+<p><strong>베이스</strong>에 대해서는 속도 제어를 중시해 단순화합니다. 임피던스 아이디어를 속도 영역에 적용하면,</p>
+<p><span class="math display">\[
+\mathbf{v}^{\mathrm{target}}_{\mathrm{base}}
+=
+\mathbf{v}^{\mathrm{cmd}}_{\mathrm{base}}
++
+\frac{
+\mathbf{F}^{\mathrm{ext}}_{\mathrm{base}} + \big(\mathbf{F}^{\mathrm{cmd}}_{\mathrm{base}}-\mathbf{F}^{\mathrm{react}}_{\mathrm{base}}\big)
+}{D}
+\]</span></p>
+<p>가 되며, 엔드 이펙터 제어와 <strong>독립적으로</strong> 다룹니다(복잡성 저감).</p>
+</section>
+<section id="learning-a-unified-policy" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="learning-a-unified-policy"><span class="header-section-number">3.2</span> Learning a Unified Policy</h2>
+<p>observation 집합은 다음과 같습니다.</p>
+<p><span class="math display">\[
+\mathbf{o}_t
+=
+\big[
+\mathbf{g}^{\mathrm{base}}_t,\;
+\boldsymbol{\omega}^{\mathrm{base}}_t,\;
+\mathbf{q}_t,\;
+\dot{\mathbf{q}}_t,\;
+\mathbf{a}_{t-1},\;
+\mathbf{c}^{\mathrm{cmd}}_t,\;
+\boldsymbol{\theta}^{\mathrm{feet}}_t
+\big]
+\]</span></p>
+<p>command 벡터는 <strong>베이스/엔드 이펙터의 위치·힘/속도</strong> 명령을 포함합니다.</p>
+<p><span class="math display">\[
+\mathbf{c}^{\mathrm{cmd}}_t
+=
+\big[
+\mathbf{v}^{\mathrm{cmd}}_{\mathrm{base}},\;
+\mathbf{x}^{\mathrm{cmd}}_{\mathrm{ee}},\;
+\mathbf{F}^{\mathrm{cmd}}_{\mathrm{ee}},\;
+\mathbf{F}^{\mathrm{cmd}}_{\mathrm{base}}
+\big]
+\]</span></p>
+<blockquote class="blockquote">
+<p>4족 로봇은 아래 <strong>명령 벡터</strong>의 네 항목을 모두 사용하고, 휴머노이드는 <span class="math inline">\(v_{base}^{cmd}\)</span> 와 <span class="math inline">\(F_{base}^{cmd}\)</span> 만 사용합니다.</p>
+</blockquote>
+<p>이 학습 프레임워크에는 policy network뿐만 아니라 아래의 두가지 네트워크도 포함됩니다.</p>
+<ol type="1">
+<li><p><strong>Observation Encoder</strong><br>
+길이 (H=32)의 히스토리를 받아 <strong>latent feature</strong>를 추출하고, 이를 Actor 네트워크에 입력해 <strong>action</strong>을 출력합니다.</p></li>
+<li><p><strong>State Estimator</strong><br>
+Encoder의 latent를 입력으로 받아 <strong>외력 ((=<sup>{}+</sup>{}))</strong>, <strong>엔드 이펙터 위치 (<em>{})<strong>, </strong>베이스 속도 (</em>{})</strong> 를 <strong>추정</strong>합니다.</p></li>
+</ol>
+<p>본 정책은 특정 태스크 전용의 고수준 정책이 아니라, <strong>임의의 힘 명령을 안정적으로 추종</strong>하고 <strong>외력에 순응</strong>하는 <strong>저수준 통합 제어 루프</strong>를 학습합니다. 예를 들어 <strong>(-6060,)</strong> 범위의 다양한 (^{})에 노출되며, 어떤 값이 주어져도 정확히 달성하도록 훈련됩니다.</p>
+</section>
+<section id="build-a-diffusion-policy" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="build-a-diffusion-policy"><span class="header-section-number">3.3</span> Build a Diffusion Policy</h2>
+<p><img src="Unified_Force_img/fig6.png" class="img-fluid"></p>
+<p>위에서 만든 Actor Policy는 주어진 position force command를 어떻게 추종하는지는 알지만, RGB이미지나 환경 인지를 통해 무엇을 해야할지 스스로 판단하여 명령을 생성할 수는 없습니다. 즉, 이제는 적절한 명령 (position, force command)를 생성하는 <strong>상위 제어기</strong>를 만들어야 합니다.</p>
+<p>먼저, 각 작업별로 텔레오퍼레이션을 통해 사람이 조이스틱을 사용하여 로봇의 base움직임, end effector 위치, end effector force를 직접 명령합니다.</p>
+<p>텔레오퍼레이션 과정에서 기록되는 데이터는 다음과 같이 쌍을 이룹니다</p>
+<ul>
+<li>입력: proprioception, RGB image, estimated end effector 외력</li>
+<li>출력: position command, force command (Diffusion Policy의 학습 목표이자 예측 출력)</li>
+</ul>
+<p>즉, 텔레오퍼레이션 시 사람이 조작하여 로봇에 전달한 position, force command는 Diffusion Policy의 출력 (action)을 학습하는 정답 라벨로 사용됩니다.</p>
+<p>Diffusion Policy는 모방 학습 기법의 일종이고, 모방학습은 일반적으로 <strong>전문가 시연(expert demonstrations)</strong>으로부터 상황-행동 맵핑을 학습합니다.</p>
+<ul>
+<li>학습 입력: 특정 proprioception, RGB image, estimated end effector 외력 상태가 주어졌을 때,</li>
+<li>학습 출력: 이 상태에서 전문가(사람 텔레오퍼레이터)가 어떤 position command와 force command를 내렸는지를 학습합니다.</li>
+<li>Diffusion Policy는 단순히 하나의 정답을 외우는 것이 아니라, 전문가가 해당 상황에서 내릴 수 있었던 command 들의 확률 분포를 학습합니다.</li>
+</ul>
+<p>학습이 완료된 Diffusion Policy는 자율모드에서 작동합니다. Diffusion Policy는 어떤 command도 입력으로 받지 않지만, 현재 상황을 파악하고 스스로 새로운 command를 생성합니다.</p>
+<p>자세한 내용은 아래 논문에서 확인할 수 있습니다.</p>
+<p><a href="https://arxiv.org/abs/2303.04137">Diffusion Policy: Visuomotor Policy Learning via Action Diffusion</a></p>
+<hr>
+</section>
+</section>
+<section id="experiments" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Experiments</h1>
+<p>실험은 크게 네 가지로 나뉘며, <strong>Unified Force-position Policy</strong>와 이를 활용한 <strong>Force-aware Imitation Learning</strong>의 효과를 검증하는 데 초점을 맞춥니다. Unitree B2-Z1 4족로봇, Unitree G1 휴머노이드 로봇이 사용되었습니다.</p>
+<section id="force-and-position-command-tracking" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="force-and-position-command-tracking"><span class="header-section-number">4.1</span> Force and Position Command tracking</h2>
+<p><img src="Unified_Force_img/fig2.png" class="img-fluid"></p>
+<p>Actor Policy 자체의 기본 성능, 즉 주어진 명령을 얼마나 정확하게 추적하고 외부 힘을 잘 추정하는지를 평가합니다.</p>
+<ul>
+<li><strong>Position tracking</strong>
+<ul>
+<li>목표: 외부 힘이나 힘 명령이 없는 상황에서 로봇의 end effector가 위치 명령을 얼마나 정확하게 추적하는지 시뮬레이션에서 평가하고, state estimator의 위치 추정 정확도를 확인.</li>
+<li>방법: 시뮬레이션에서 6000step의 rollouts을 수행하고 무작위로 생성된 end effector 궤적을 따르도록 지시함.</li>
+<li>측정: end effector tracking error 및 state estimator error.</li>
+<li>결과: tracking error는 대부분 0.1m 이내로 유지, state estimator 추정오차는 0.05m 이내로 유지.</li>
+</ul></li>
+<li><strong>Force control</strong>
+<ul>
+<li>목표: Actor Policy가 외부 힘을 추정하고 이에 대응하며 힘 명령을 수행하는 능력을 시뮬레이션 및 실제환경에서 평가합니다.</li>
+<li>방법(<strong>sim</strong>): 로봇이 외부 힘을 받는 동시에, 이 외부 힘과 동일한 힘 명령을 받도록 설정.</li>
+<li>측정: end effector tracking error.</li>
+<li>결과: 외부 힘이 없을 때보다 약간 증가하지만, 여전히 대부분 0.1m 이내로 유지. 이는 정책이 힘 상호작용 상황에서도 효과적으로 행동함을 보여줌.</li>
+<li>방법(<strong>real</strong>): 실제 로봇에 장착된 end effector에 dynamometer를 부착하여 실제 가해지는 힘을 측정.</li>
+<li>명령: 0N부터 60N까지 다양한 범위의 힘 명령을 로봇에 직접 입력.</li>
+<li>측정: 다이나모미터로 측정한 실제 힘과 로봇에 입력한 힘 명령간의 오차를 측정하고, state estimator가 추정한 힘의 정확도도 평가.</li>
+<li>결과: 평균 오차가 10N이내로 나타남. state estimator의 추정오차는 5~10N 내외.</li>
+</ul></li>
+</ul>
+</section>
+<section id="force-aware-imitation-learning" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="force-aware-imitation-learning"><span class="header-section-number">4.2</span> Force-aware Imitation Learning</h2>
+<p><img src="Unified_Force_img/fig3.png" class="img-fluid"> <img src="Unified_Force_img/fig4.png" class="img-fluid"> Diffusion Policy의 효과를 실제 로봇 환경에서 검증합니다. 특히 Estimated Force 정보다 모방 학습 성능에 어떤 영향을 미치는지 보여줍니다.</p>
+<p>세가지 조작 환경은 다음과 같습니다.</p>
+<ul>
+<li><strong>wipe-blackboard</strong>: 칠판 표면에 지속적인 접촉 압력을 유지하며 횡방향으로 움직여 잉크를 지우는 작업입니다.</li>
+<li><strong>open/close cabinet</strong>: 캐비닛의 문을 밀어서 열거나 닫는 작업입니다. 3mm의 매우 좁은 스트로크로 인해 시각정보만으로는 트리거하기 어려우며, 정확한 힘 감지가 필요합니다.</li>
+<li><strong>open-drawer-occlusion</strong>: 시각적으로 가려진(occluded) 상태에서 서랍을 밀어서 여는 작업입니다.</li>
+</ul>
+<p>우선, 각 작업에 대해 텔레오퍼레이션을 통해 force aware dataset을 수집합니다. 수집한 데이터를 이용해서 Diffusion Policy를 학습합니다. 각 작업당 50회 시도했으며, 각 시도는 20초 내 성공여부를 판단합니다. 또한, 텔레오퍼레이션 데이터 수집 시 <strong>force estimator</strong>와 <strong>force command</strong>신호를 제외한 position-only 정보만 사용한 Diffusion Policy를 비교군으로 삼았습니다.</p>
+<p>결과는 아래와 같습니다.</p>
+<ul>
+<li><strong>wipe-blackboard</strong>: baseline 22% -&gt; Force-aware 58%</li>
+<li><strong>open-cabinet</strong>: baseline 36% → Force-aware 70% (미세한 접촉 압력 감지)</li>
+<li><strong>close-cabinet</strong>: baseline 30% → Force-aware 72%</li>
+<li><strong>open-drawer-occlusion</strong>: baseline 30% → Force-aware 76% (시각적으로 가려진 접촉 감지)</li>
+</ul>
+</section>
+<section id="basic-manipulation-policies" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="basic-manipulation-policies"><span class="header-section-number">4.3</span> Basic Manipulation Policies</h2>
+<p><img src="Unified_Force_img/fig5.png" class="img-fluid"></p>
+<p>Unified Force-position Policy가 다양한 기본 힘-위치 제어를 어떻게 수행하는지 보여줍니다.</p>
+<ul>
+<li><strong>Force Control</strong>
+<ul>
+<li>목표: force command를 직접 적용하는 능력</li>
+<li>방법: 2.5kg 아령을 end effector에 부착한 후, 로봇에게 25N의 상향 힘 명령을 줍니다.</li>
+<li>결과: 로봇은 아령의 중력에 대항하여 균형을 유지. 명령이 없으면 아령은 중력에 의해 떨어짐. 이는 force command와 force react가 일치하도록 target position이 조정되는 과정을 보여줍니다.</li>
+</ul></li>
+<li><strong>Force Tracking</strong>
+<ul>
+<li>목표: 외부 힘에 반응하여 움직이지만, 힘이 제거되면 원래 위치로 돌아오지 않고 변위된 위치에 머무는 능력.</li>
+<li>방법: force command를 0으로 설정한 후, end effector에 외력을 가했다가 제거.</li>
+<li>결과: end effector는 외력 방향으로 움직이고, 힘이 제거된 후에도 변위된 위치에 머뭄. 이는 외력에 의해 위치 명령이 동적으로 조정되는 과정을 보여줍니다.</li>
+</ul></li>
+<li><strong>Impedance Control</strong>
+<ul>
+<li>목표: 목표 위치를 추적하면서도 외부 힘에 스프링-댐퍼 시스템처럼 유연하게 반응하는 능력.</li>
+<li>방법: 사람-로봇 팔씨름, 줄다리기 시나리오에서 외력을 가함.</li>
+<li>결과: end effector가 목표 위치에서 멀어질수록 로봇이 더 큰 저항력을 발휘하여 임피던스 행동을 보임. 이는 Actor Network학습 시 사용한 공식에 따른 유연한 반응을 보여줍니다.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="conclusion" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Conclusion</h1>
+<p>이 논문은 legged robot이 명시적인 힘 센서 없이도 loco-manipulation작업을 수행할 수 있도록 하는 unified force-position control을 수행했습니다. 강화학습을 통해 학습한 정책은 <strong>position tracking, force application, compliant interactions</strong>과 같은 다양한 제어를 가능하게 했습니다. 또한 <strong>외부 힘을 효과적으로 추정</strong>하여 로봇의 위치 및 속도를 조정해 외부 힘에 대응할 수 있도록 했습니다.</p>
+<p>추가로, 모방학습 파이프라인에 <strong>힘 추정 모듈</strong>을 통합함으로써, 접촉이 많은 환경에서 로봇의 작업 성공률을 크게 향상시켰습니다. 이 전반적인 과정은 자율 로봇의 실용적인 응용 가능성을 넓히는 데 기여합니다.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
