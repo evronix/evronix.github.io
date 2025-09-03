@@ -10,6 +10,9 @@ format: html
 - [📄 Paper (arXiv)](https://arxiv.org/abs/2306.15864)
 - [📦 Code](https://github.com/XilunZhangRobo/COMPASS-Sim2Real?tab=readme-ov-file)
 :::
+::: callout-note
+Identify parameters that induce simulation-to-real behavior.
+:::
 ## Background and Motivation
 
 이전 논문인 **DiAReL**은 sim-to-real gap 문제를 해결하기 위해 **disturbance awareness**라는 새로운 접근법을 제시했습니다.
