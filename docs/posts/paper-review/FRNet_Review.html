@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jihong Kim">
+<meta name="dcterms.date" content="2025-09-10">
+
+<title>FR-Net 리뷰 – evronix.github.io</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d6e031b110e580bd284b866af807ec24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Q3HR0GH2ZQ"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q3HR0GH2ZQ', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">evronix.github.io</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">FR-Net 리뷰</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">paper</div>
+                <div class="quarto-category">quadruped</div>
+                <div class="quarto-category">RL</div>
+                <div class="quarto-category">analysis</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Jihong Kim </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 10, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#배경-및-문제-정의" id="toc-배경-및-문제-정의" class="nav-link active" data-scroll-target="#배경-및-문제-정의"><span class="header-section-number">1</span> 1. 배경 및 문제 정의</a>
+  <ul class="collapse">
+  <li><a href="#model-based-접근의-한계" id="toc-model-based-접근의-한계" class="nav-link" data-scroll-target="#model-based-접근의-한계"><span class="header-section-number">1.1</span> 1.1 Model-based 접근의 한계</a></li>
+  <li><a href="#learning-based-접근의-한계" id="toc-learning-based-접근의-한계" class="nav-link" data-scroll-target="#learning-based-접근의-한계"><span class="header-section-number">1.2</span> 1.2 Learning-based 접근의 한계</a></li>
+  <li><a href="#본-논문의-목표" id="toc-본-논문의-목표" class="nav-link" data-scroll-target="#본-논문의-목표"><span class="header-section-number">1.3</span> 1.3 본 논문의 목표</a></li>
+  </ul></li>
+  <li><a href="#masscontact-predictor-mcp" id="toc-masscontact-predictor-mcp" class="nav-link" data-scroll-target="#masscontact-predictor-mcp"><span class="header-section-number">2</span> 2. Mass–Contact Predictor (MCP)</a>
+  <ul class="collapse">
+  <li><a href="#학습-손실" id="toc-학습-손실" class="nav-link" data-scroll-target="#학습-손실"><span class="header-section-number">2.0.1</span> 2.1 학습 손실</a></li>
+  </ul></li>
+  <li><a href="#fr-net과-정책-학습" id="toc-fr-net과-정책-학습" class="nav-link" data-scroll-target="#fr-net과-정책-학습"><span class="header-section-number">3</span> 3. FR-Net과 정책 학습</a></li>
+  <li><a href="#실험-구성-및-결과" id="toc-실험-구성-및-결과" class="nav-link" data-scroll-target="#실험-구성-및-결과"><span class="header-section-number">4</span> 4. 실험 구성 및 결과</a>
+  <ul class="collapse">
+  <li><a href="#ablation-설정" id="toc-ablation-설정" class="nav-link" data-scroll-target="#ablation-설정"><span class="header-section-number">4.1</span> 4.1 Ablation 설정</a></li>
+  <li><a href="#시뮬레이션-결과요약" id="toc-시뮬레이션-결과요약" class="nav-link" data-scroll-target="#시뮬레이션-결과요약"><span class="header-section-number">4.2</span> 4.2 시뮬레이션 결과(요약)</a></li>
+  <li><a href="#실제-환경-시연" id="toc-실제-환경-시연" class="nav-link" data-scroll-target="#실제-환경-시연"><span class="header-section-number">4.3</span> 4.3 실제 환경 시연</a></li>
+  </ul></li>
+  <li><a href="#결론" id="toc-결론" class="nav-link" data-scroll-target="#결론"><span class="header-section-number">5</span> 5. 결론</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled" title="🔗 Links">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🔗 Links
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://ieeexplore.ieee.org/document/10999057/">📄 Paper (IEEE RA-L)</a></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Learning based framework that enables quadruped robots to recover from arbitrary fall poses across diverse environments</p>
+</div>
+</div>
+<section id="배경-및-문제-정의" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 1. 배경 및 문제 정의</h1>
+<p>복잡한 지형은 로봇의 균형·안정성을 쉽게 무너뜨리며, 낙상 후 <strong>스스로 안정적으로 회복하는 것</strong>은 어려운 과제입니다. 기존 연구는 제한된 센서로 인해 <strong>지형 특성(질감, 경사, 장애물 형태)</strong> 을 충분히 인지하지 못하고, 로봇–지형 간 <strong>비선형·불확실 접촉 상호작용</strong>을 정확히 다루지 못합니다.</p>
+<section id="model-based-접근의-한계" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="model-based-접근의-한계"><span class="header-section-number">1.1</span> 1.1 Model-based 접근의 한계</h2>
+<ul>
+<li>단순화된 모델 및 미리 정의한 contact point에 의존하여 <strong>비정형·동적 접촉 시나리오</strong>에 취약.</li>
+<li>이로 인해 <strong>낙상 상태에서의 회복 능력</strong>에 제약이 발생.</li>
+</ul>
+</section>
+<section id="learning-based-접근의-한계" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="learning-based-접근의-한계"><span class="header-section-number">1.2</span> 1.2 Learning-based 접근의 한계</h2>
+<ul>
+<li>DRL은 평탄·완만 지형에서는 성과가 있으나, <strong>고도로 불규칙한 지형</strong>에서는 여전히 효과적 회복 전략 학습이 어려움.</li>
+<li>때때로 <strong>위험한 구르기(dangerous rolling motions)</strong> 와 같은 <strong>불안정 회복 동작</strong>이 나타남.</li>
+</ul>
+</section>
+<section id="본-논문의-목표" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="본-논문의-목표"><span class="header-section-number">1.3</span> 1.3 본 논문의 목표</h2>
+<ul>
+<li><strong>범용 회복성</strong>: 어느 낙상 자세·환경에서도 회복 가능한 <strong>일반화된 회복 능력</strong> 확보.</li>
+<li><strong>제한 센서로 정확 추정</strong>: 제한된 센서만으로 <strong>질량 분포</strong>와 <strong>접촉 상태</strong>를 추정하여, 불완전 인지·불확실 상호작용 문제를 완화. 이를 담당하는 핵심 모듈이 <strong>Mass–Contact Predictor (MCP)</strong> 입니다.</li>
+</ul>
+</section>
+</section>
+<section id="masscontact-predictor-mcp" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 2. Mass–Contact Predictor (MCP)</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="FRNet_Review_img/fig1.png" class="img-fluid figure-img"></p>
+<figcaption>Overview of the FR-Net framework</figcaption>
+</figure>
+</div>
+<p>MCP는 <strong>VAE 기반</strong>으로, 순수 <strong>proprioception 시퀀스</strong>만으로 다음을 추정합니다.</p>
+<ul>
+<li><span class="math inline">\(m_{t}\)</span> (<strong>질량 분포</strong>): base, hip, thigh, calf 등 주요 세그먼트의 상대적 질량(=무게중심 기여)을 추정 → 전체 무게중심(CoM) 예측에 기여.</li>
+<li><span class="math inline">\(c_{t}\)</span> (<strong>충돌 확률</strong>): 발뿐 아니라 몸체 각 부위의 <strong>환경 접촉 확률</strong>을 예측(이진이 아니라 확률로 표현하여 <strong>불확실성 반영</strong>).</li>
+<li><span class="math inline">\(z_{t}\)</span> (<strong>컨텍스트</strong>): 로봇 동역학·환경을 압축한 <strong>잠재 벡터</strong>로, <strong>시간적 특징</strong>을 포착.</li>
+</ul>
+<p><strong>디코더</strong>는 <span class="math inline">\(m_{t}\)</span>, <span class="math inline">\(c_{t}\)</span>, <span class="math inline">\(z_{t}\)</span> 로 <strong>다음 시점 관측</strong> <span class="math inline">\(o_{t+1}\)</span>을 예측하여, <strong>self-supervised</strong> 방식으로 의미 있는 표현을 학습시킵니다.</p>
+<section id="학습-손실" class="level3" data-number="2.0.1">
+<h3 data-number="2.0.1" class="anchored" data-anchor-id="학습-손실"><span class="header-section-number">2.0.1</span> 2.1 학습 손실</h3>
+<ul>
+<li><strong>질량 추정 손실</strong>: 예측 질량 분포 vs.&nbsp;실제 질량의 <strong>MSE</strong> 최소화.</li>
+<li><strong>충돌 추정 손실</strong>: 예측 충돌 확률 vs.&nbsp;실제 접촉 정보의 <strong>BCE</strong> 최소화.</li>
+<li><strong>VAE 손실</strong>: <strong>재구성 손실 + KL 발산</strong>(표준 VAE 구성).</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>특징</strong>: FR-Net의 MCP는 <strong>질량 분포 추정</strong>과 <strong>접촉 추정</strong>을 <strong>단일 네트워크</strong>로 통합하여, <strong>내부 물리 특성</strong>과 <strong>외부 접촉 상호작용</strong>을 동시에 파악합니다. 발 외에도 <strong>몸통 접촉 확률</strong>까지 추정해, 발 지지 상실 시 <strong>몸통을 활용한 안전한 회복 전략</strong>까지 가능하게 합니다.</p>
+</blockquote>
+</section>
+</section>
+<section id="fr-net과-정책-학습" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 3. FR-Net과 정책 학습</h1>
+<ul>
+<li>MCP의 예측 <span class="math inline">\(m_{t}\)</span>, <span class="math inline">\(c_{t}\)</span>, <span class="math inline">\(z_{t}\)</span> 는 <strong>actor의 보강 상태 <span class="math inline">\(p_{t}\)</span></strong> 의 일부로 주입되어 <strong>제어 입력</strong>에 직접 영향.</li>
+<li>목적: <strong>불안정한 회복 동작을 억제</strong>하고, 다양한 낙상 자세·지형에서 <strong>안전·견고한 회복</strong>을 달성하는 정책 학습.</li>
+</ul>
+</section>
+<section id="실험-구성-및-결과" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 4. 실험 구성 및 결과</h1>
+<section id="ablation-설정" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="ablation-설정"><span class="header-section-number">4.1</span> 4.1 Ablation 설정</h2>
+<ul>
+<li><strong>FR-Net w/o mass</strong><br>
+</li>
+<li><strong>FR-Net w/o col</strong><br>
+</li>
+<li><strong>FR-Net w/o Est</strong> (MCP 전체 제거)<br>
+</li>
+<li><strong>DreamRiser</strong> (latent 및 <span class="math inline">\(v_{t}\)</span>만 활용)<br>
+</li>
+<li><strong>Vanilla PPO</strong></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="FRNet_Review_img/fig2.png" class="img-fluid figure-img"></p>
+<figcaption>Simulation Results</figcaption>
+</figure>
+</div>
+</section>
+<section id="시뮬레이션-결과요약" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="시뮬레이션-결과요약"><span class="header-section-number">4.2</span> 4.2 시뮬레이션 결과(요약)</h2>
+<ul>
+<li><strong>Level 1–3</strong>: 모든 방법이 <strong>90%+ 성공률</strong>.<br>
+</li>
+<li><strong>최대 난이도 Level 10</strong>: <strong>FR-Net 69.5%</strong>로, <strong>Vanilla PPO 대비 +21.8%p</strong> 향상.<br>
+</li>
+<li>기타 환경의 <strong>Level 10</strong>에서도 FR-Net이 일관되게 <strong>상대 우위</strong>.</li>
+</ul>
+</section>
+<section id="실제-환경-시연" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="실제-환경-시연"><span class="header-section-number">4.3</span> 4.3 실제 환경 시연</h2>
+<p><img src="FRNet_Review_img/fig3.png" class="img-fluid" alt="Real world Results"> <img src="FRNet_Review_img/fig4.png" class="img-fluid" alt="Real world Results"> <img src="FRNet_Review_img/fig5.png" class="img-fluid" alt="Real world Results"></p>
+<ul>
+<li><strong>가파른 계단</strong>: <strong>안정성 보상</strong>(무릎 등 관절이 지형과 접촉 시 발생하는 수평력 패널티)을 적용한 FR-Net은 <strong>구르기 없이</strong> 안전 회복. 보상 미적용 시 <strong>구르기 발생</strong>.<br>
+</li>
+<li><strong>틈새</strong>: 두 다리가 <strong>틈새에 빠지는 상황</strong>에서도 지지면을 재구성하며 회복.<br>
+</li>
+<li><strong>빔(폭 좁은 지지면)</strong>: <strong>3발 접촉</strong>만으로도 회복 성공.<br>
+</li>
+<li><strong>MCP 출력 분석</strong>: 실제 동적 움직임에서 <strong>질량 추정 정확도 향상</strong>, 외부 센서 없이도 <strong>부위별 접촉 확률</strong>을 성공적으로 예측.</li>
+</ul>
+</section>
+</section>
+<section id="결론" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 5. 결론</h1>
+<p>FR-Net은 복잡·불규칙 지형에서의 <strong>낙상 회복</strong>을 정량·정성적으로 입증했습니다.<br>
+MCP가 제공하는 <strong>질량 분포</strong>와 <strong>접촉 상태</strong>는 강화학습 정책의 핵심 보강 정보로 작용하며, ablation으로 그 중요성이 확인되었습니다. 또한 <strong>안정성 보상</strong>은 기존 방법의 문제였던 <strong>구르기 동작</strong>을 억제하여 <strong>안전한 회복</strong>을 가능하게 함을 시뮬레이션과 실제 실험에서 모두 검증했습니다.</p>
+
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

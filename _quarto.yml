@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir : docs
+  output-dir: docs
 
 website:
   title: "evronix.github.io"
@@ -15,11 +15,11 @@ website:
 
 format:
   html:
+    math: mathjax     # ← 추가
     css: styles.css
     toc: true
     theme: default
     number-sections: true
-
 
 
 

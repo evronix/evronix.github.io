@@ -105,18 +105,67 @@
     "text": "4.3 Basic Manipulation Policies\n\nUnified Force-position Policy가 다양한 기본 힘-위치 제어를 어떻게 수행하는지 보여줍니다.\n\nForce Control\n\n목표: force command를 직접 적용하는 능력\n방법: 2.5kg 아령을 end effector에 부착한 후, 로봇에게 25N의 상향 힘 명령을 줍니다.\n결과: 로봇은 아령의 중력에 대항하여 균형을 유지. 명령이 없으면 아령은 중력에 의해 떨어짐. 이는 force command와 force react가 일치하도록 target position이 조정되는 과정을 보여줍니다.\n\nForce Tracking\n\n목표: 외부 힘에 반응하여 움직이지만, 힘이 제거되면 원래 위치로 돌아오지 않고 변위된 위치에 머무는 능력.\n방법: force command를 0으로 설정한 후, end effector에 외력을 가했다가 제거.\n결과: end effector는 외력 방향으로 움직이고, 힘이 제거된 후에도 변위된 위치에 머뭄. 이는 외력에 의해 위치 명령이 동적으로 조정되는 과정을 보여줍니다.\n\nImpedance Control\n\n목표: 목표 위치를 추적하면서도 외부 힘에 스프링-댐퍼 시스템처럼 유연하게 반응하는 능력.\n방법: 사람-로봇 팔씨름, 줄다리기 시나리오에서 외력을 가함.\n결과: end effector가 목표 위치에서 멀어질수록 로봇이 더 큰 저항력을 발휘하여 임피던스 행동을 보임. 이는 Actor Network학습 시 사용한 공식에 따른 유연한 반응을 보여줍니다."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "WorkSpace",
-    "section": "",
-    "text": "Unified Force and Position Control 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 1, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nCOMPASS 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 21, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nDiAReL 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 17, 2025\n\n\nJihong Kim\n\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
     "text": "About this blog"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "WorkSpace",
+    "section": "",
+    "text": "FR-Net 리뷰\n\n\n\n\n\n\npaper\n\n\nquadruped\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 10, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nUnified Force and Position Control 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 1, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nCOMPASS 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 21, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nDiAReL 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 17, 2025\n\n\nJihong Kim\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/paper-review/FRNet_Review.html",
+    "href": "posts/paper-review/FRNet_Review.html",
+    "title": "FR-Net 리뷰",
+    "section": "",
+    "text": "🔗 Links\n\n\n\n\n📄 Paper (IEEE RA-L)"
+  },
+  {
+    "objectID": "posts/paper-review/FRNet_Review.html#model-based-접근의-한계",
+    "href": "posts/paper-review/FRNet_Review.html#model-based-접근의-한계",
+    "title": "FR-Net 리뷰",
+    "section": "1.1 1.1 Model-based 접근의 한계",
+    "text": "1.1 1.1 Model-based 접근의 한계\n\n단순화된 모델 및 미리 정의한 contact point에 의존하여 비정형·동적 접촉 시나리오에 취약.\n이로 인해 낙상 상태에서의 회복 능력에 제약이 발생."
+  },
+  {
+    "objectID": "posts/paper-review/FRNet_Review.html#learning-based-접근의-한계",
+    "href": "posts/paper-review/FRNet_Review.html#learning-based-접근의-한계",
+    "title": "FR-Net 리뷰",
+    "section": "1.2 1.2 Learning-based 접근의 한계",
+    "text": "1.2 1.2 Learning-based 접근의 한계\n\nDRL은 평탄·완만 지형에서는 성과가 있으나, 고도로 불규칙한 지형에서는 여전히 효과적 회복 전략 학습이 어려움.\n때때로 위험한 구르기(dangerous rolling motions) 와 같은 불안정 회복 동작이 나타남."
+  },
+  {
+    "objectID": "posts/paper-review/FRNet_Review.html#본-논문의-목표",
+    "href": "posts/paper-review/FRNet_Review.html#본-논문의-목표",
+    "title": "FR-Net 리뷰",
+    "section": "1.3 1.3 본 논문의 목표",
+    "text": "1.3 1.3 본 논문의 목표\n\n범용 회복성: 어느 낙상 자세·환경에서도 회복 가능한 일반화된 회복 능력 확보.\n제한 센서로 정확 추정: 제한된 센서만으로 질량 분포와 접촉 상태를 추정하여, 불완전 인지·불확실 상호작용 문제를 완화. 이를 담당하는 핵심 모듈이 Mass–Contact Predictor (MCP) 입니다."
+  },
+  {
+    "objectID": "posts/paper-review/FRNet_Review.html#ablation-설정",
+    "href": "posts/paper-review/FRNet_Review.html#ablation-설정",
+    "title": "FR-Net 리뷰",
+    "section": "4.1 4.1 Ablation 설정",
+    "text": "4.1 4.1 Ablation 설정\n\nFR-Net w/o mass\n\nFR-Net w/o col\n\nFR-Net w/o Est (MCP 전체 제거)\n\nDreamRiser (latent 및 \\(v_{t}\\)만 활용)\n\nVanilla PPO\n\n\n\n\nSimulation Results"
+  },
+  {
+    "objectID": "posts/paper-review/FRNet_Review.html#시뮬레이션-결과요약",
+    "href": "posts/paper-review/FRNet_Review.html#시뮬레이션-결과요약",
+    "title": "FR-Net 리뷰",
+    "section": "4.2 4.2 시뮬레이션 결과(요약)",
+    "text": "4.2 4.2 시뮬레이션 결과(요약)\n\nLevel 1–3: 모든 방법이 90%+ 성공률.\n\n최대 난이도 Level 10: FR-Net 69.5%로, Vanilla PPO 대비 +21.8%p 향상.\n\n기타 환경의 Level 10에서도 FR-Net이 일관되게 상대 우위."
+  },
+  {
+    "objectID": "posts/paper-review/FRNet_Review.html#실제-환경-시연",
+    "href": "posts/paper-review/FRNet_Review.html#실제-환경-시연",
+    "title": "FR-Net 리뷰",
+    "section": "4.3 4.3 실제 환경 시연",
+    "text": "4.3 4.3 실제 환경 시연\n  \n\n가파른 계단: 안정성 보상(무릎 등 관절이 지형과 접촉 시 발생하는 수평력 패널티)을 적용한 FR-Net은 구르기 없이 안전 회복. 보상 미적용 시 구르기 발생.\n\n틈새: 두 다리가 틈새에 빠지는 상황에서도 지지면을 재구성하며 회복.\n\n빔(폭 좁은 지지면): 3발 접촉만으로도 회복 성공.\n\nMCP 출력 분석: 실제 동적 움직임에서 질량 추정 정확도 향상, 외부 센서 없이도 부위별 접촉 확률을 성공적으로 예측."
   },
   {
     "objectID": "posts/paper-review/DiaREL_Review.html",
