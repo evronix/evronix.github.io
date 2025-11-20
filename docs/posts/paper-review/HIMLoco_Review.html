@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jihong Kim">
+<meta name="dcterms.date" content="2025-11-20">
+
+<title>Hybrid Internal Model (HIM) 리뷰: Estimator Network 심층 분석 – evronix.github.io</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d6e031b110e580bd284b866af807ec24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Q3HR0GH2ZQ"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q3HR0GH2ZQ', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">evronix.github.io</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Hybrid Internal Model (HIM) 리뷰: Estimator Network 심층 분석</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">paper</div>
+                <div class="quarto-category">RL</div>
+                <div class="quarto-category">locomotion</div>
+                <div class="quarto-category">contrastive-learning</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Jihong Kim </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 20, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#배경-및-문제-정의" id="toc-배경-및-문제-정의" class="nav-link active" data-scroll-target="#배경-및-문제-정의"><span class="header-section-number">1</span> 1. 배경 및 문제 정의</a></li>
+  <li><a href="#himloco-개요" id="toc-himloco-개요" class="nav-link" data-scroll-target="#himloco-개요"><span class="header-section-number">2</span> 2. HIMLoco 개요</a></li>
+  <li><a href="#estimator-network-구조" id="toc-estimator-network-구조" class="nav-link" data-scroll-target="#estimator-network-구조"><span class="header-section-number">3</span> 3. Estimator Network 구조</a>
+  <ul class="collapse">
+  <li><a href="#source-encoder" id="toc-source-encoder" class="nav-link" data-scroll-target="#source-encoder"><span class="header-section-number">3.1</span> 3.1 Source Encoder</a></li>
+  <li><a href="#target-encoder" id="toc-target-encoder" class="nav-link" data-scroll-target="#target-encoder"><span class="header-section-number">3.2</span> 3.2 Target Encoder</a></li>
+  <li><a href="#prototypes" id="toc-prototypes" class="nav-link" data-scroll-target="#prototypes"><span class="header-section-number">3.3</span> 3.3 Prototypes</a></li>
+  </ul></li>
+  <li><a href="#학습-과정-hybrid-internal-optimization-hio" id="toc-학습-과정-hybrid-internal-optimization-hio" class="nav-link" data-scroll-target="#학습-과정-hybrid-internal-optimization-hio"><span class="header-section-number">4</span> 4. 학습 과정: Hybrid Internal Optimization (HIO)</a>
+  <ul class="collapse">
+  <li><a href="#임베딩-및-정규화-embedding-normalization" id="toc-임베딩-및-정규화-embedding-normalization" class="nav-link" data-scroll-target="#임베딩-및-정규화-embedding-normalization"><span class="header-section-number">4.0.1</span> 4.1 임베딩 및 정규화 (Embedding &amp; Normalization)</a></li>
+  <li><a href="#프로토타입-매칭-prototype-matching" id="toc-프로토타입-매칭-prototype-matching" class="nav-link" data-scroll-target="#프로토타입-매칭-prototype-matching"><span class="header-section-number">4.0.2</span> 4.2 프로토타입 매칭 (Prototype Matching)</a></li>
+  <li><a href="#sinkhorn-알고리즘-정답지q-생성" id="toc-sinkhorn-알고리즘-정답지q-생성" class="nav-link" data-scroll-target="#sinkhorn-알고리즘-정답지q-생성"><span class="header-section-number">4.0.3</span> 4.3 Sinkhorn 알고리즘: 정답지(Q) 생성</a></li>
+  <li><a href="#swapped-prediction-loss" id="toc-swapped-prediction-loss" class="nav-link" data-scroll-target="#swapped-prediction-loss"><span class="header-section-number">4.0.4</span> 4.4 Swapped Prediction Loss</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled" title="🔗 Links">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🔗 Links
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://open-robot-lab.github.io/HIMLoco/">🌐 Project Page</a></li>
+<li><a href="https://arxiv.org/abs/2312.06370">📄 Paper (arXiv)</a></li>
+<li><a href="https://github.com/OpenRobotLab/HIMLoco">📦 Code</a></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Learning robust locomotion by modeling the robot’s response via contrastive learning</p>
+</div>
+</div>
+<p>본 포스트는 HIMLoco 논문 중 <strong>Estimator Network의 구조와 학습 방법론(HIO)</strong>을 중점적으로 분석합니다.</p>
+<section id="배경-및-문제-정의" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 1. 배경 및 문제 정의</h1>
+<p><img src="HIMLoco_Review_img/fig1.png" class="img-fluid"></p>
+<p>기존의 Model-based RL이나 DreamWaQ와 같은 연구들은 <strong>World Model</strong>이나 <strong>Representation</strong>을 학습하기 위해 주로 <strong>회귀(Regression)</strong> 목적함수를 사용했습니다. 즉, 신경망이 다음 상태(Next State)나 환경 파라미터(마찰계수, 지형 높이 등)를 직접 예측하도록 학습시킵니다.</p>
+<p>그러나 이러한 접근 방식은 <strong>Sim-to-Real</strong>을 위해 필수적인 <strong>도메인 랜덤화(Domain Randomization)</strong> 과정에서 아래와 같은 단점이 있습니다.</p>
+<ul>
+<li><strong>불확실성의 증대</strong>: 시뮬레이션에 추가된 과도한 무작위 노이즈까지 신경망이 학습해야 합니다.</li>
+<li><strong>표현 붕괴 (Representation Collapse)</strong>: 신경망이 물리적으로 유의미한 정보(Dynamics)가 아니라, 무작위 노이즈 패턴에 과적합되면서 실제 환경에서는 엉뚱한 추정값을 내놓는 현상이 발생합니다.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>HIMLoco의 접근</strong>:<br>
+“Regression 대신 <strong>상황의 맥락(Context)을 구별(Contrastive)</strong>”</p>
+</blockquote>
+</section>
+<section id="himloco-개요" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 2. HIMLoco 개요</h1>
+<p>HIMLoco는 고전 제어 이론인 <strong>IMC (Internal Model Control)</strong>에서 영감을 받아, 외부 환경 변수 자체가 아니라 이에 대한 <strong>로봇의 반응(Response)</strong>을 나타내는 <strong>Hybrid Internal Embedding</strong>을 학습합니다.</p>
+<p>핵심은 <strong>대조 학습(Contrastive Learning)</strong>을 통해 Latent Vector를 생성한다는 점입니다. - <strong>Positive Pairs</strong>: 시계열적으로 연관된 과거와 미래 데이터는 잠재 공간에서 가깝게 위치시킵니다. - <strong>Negative Pairs</strong>: 서로 다른 맥락의 데이터는 멀리 위치시킵니다.</p>
+<p>이 방식은 개별 샘플의 수치적 노이즈보다는 <strong>샘플 간의 상대적인 관계</strong>에 집중하기 때문에 노이즈에 강건하며, <strong>Batch-level</strong> 정보를 활용하여 훨씬 견고한 표현(Representation)을 학습할 수 있습니다.</p>
+</section>
+<section id="estimator-network-구조" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 3. Estimator Network 구조</h1>
+<p><img src="HIMLoco_Review_img/fig2.png" class="img-fluid"></p>
+<p>Estimator Network는 과거의 관측 기록을 통해 현재의 상태를 추론하는 핵심 모듈입니다.</p>
+<section id="source-encoder" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="source-encoder"><span class="header-section-number">3.1</span> 3.1 Source Encoder</h2>
+<ul>
+<li><strong>역할</strong>: 과거의 관측 기록(<span class="math inline">\(o_{t-H:t}\)</span>)을 입력받아 두 가지 정보를 출력합니다.
+<ol type="1">
+<li><strong>명시적 속도 (<span class="math inline">\(\hat{v}_t\)</span>)</strong>: 로봇의 선속도 추정값 (Supervised Learning 대상)</li>
+<li><strong>잠재 벡터 (<span class="math inline">\(l_t^{source}\)</span>)</strong>: 지형 및 상태 맥락 정보 (Self-Supervised Learning 대상)</li>
+</ol></li>
+<li><strong>차원</strong>: Input(270) <span class="math inline">\(\rightarrow\)</span> Output(19: 속도 3 + Latent 16)</li>
+<li><strong>특징</strong>: 지도 학습과 자기 지도 학습을 동시에 수행하는 <strong>Hybrid 구조</strong>입니다.</li>
+</ul>
+</section>
+<section id="target-encoder" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="target-encoder"><span class="header-section-number">3.2</span> 3.2 Target Encoder</h2>
+<ul>
+<li><strong>역할</strong>: 미래의 관측값(<span class="math inline">\(o_{t+1}\)</span>)을 입력받아 <strong>Target Latent (<span class="math inline">\(l_t^{target}\)</span>)</strong>를 생성합니다.</li>
+<li><strong>차원</strong>: Input(45) <span class="math inline">\(\rightarrow\)</span> Output(16)</li>
+<li><strong>의미</strong>: 미래 시점의 상태가 과거 기록이 예측해야 할 <strong>지향점(Target)</strong> 역할을 합니다.</li>
+</ul>
+</section>
+<section id="prototypes" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="prototypes"><span class="header-section-number">3.3</span> 3.3 Prototypes</h2>
+<ul>
+<li><strong>역할</strong>: 잠재 공간 내에서 <strong>군집의 중심(Cluster Centroids)</strong> 역할을 하는 학습 가능한 벡터 집합입니다.</li>
+<li><strong>구조</strong>: <span class="math inline">\(32 \times 16\)</span> 크기의 행렬 (32개의 프로토타입, 각 16차원).</li>
+<li><strong>학습</strong>: 역전파를 통해 데이터의 분포에 맞춰 이 프로토타입 벡터들의 위치도 지속적으로 업데이트됩니다.</li>
+</ul>
+<p><img src="HIMLoco_Review_img/fig4.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="학습-과정-hybrid-internal-optimization-hio" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 4. 학습 과정: Hybrid Internal Optimization (HIO)</h1>
+<p>Estimator의 최종 손실 함수는 다음과 같이 정의됩니다.</p>
+<p><span class="math display">\[
+\mathcal{L}_{total} = w_{vel} \cdot \mathcal{L}_{vel} + w_{con} \cdot \mathcal{L}_{con}
+\]</span></p>
+<p>여기서 첫 번째 항은 속도 추정에 대한 MSE Loss이며, 핵심이 되는 두 번째 항 <span class="math inline">\(\mathcal{L}_{con}\)</span>은 <strong>Swapped Prediction Loss</strong>를 사용합니다. 그 상세 과정은 다음과 같습니다.</p>
+<section id="임베딩-및-정규화-embedding-normalization" class="level3" data-number="4.0.1">
+<h3 data-number="4.0.1" class="anchored" data-anchor-id="임베딩-및-정규화-embedding-normalization"><span class="header-section-number">4.0.1</span> 4.1 임베딩 및 정규화 (Embedding &amp; Normalization)</h3>
+<p>먼저 Source/Target Encoder를 통해 나온 Latent Vector를 <strong>L2-Normalization</strong> 하여 <span class="math inline">\(z_s, z_t\)</span>를 생성합니다.</p>
+<p><span class="math display">\[
+z = \frac{l}{\|l\|_2}
+\]</span></p>
+<p>벡터의 크기를 1로 통일함으로써, 이후 수행될 내적 연산이 온전히 <strong>방향성(코사인 유사도)</strong>만을 나타내도록 만듭니다. 프로토타입 벡터(<span class="math inline">\(e_k\)</span>)들도 동일하게 정규화됩니다.</p>
+</section>
+<section id="프로토타입-매칭-prototype-matching" class="level3" data-number="4.0.2">
+<h3 data-number="4.0.2" class="anchored" data-anchor-id="프로토타입-매칭-prototype-matching"><span class="header-section-number">4.0.2</span> 4.2 프로토타입 매칭 (Prototype Matching)</h3>
+<p>현재의 Latent Vector (<span class="math inline">\(z\)</span>)가 32개의 프로토타입 중 어디에 가까운지 <strong>유사도 점수(Score)</strong>를 계산합니다.</p>
+<p><span class="math display">\[
+\text{Scores} = z \cdot C^T
+\]</span></p>
+<p>이 내적 연산을 통해, <span class="math inline">\(z_s\)</span>가 프로토타입 <span class="math inline">\(e_1\)</span>과는 0.9만큼 비슷하고, <span class="math inline">\(e_2\)</span>와는 0.1만큼 비슷하다는 식의 점수 분포를 얻게 됩니다.</p>
+</section>
+<section id="sinkhorn-알고리즘-정답지q-생성" class="level3" data-number="4.0.3">
+<h3 data-number="4.0.3" class="anchored" data-anchor-id="sinkhorn-알고리즘-정답지q-생성"><span class="header-section-number">4.0.3</span> 4.3 Sinkhorn 알고리즘: 정답지(Q) 생성</h3>
+<p>이 과정은 단순한 예측(<span class="math inline">\(p\)</span>)이 아니라, 학습의 기준이 될 <strong>이상적인 정답지(<span class="math inline">\(q\)</span>)</strong>를 만드는 과정입니다.</p>
+<ol type="1">
+<li><strong>점수 변환</strong>: 내적 점수를 확률 밀도 형태(<span class="math inline">\(Q = \exp(\text{score}/\epsilon)\)</span>)로 변환합니다.</li>
+<li><strong>Iterative Normalization</strong>: 행렬의 행과 열을 번갈아 가며 정규화합니다.</li>
+</ol>
+<p>이 과정의 목적은 <strong>붕괴(Collapse) 방지</strong>입니다. 단순히 Softmax를 쓰면 네트워크가 모든 데이터를 “가장 쉬운 프로토타입 1개”에 몰아넣는 꼼수를 부릴 수 있습니다. Sinkhorn 알고리즘은 <strong>“모든 프로토타입에 샘플이 <span class="math inline">\(1/K\)</span>만큼 균등하게 할당되어야 한다”</strong>는 제약 조건을 만족시키며 최적의 할당 행렬 <span class="math inline">\(Q\)</span>를 찾습니다.</p>
+<p>결과적으로 <span class="math inline">\(q_s\)</span> 및 <span class="math inline">\(q_t\)</span>는 <strong>전체 배치의 균형을 고려했을 때, 각 샘플이 속해야 하는 이상적인 프로토타입 확률 분포</strong>가 됩니다.</p>
+</section>
+<section id="swapped-prediction-loss" class="level3" data-number="4.0.4">
+<h3 data-number="4.0.4" class="anchored" data-anchor-id="swapped-prediction-loss"><span class="header-section-number">4.0.4</span> 4.4 Swapped Prediction Loss</h3>
+<p>마지막으로, <strong>과거(Source)</strong>와 <strong>미래(Target)</strong>가 서로의 정답지를 예측하도록 교차 학습을 수행합니다.</p>
+<p><span class="math display">\[
+\mathcal{L}_{con} = - \frac{1}{2H} \sum_{t=1}^{H} \left( q_s \log p_t + q_t \log p_s \right)
+\]</span></p>
+<p>여기서 <span class="math inline">\(p_s\)</span>와 <span class="math inline">\(p_t\)</span>는 내적 점수에 Temperature Softmax를 적용한 <strong>네트워크의 자체 예측값</strong>입니다.</p>
+<p><span class="math display">\[
+p_t = \text{Softmax}\left(\frac{z_t \cdot C^T}{\tau}\right)
+\]</span></p>
+<section id="손실-함수의-작동-원리" class="level4" data-number="4.0.4.1">
+<h4 data-number="4.0.4.1" class="anchored" data-anchor-id="손실-함수의-작동-원리"><span class="header-section-number">4.0.4.1</span> 손실 함수의 작동 원리</h4>
+<ol type="1">
+<li><strong>예측(<span class="math inline">\(p\)</span>) vs 정답(<span class="math inline">\(q\)</span>)</strong>: <span class="math inline">\(p\)</span>는 현재 네트워크가 생각하는 주관적인 확률이고, <span class="math inline">\(q\)</span>는 Sinkhorn을 통해 보정된 객관적인 목표입니다.</li>
+<li><strong>Swapping (교차)</strong>:
+<ul>
+<li><strong>과거의 예측(<span class="math inline">\(p_s\)</span>)</strong>은 <strong>미래의 정답(<span class="math inline">\(q_t\)</span>)</strong>을 맞추도록 학습됩니다.</li>
+<li><strong>미래의 예측(<span class="math inline">\(p_t\)</span>)</strong>은 <strong>과거의 정답(<span class="math inline">\(q_s\)</span>)</strong>을 맞추도록 학습됩니다.</li>
+</ul></li>
+</ol>
+</section>
+<section id="최종-학습-의도-z_t의-의미" class="level4" data-number="4.0.4.2">
+<h4 data-number="4.0.4.2" class="anchored" data-anchor-id="최종-학습-의도-z_t의-의미"><span class="header-section-number">4.0.4.2</span> 최종 학습 의도 (<span class="math inline">\(z_t\)</span>의 의미)</h4>
+<p>이러한 교차 예측을 통해 Latent Vector <span class="math inline">\(z_t\)</span>는 다음과 같은 특성을 가지게 됩니다.</p>
+<p><img src="HIMLoco_Review_img/fig3.png" class="img-fluid"></p>
+<ul>
+<li><strong>시간적 일관성 (Temporal Consistency)</strong>: 시간 <span class="math inline">\(t\)</span>에서 <span class="math inline">\(t+1\)</span>로 넘어가더라도 변하지 않는 지형의 본질적 특성을 담게 됩니다.</li>
+<li><strong>강건한 표현력</strong>: 구체적인 수치(마찰계수 등)를 맞추는 것이 아니라, <strong>“현재 상황이 어떤 프로토타입(유형)에 속하는지”</strong>를 학습함으로써 노이즈에 휘둘리지 않는 강건한 Context 정보를 Actor에게 제공합니다.</li>
+</ul>
+
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
