@@ -1,5 +1,5 @@
 ---
-title: "Hybrid Internal Model (HIM) 리뷰: Estimator Network 심층 분석"
+title: "Hybrid Internal Model (HIM) 리뷰"
 author: "Jihong Kim"
 date: "2025-11-20"
 categories: [paper, RL, locomotion, contrastive-learning]
