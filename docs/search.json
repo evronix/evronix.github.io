@@ -98,6 +98,69 @@
     "text": "5 정리\n역동역학 모델은 non-randomized 시뮬레이션 환경에서 사전학습됩니다. 이때 사용되는 정책은 nominal agent (첫번째 policy), 즉 정상 시스템 기준을 제공하는 사전 정의된 policy입니다.\n이후 학습되는 disturbance-aware agent (두번째 policy)는, 이 nominal policy가 생성했을 법한 행동과 실제 행동 간의 차이를 외란으로 간주합니다.\n첫번째 policy를 학습한 환경은 non-randomized 이기 때문에 저자들은 이를 ideal policy (optimal policy)로 간주합니다. 즉 첫번째 policy가 이상적인 환경에서 보여주었던 성능 수준을, 교란이 존재하는 불확실한 환경 에서도 유지할 수 있는 두번째 policy를 만든것입니다."
   },
   {
+    "objectID": "posts/paper-review/Unified_Force_Review.html",
+    "href": "posts/paper-review/Unified_Force_Review.html",
+    "title": "Unified Force and Position Control 리뷰",
+    "section": "",
+    "text": "🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code"
+  },
+  {
+    "objectID": "posts/paper-review/Unified_Force_Review.html#unified-formulation-for-forceposition-control",
+    "href": "posts/paper-review/Unified_Force_Review.html#unified-formulation-for-forceposition-control",
+    "title": "Unified Force and Position Control 리뷰",
+    "section": "3.1 Unified Formulation for Force–Position Control",
+    "text": "3.1 Unified Formulation for Force–Position Control\n기본 아이디어는 실제 위치/속도와 목표 값의 오차에 비례하는 힘을 생성해 원하는 움직임을 유도하는 것입니다. 고전적 임피던스 제어는\n\\[\n\\mathbf{F} = K(\\mathbf{x}-\\mathbf{x}^{\\mathrm{des}})\\;+\\;D(\\dot{\\mathbf{x}}-\\dot{\\mathbf{x}}^{\\mathrm{des}})\\;+\\;M(\\ddot{\\mathbf{x}}-\\ddot{\\mathbf{x}}^{\\mathrm{des}})\n\\]\n로 표현됩니다. 여기서 (K,D,M)은 각각 stiffness, damping, equivalent mass/inertia 입니다.\nquasi-static에서는 (!!^{})이고 (!!^{})라 가정하면\n\\[\n\\mathbf{F}\\;\\approx\\;K(\\mathbf{x}-\\mathbf{x}^{\\mathrm{des}})\n\\]\n로 단순화할 수 있습니다.\n이때 총 힘 ()는 다음 3가지 구성으로 해석합니다.\n\nActive force (^{}): 로봇이 환경에 가하고자 하는 명령 힘\n\nPassive reaction (^{}): 환경이 로봇에 되받아치는 반력\n\nExternal disturbances (^{}): 외부에서 가해지는 교란\n\n이를 고려하면 엔드 이펙터 목표 위치는\n\\[\n\\mathbf{x}^{\\mathrm{target}}\n=\n\\mathbf{x}^{\\mathrm{cmd}}\n+\n\\frac{\\mathbf{F}^{\\mathrm{ext}}+\\big(\\mathbf{F}^{\\mathrm{cmd}}-\\mathbf{F}^{\\mathrm{react}}\\big)}{K}\n\\]\n로 정의됩니다. 로봇은 단순히 (^{})만 추종하지 않고, 외력/반력에 따라 목표를 보정해 힘 명령을 만족시키도록 동작합니다.\n예시: - ({}=0,;{}=0 {}={}) → 순수 위치 제어\n- (^{}=0 {}={}+^{}/K) → 외력에 유연한 순응\n- (^{}) → 반력 (^{})가 (^{})와 일치하도록 (^{})이 자동 조정\n베이스에 대해서는 속도 제어를 중시해 단순화합니다. 임피던스 아이디어를 속도 영역에 적용하면,\n\\[\n\\mathbf{v}^{\\mathrm{target}}_{\\mathrm{base}}\n=\n\\mathbf{v}^{\\mathrm{cmd}}_{\\mathrm{base}}\n+\n\\frac{\n\\mathbf{F}^{\\mathrm{ext}}_{\\mathrm{base}} + \\big(\\mathbf{F}^{\\mathrm{cmd}}_{\\mathrm{base}}-\\mathbf{F}^{\\mathrm{react}}_{\\mathrm{base}}\\big)\n}{D}\n\\]\n가 되며, 엔드 이펙터 제어와 독립적으로 다룹니다(복잡성 저감)."
+  },
+  {
+    "objectID": "posts/paper-review/Unified_Force_Review.html#learning-a-unified-policy",
+    "href": "posts/paper-review/Unified_Force_Review.html#learning-a-unified-policy",
+    "title": "Unified Force and Position Control 리뷰",
+    "section": "3.2 Learning a Unified Policy",
+    "text": "3.2 Learning a Unified Policy\nobservation 집합은 다음과 같습니다.\n\\[\n\\mathbf{o}_t\n=\n\\big[\n\\mathbf{g}^{\\mathrm{base}}_t,\\;\n\\boldsymbol{\\omega}^{\\mathrm{base}}_t,\\;\n\\mathbf{q}_t,\\;\n\\dot{\\mathbf{q}}_t,\\;\n\\mathbf{a}_{t-1},\\;\n\\mathbf{c}^{\\mathrm{cmd}}_t,\\;\n\\boldsymbol{\\theta}^{\\mathrm{feet}}_t\n\\big]\n\\]\ncommand 벡터는 베이스/엔드 이펙터의 위치·힘/속도 명령을 포함합니다.\n\\[\n\\mathbf{c}^{\\mathrm{cmd}}_t\n=\n\\big[\n\\mathbf{v}^{\\mathrm{cmd}}_{\\mathrm{base}},\\;\n\\mathbf{x}^{\\mathrm{cmd}}_{\\mathrm{ee}},\\;\n\\mathbf{F}^{\\mathrm{cmd}}_{\\mathrm{ee}},\\;\n\\mathbf{F}^{\\mathrm{cmd}}_{\\mathrm{base}}\n\\big]\n\\]\n\n4족 로봇은 아래 명령 벡터의 네 항목을 모두 사용하고, 휴머노이드는 \\(v_{base}^{cmd}\\) 와 \\(F_{base}^{cmd}\\) 만 사용합니다.\n\n이 학습 프레임워크에는 policy network뿐만 아니라 아래의 두가지 네트워크도 포함됩니다.\n\nObservation Encoder\n길이 (H=32)의 히스토리를 받아 latent feature를 추출하고, 이를 Actor 네트워크에 입력해 action을 출력합니다.\nState Estimator\nEncoder의 latent를 입력으로 받아 외력 ((={}+{})), 엔드 이펙터 위치 ({}), 베이스 속도 ({}) 를 추정합니다.\n\n본 정책은 특정 태스크 전용의 고수준 정책이 아니라, 임의의 힘 명령을 안정적으로 추종하고 외력에 순응하는 저수준 통합 제어 루프를 학습합니다. 예를 들어 (-6060,) 범위의 다양한 (^{})에 노출되며, 어떤 값이 주어져도 정확히 달성하도록 훈련됩니다."
+  },
+  {
+    "objectID": "posts/paper-review/Unified_Force_Review.html#build-a-diffusion-policy",
+    "href": "posts/paper-review/Unified_Force_Review.html#build-a-diffusion-policy",
+    "title": "Unified Force and Position Control 리뷰",
+    "section": "3.3 Build a Diffusion Policy",
+    "text": "3.3 Build a Diffusion Policy\n\n위에서 만든 Actor Policy는 주어진 position force command를 어떻게 추종하는지는 알지만, RGB이미지나 환경 인지를 통해 무엇을 해야할지 스스로 판단하여 명령을 생성할 수는 없습니다. 즉, 이제는 적절한 명령 (position, force command)를 생성하는 상위 제어기를 만들어야 합니다.\n먼저, 각 작업별로 텔레오퍼레이션을 통해 사람이 조이스틱을 사용하여 로봇의 base움직임, end effector 위치, end effector force를 직접 명령합니다.\n텔레오퍼레이션 과정에서 기록되는 데이터는 다음과 같이 쌍을 이룹니다\n\n입력: proprioception, RGB image, estimated end effector 외력\n출력: position command, force command (Diffusion Policy의 학습 목표이자 예측 출력)\n\n즉, 텔레오퍼레이션 시 사람이 조작하여 로봇에 전달한 position, force command는 Diffusion Policy의 출력 (action)을 학습하는 정답 라벨로 사용됩니다.\nDiffusion Policy는 모방 학습 기법의 일종이고, 모방학습은 일반적으로 전문가 시연(expert demonstrations)으로부터 상황-행동 맵핑을 학습합니다.\n\n학습 입력: 특정 proprioception, RGB image, estimated end effector 외력 상태가 주어졌을 때,\n학습 출력: 이 상태에서 전문가(사람 텔레오퍼레이터)가 어떤 position command와 force command를 내렸는지를 학습합니다.\nDiffusion Policy는 단순히 하나의 정답을 외우는 것이 아니라, 전문가가 해당 상황에서 내릴 수 있었던 command 들의 확률 분포를 학습합니다.\n\n학습이 완료된 Diffusion Policy는 자율모드에서 작동합니다. Diffusion Policy는 어떤 command도 입력으로 받지 않지만, 현재 상황을 파악하고 스스로 새로운 command를 생성합니다.\n자세한 내용은 아래 논문에서 확인할 수 있습니다.\nDiffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+  },
+  {
+    "objectID": "posts/paper-review/Unified_Force_Review.html#force-and-position-command-tracking",
+    "href": "posts/paper-review/Unified_Force_Review.html#force-and-position-command-tracking",
+    "title": "Unified Force and Position Control 리뷰",
+    "section": "4.1 Force and Position Command tracking",
+    "text": "4.1 Force and Position Command tracking\n\nActor Policy 자체의 기본 성능, 즉 주어진 명령을 얼마나 정확하게 추적하고 외부 힘을 잘 추정하는지를 평가합니다.\n\nPosition tracking\n\n목표: 외부 힘이나 힘 명령이 없는 상황에서 로봇의 end effector가 위치 명령을 얼마나 정확하게 추적하는지 시뮬레이션에서 평가하고, state estimator의 위치 추정 정확도를 확인.\n방법: 시뮬레이션에서 6000step의 rollouts을 수행하고 무작위로 생성된 end effector 궤적을 따르도록 지시함.\n측정: end effector tracking error 및 state estimator error.\n결과: tracking error는 대부분 0.1m 이내로 유지, state estimator 추정오차는 0.05m 이내로 유지.\n\nForce control\n\n목표: Actor Policy가 외부 힘을 추정하고 이에 대응하며 힘 명령을 수행하는 능력을 시뮬레이션 및 실제환경에서 평가합니다.\n방법(sim): 로봇이 외부 힘을 받는 동시에, 이 외부 힘과 동일한 힘 명령을 받도록 설정.\n측정: end effector tracking error.\n결과: 외부 힘이 없을 때보다 약간 증가하지만, 여전히 대부분 0.1m 이내로 유지. 이는 정책이 힘 상호작용 상황에서도 효과적으로 행동함을 보여줌.\n방법(real): 실제 로봇에 장착된 end effector에 dynamometer를 부착하여 실제 가해지는 힘을 측정.\n명령: 0N부터 60N까지 다양한 범위의 힘 명령을 로봇에 직접 입력.\n측정: 다이나모미터로 측정한 실제 힘과 로봇에 입력한 힘 명령간의 오차를 측정하고, state estimator가 추정한 힘의 정확도도 평가.\n결과: 평균 오차가 10N이내로 나타남. state estimator의 추정오차는 5~10N 내외."
+  },
+  {
+    "objectID": "posts/paper-review/Unified_Force_Review.html#force-aware-imitation-learning",
+    "href": "posts/paper-review/Unified_Force_Review.html#force-aware-imitation-learning",
+    "title": "Unified Force and Position Control 리뷰",
+    "section": "4.2 Force-aware Imitation Learning",
+    "text": "4.2 Force-aware Imitation Learning\n  Diffusion Policy의 효과를 실제 로봇 환경에서 검증합니다. 특히 Estimated Force 정보다 모방 학습 성능에 어떤 영향을 미치는지 보여줍니다.\n세가지 조작 환경은 다음과 같습니다.\n\nwipe-blackboard: 칠판 표면에 지속적인 접촉 압력을 유지하며 횡방향으로 움직여 잉크를 지우는 작업입니다.\nopen/close cabinet: 캐비닛의 문을 밀어서 열거나 닫는 작업입니다. 3mm의 매우 좁은 스트로크로 인해 시각정보만으로는 트리거하기 어려우며, 정확한 힘 감지가 필요합니다.\nopen-drawer-occlusion: 시각적으로 가려진(occluded) 상태에서 서랍을 밀어서 여는 작업입니다.\n\n우선, 각 작업에 대해 텔레오퍼레이션을 통해 force aware dataset을 수집합니다. 수집한 데이터를 이용해서 Diffusion Policy를 학습합니다. 각 작업당 50회 시도했으며, 각 시도는 20초 내 성공여부를 판단합니다. 또한, 텔레오퍼레이션 데이터 수집 시 force estimator와 force command신호를 제외한 position-only 정보만 사용한 Diffusion Policy를 비교군으로 삼았습니다.\n결과는 아래와 같습니다.\n\nwipe-blackboard: baseline 22% -&gt; Force-aware 58%\nopen-cabinet: baseline 36% → Force-aware 70% (미세한 접촉 압력 감지)\nclose-cabinet: baseline 30% → Force-aware 72%\nopen-drawer-occlusion: baseline 30% → Force-aware 76% (시각적으로 가려진 접촉 감지)"
+  },
+  {
+    "objectID": "posts/paper-review/Unified_Force_Review.html#basic-manipulation-policies",
+    "href": "posts/paper-review/Unified_Force_Review.html#basic-manipulation-policies",
+    "title": "Unified Force and Position Control 리뷰",
+    "section": "4.3 Basic Manipulation Policies",
+    "text": "4.3 Basic Manipulation Policies\n\nUnified Force-position Policy가 다양한 기본 힘-위치 제어를 어떻게 수행하는지 보여줍니다.\n\nForce Control\n\n목표: force command를 직접 적용하는 능력\n방법: 2.5kg 아령을 end effector에 부착한 후, 로봇에게 25N의 상향 힘 명령을 줍니다.\n결과: 로봇은 아령의 중력에 대항하여 균형을 유지. 명령이 없으면 아령은 중력에 의해 떨어짐. 이는 force command와 force react가 일치하도록 target position이 조정되는 과정을 보여줍니다.\n\nForce Tracking\n\n목표: 외부 힘에 반응하여 움직이지만, 힘이 제거되면 원래 위치로 돌아오지 않고 변위된 위치에 머무는 능력.\n방법: force command를 0으로 설정한 후, end effector에 외력을 가했다가 제거.\n결과: end effector는 외력 방향으로 움직이고, 힘이 제거된 후에도 변위된 위치에 머뭄. 이는 외력에 의해 위치 명령이 동적으로 조정되는 과정을 보여줍니다.\n\nImpedance Control\n\n목표: 목표 위치를 추적하면서도 외부 힘에 스프링-댐퍼 시스템처럼 유연하게 반응하는 능력.\n방법: 사람-로봇 팔씨름, 줄다리기 시나리오에서 외력을 가함.\n결과: end effector가 목표 위치에서 멀어질수록 로봇이 더 큰 저항력을 발휘하여 임피던스 행동을 보임. 이는 Actor Network학습 시 사용한 공식에 따른 유연한 반응을 보여줍니다."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "WorkSpace",
+    "section": "",
+    "text": "PACE: System-ID for Sim-to-Real 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nlocomotion\n\n\nsim2real\n\n\n\n\n\n\n\n\n\nDec 4, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nHybrid Internal Model (HIM) 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nlocomotion\n\n\ncontrastive-learning\n\n\n\n\n\n\n\n\n\nNov 20, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nFR-Net 리뷰\n\n\n\n\n\n\npaper\n\n\nquadruped\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 10, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nUnified Force and Position Control 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 1, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nCOMPASS 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 21, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nDiAReL 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 17, 2025\n\n\nJihong Kim\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "posts/paper-review/FRNet_Review.html",
     "href": "posts/paper-review/FRNet_Review.html",
     "title": "FR-Net 리뷰",
@@ -147,67 +210,60 @@
     "text": "4.3 4.3 실제 환경 시연\n  \n\n가파른 계단: 안정성 보상(무릎 등 관절이 지형과 접촉 시 발생하는 수평력 패널티)을 적용한 FR-Net은 구르기 없이 안전 회복. 보상 미적용 시 구르기 발생.\n\n틈새: 두 다리가 틈새에 빠지는 상황에서도 지지면을 재구성하며 회복.\n\n빔(폭 좁은 지지면): 3발 접촉만으로도 회복 성공.\n\nMCP 출력 분석: 실제 동적 움직임에서 질량 추정 정확도 향상, 외부 센서 없이도 부위별 접촉 확률을 성공적으로 예측."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "WorkSpace",
-    "section": "",
-    "text": "Hybrid Internal Model (HIM) 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nlocomotion\n\n\ncontrastive-learning\n\n\n\n\n\n\n\n\n\nNov 20, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nFR-Net 리뷰\n\n\n\n\n\n\npaper\n\n\nquadruped\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 10, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nUnified Force and Position Control 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 1, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nCOMPASS 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 21, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nDiAReL 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 17, 2025\n\n\nJihong Kim\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this blog"
-  },
-  {
-    "objectID": "posts/paper-review/Unified_Force_Review.html",
-    "href": "posts/paper-review/Unified_Force_Review.html",
-    "title": "Unified Force and Position Control 리뷰",
+    "objectID": "posts/paper-review/PACE_Review.html",
+    "href": "posts/paper-review/PACE_Review.html",
+    "title": "PACE: System-ID for Sim-to-Real 리뷰",
     "section": "",
     "text": "🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code"
   },
   {
-    "objectID": "posts/paper-review/Unified_Force_Review.html#unified-formulation-for-forceposition-control",
-    "href": "posts/paper-review/Unified_Force_Review.html#unified-formulation-for-forceposition-control",
-    "title": "Unified Force and Position Control 리뷰",
-    "section": "3.1 Unified Formulation for Force–Position Control",
-    "text": "3.1 Unified Formulation for Force–Position Control\n기본 아이디어는 실제 위치/속도와 목표 값의 오차에 비례하는 힘을 생성해 원하는 움직임을 유도하는 것입니다. 고전적 임피던스 제어는\n\\[\n\\mathbf{F} = K(\\mathbf{x}-\\mathbf{x}^{\\mathrm{des}})\\;+\\;D(\\dot{\\mathbf{x}}-\\dot{\\mathbf{x}}^{\\mathrm{des}})\\;+\\;M(\\ddot{\\mathbf{x}}-\\ddot{\\mathbf{x}}^{\\mathrm{des}})\n\\]\n로 표현됩니다. 여기서 (K,D,M)은 각각 stiffness, damping, equivalent mass/inertia 입니다.\nquasi-static에서는 (!!^{})이고 (!!^{})라 가정하면\n\\[\n\\mathbf{F}\\;\\approx\\;K(\\mathbf{x}-\\mathbf{x}^{\\mathrm{des}})\n\\]\n로 단순화할 수 있습니다.\n이때 총 힘 ()는 다음 3가지 구성으로 해석합니다.\n\nActive force (^{}): 로봇이 환경에 가하고자 하는 명령 힘\n\nPassive reaction (^{}): 환경이 로봇에 되받아치는 반력\n\nExternal disturbances (^{}): 외부에서 가해지는 교란\n\n이를 고려하면 엔드 이펙터 목표 위치는\n\\[\n\\mathbf{x}^{\\mathrm{target}}\n=\n\\mathbf{x}^{\\mathrm{cmd}}\n+\n\\frac{\\mathbf{F}^{\\mathrm{ext}}+\\big(\\mathbf{F}^{\\mathrm{cmd}}-\\mathbf{F}^{\\mathrm{react}}\\big)}{K}\n\\]\n로 정의됩니다. 로봇은 단순히 (^{})만 추종하지 않고, 외력/반력에 따라 목표를 보정해 힘 명령을 만족시키도록 동작합니다.\n예시: - ({}=0,;{}=0 {}={}) → 순수 위치 제어\n- (^{}=0 {}={}+^{}/K) → 외력에 유연한 순응\n- (^{}) → 반력 (^{})가 (^{})와 일치하도록 (^{})이 자동 조정\n베이스에 대해서는 속도 제어를 중시해 단순화합니다. 임피던스 아이디어를 속도 영역에 적용하면,\n\\[\n\\mathbf{v}^{\\mathrm{target}}_{\\mathrm{base}}\n=\n\\mathbf{v}^{\\mathrm{cmd}}_{\\mathrm{base}}\n+\n\\frac{\n\\mathbf{F}^{\\mathrm{ext}}_{\\mathrm{base}} + \\big(\\mathbf{F}^{\\mathrm{cmd}}_{\\mathrm{base}}-\\mathbf{F}^{\\mathrm{react}}_{\\mathrm{base}}\\big)\n}{D}\n\\]\n가 되며, 엔드 이펙터 제어와 독립적으로 다룹니다(복잡성 저감)."
+    "objectID": "posts/paper-review/PACE_Review.html#data-collection-현실의-데이터-확보",
+    "href": "posts/paper-review/PACE_Review.html#data-collection-현실의-데이터-확보",
+    "title": "PACE: System-ID for Sim-to-Real 리뷰",
+    "section": "2.1 Data Collection: 현실의 데이터 확보",
+    "text": "2.1 Data Collection: 현실의 데이터 확보\n시뮬레이터를 현실과 맞추기 위해서는 먼저 현실 로봇의 정확한 거동 데이터가 필요합니다. 저자들은 복잡한 접촉 역학(Contact Dynamics)이 섞이는 것을 방지하기 위해 무접촉(In-air) 상태에서 데이터를 수집합니다.\n\n2.1.1 실험 셋업 (Experimental Setup)\n\n고정된 베이스 (Fixed Base): 로봇의 몸체를 공중에 단단히 고정합니다. 이는 베이스의 움직임으로 인한 관성력이나 코리올리 힘이 관절 간 상호작용(Cross-coupling)을 일으키는 것을 막기 위함입니다.\n무접촉 (No Contacts): 다리가 지면에 닿지 않게 하여, 측정하기 힘든 지면 반력(GRF)이나 마찰의 영향을 원천 차단합니다. 특히 로봇이 서 있을 때(Stance)는 베이스의 거대한 관성이 구동기 관성을 덮어버리기 때문에(Dominate), 구동기 자체의 특성을 보려면 공중에 띄우는 것이 필수적입니다.\n\n\n\n2.1.2 핵심 조건 (Key Conditions)\n단순히 로봇을 흔드는 것이 아니라, 시스템 식별(System ID)에 최적화된 데이터를 얻기 위해 다음 조건들을 준수합니다.\n\nChirp 신호 가진 (Excitation):\n\n주파수가 점진적으로 변하는 Chirp 신호를 사용하여, 저주파 대역부터 고주파 대역까지 빠짐없이 시스템을 자극합니다. 즉 로봇의 관절을 천천히 크게 움직이는것 부터, 빠르게 떨듯이 움직이는것까지 모든 궤적을 만들어 command를 생성합니다. 논문에서는 20~60초동안 이 범위(0.1Hz ~10Hz)를 스윕하며 데이터를 모읍니다.\n대역폭(Bandwidth): 이상적으로는 제어 정책(Policy)이 낼 수 있는 최대 주파수인 나이퀴스트 주파수(\\(f_{policy}/2\\))까지, 혹은 실제 보행 시 발생할 주파수의 최소 2배까지 가진합니다.\n\n낮은 PD 게인 (Low Joint-level PD Gains):\n\n평소처럼 높은 PD 게인을 쓰면 제어 루프가 너무 단단해져서(Stiff), 관성(\\(I_a\\))이나 댐핑(\\(d\\)) 같은 물리적 특성이 겉으로 드러나지 않습니다.\n일부러 게인을 낮춰서(Soft) 시스템의 고유 거동이 잘 나타나도록 유도합니다. 이를 통해 관절의 무게감이나 마찰 특성을 데이터 상에서 명확히 분리해낼 수 있습니다."
   },
   {
-    "objectID": "posts/paper-review/Unified_Force_Review.html#learning-a-unified-policy",
-    "href": "posts/paper-review/Unified_Force_Review.html#learning-a-unified-policy",
-    "title": "Unified Force and Position Control 리뷰",
-    "section": "3.2 Learning a Unified Policy",
-    "text": "3.2 Learning a Unified Policy\nobservation 집합은 다음과 같습니다.\n\\[\n\\mathbf{o}_t\n=\n\\big[\n\\mathbf{g}^{\\mathrm{base}}_t,\\;\n\\boldsymbol{\\omega}^{\\mathrm{base}}_t,\\;\n\\mathbf{q}_t,\\;\n\\dot{\\mathbf{q}}_t,\\;\n\\mathbf{a}_{t-1},\\;\n\\mathbf{c}^{\\mathrm{cmd}}_t,\\;\n\\boldsymbol{\\theta}^{\\mathrm{feet}}_t\n\\big]\n\\]\ncommand 벡터는 베이스/엔드 이펙터의 위치·힘/속도 명령을 포함합니다.\n\\[\n\\mathbf{c}^{\\mathrm{cmd}}_t\n=\n\\big[\n\\mathbf{v}^{\\mathrm{cmd}}_{\\mathrm{base}},\\;\n\\mathbf{x}^{\\mathrm{cmd}}_{\\mathrm{ee}},\\;\n\\mathbf{F}^{\\mathrm{cmd}}_{\\mathrm{ee}},\\;\n\\mathbf{F}^{\\mathrm{cmd}}_{\\mathrm{base}}\n\\big]\n\\]\n\n4족 로봇은 아래 명령 벡터의 네 항목을 모두 사용하고, 휴머노이드는 \\(v_{base}^{cmd}\\) 와 \\(F_{base}^{cmd}\\) 만 사용합니다.\n\n이 학습 프레임워크에는 policy network뿐만 아니라 아래의 두가지 네트워크도 포함됩니다.\n\nObservation Encoder\n길이 (H=32)의 히스토리를 받아 latent feature를 추출하고, 이를 Actor 네트워크에 입력해 action을 출력합니다.\nState Estimator\nEncoder의 latent를 입력으로 받아 외력 ((={}+{})), 엔드 이펙터 위치 ({}), 베이스 속도 ({}) 를 추정합니다.\n\n본 정책은 특정 태스크 전용의 고수준 정책이 아니라, 임의의 힘 명령을 안정적으로 추종하고 외력에 순응하는 저수준 통합 제어 루프를 학습합니다. 예를 들어 (-6060,) 범위의 다양한 (^{})에 노출되며, 어떤 값이 주어져도 정확히 달성하도록 훈련됩니다."
+    "objectID": "posts/paper-review/PACE_Review.html#parameter-identification-시뮬레이터-튜닝",
+    "href": "posts/paper-review/PACE_Review.html#parameter-identification-시뮬레이터-튜닝",
+    "title": "PACE: System-ID for Sim-to-Real 리뷰",
+    "section": "2.2 Parameter Identification: 시뮬레이터 튜닝",
+    "text": "2.2 Parameter Identification: 시뮬레이터 튜닝\n수집된 데이터를 바탕으로 시뮬레이터가 현실과 똑같이 움직이도록 파라미터를 최적화(Fitting)하는 과정입니다.\n\n2.2.1 식별 대상 파라미터 (\\(p\\))\n복잡한 물리 엔진 전체를 건드리는 대신, 관절 동역학을 지배하는 최소한의 파라미터 5개만을 식별합니다. (\\(n\\)은 관절 개수)\n\\[\np = [I_a, d, \\tau_f, \\tilde{q}_b, T_d] \\in \\mathbb{R}^{4n+1}\n\\]\n\n\\(I_a\\) (Armature Inertia): 구동기(로터+기어박스)의 유효 관성\n\\(d\\) (Viscous Damping): 속도에 비례하는 점성 마찰\n\\(\\tau_f\\) (Coulomb Friction): 일정한 크기의 쿨롱 마찰\n\\(\\tilde{q}_b\\) (Joint Bias): 관절 센서의 영점 오차 (Offset)\n\\(T_d\\) (Global Delay): 통신 및 제어 지연 시간 (시스템 전체 공통)\n\n\n\n2.2.2 최적화 과정 (Evolutionary Optimization)\n\n알고리즘: 미분이 불가능한 시뮬레이션 환경에서도 강건하게 해를 찾을 수 있는 CMA-ES (Covariance Matrix Adaptation Evolution Strategy)를 사용합니다.\n병렬 시뮬레이션: \\(N=4096\\)개의 환경을 동시에 띄우고, 실제 로봇에 인가했던 타겟 명령(\\(\\hat{q}\\))을 그대로 입력합니다.\n손실 함수 (Loss): 실제 로봇의 관절 궤적(\\(q^{real}\\))과 시뮬레이션 궤적(\\(q^{sim}\\)) 간의 MSE(평균 제곱 오차)를 최소화합니다.\n\n\n\n2.2.3 식별 불가능성 (Identifiability)과 PD 게인 고정\n저자들은 시스템 식별 시 PD 게인(\\(P_{\\tau}, D_{\\tau}\\))은 최적화하지 않고 고정합니다.\n\\[\nu \\cdot I_a \\ddot{q} \\approx u \\cdot P_{\\tau} \\Delta q\n\\]\n위 식에서 볼 수 있듯이, 관성(\\(I_a\\))과 PD 게인(\\(P_{\\tau}\\))을 동시에 추정하려 하면, 두 값의 ‘비율’만 맞으면 되는 무수히 많은 해(Non-unique solutions)가 존재하게 됩니다. 따라서 우리가 확실히 알고 있는 값인 PD 게인은 하드웨어 세팅값으로 고정하고, 모르는 값인 물리 파라미터만 찾아내어 유일한 해를 보장합니다."
   },
   {
-    "objectID": "posts/paper-review/Unified_Force_Review.html#build-a-diffusion-policy",
-    "href": "posts/paper-review/Unified_Force_Review.html#build-a-diffusion-policy",
-    "title": "Unified Force and Position Control 리뷰",
-    "section": "3.3 Build a Diffusion Policy",
-    "text": "3.3 Build a Diffusion Policy\n\n위에서 만든 Actor Policy는 주어진 position force command를 어떻게 추종하는지는 알지만, RGB이미지나 환경 인지를 통해 무엇을 해야할지 스스로 판단하여 명령을 생성할 수는 없습니다. 즉, 이제는 적절한 명령 (position, force command)를 생성하는 상위 제어기를 만들어야 합니다.\n먼저, 각 작업별로 텔레오퍼레이션을 통해 사람이 조이스틱을 사용하여 로봇의 base움직임, end effector 위치, end effector force를 직접 명령합니다.\n텔레오퍼레이션 과정에서 기록되는 데이터는 다음과 같이 쌍을 이룹니다\n\n입력: proprioception, RGB image, estimated end effector 외력\n출력: position command, force command (Diffusion Policy의 학습 목표이자 예측 출력)\n\n즉, 텔레오퍼레이션 시 사람이 조작하여 로봇에 전달한 position, force command는 Diffusion Policy의 출력 (action)을 학습하는 정답 라벨로 사용됩니다.\nDiffusion Policy는 모방 학습 기법의 일종이고, 모방학습은 일반적으로 전문가 시연(expert demonstrations)으로부터 상황-행동 맵핑을 학습합니다.\n\n학습 입력: 특정 proprioception, RGB image, estimated end effector 외력 상태가 주어졌을 때,\n학습 출력: 이 상태에서 전문가(사람 텔레오퍼레이터)가 어떤 position command와 force command를 내렸는지를 학습합니다.\nDiffusion Policy는 단순히 하나의 정답을 외우는 것이 아니라, 전문가가 해당 상황에서 내릴 수 있었던 command 들의 확률 분포를 학습합니다.\n\n학습이 완료된 Diffusion Policy는 자율모드에서 작동합니다. Diffusion Policy는 어떤 command도 입력으로 받지 않지만, 현재 상황을 파악하고 스스로 새로운 command를 생성합니다.\n자세한 내용은 아래 논문에서 확인할 수 있습니다.\nDiffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    "objectID": "posts/paper-review/PACE_Review.html#learning-environment-강화학습-설정",
+    "href": "posts/paper-review/PACE_Review.html#learning-environment-강화학습-설정",
+    "title": "PACE: System-ID for Sim-to-Real 리뷰",
+    "section": "2.3 Learning Environment: 강화학습 설정",
+    "text": "2.3 Learning Environment: 강화학습 설정\n정확해진 시뮬레이터 덕분에, PACE는 동역학 랜덤화(Dynamics Randomization)를 전혀 사용하지 않고 강화학습을 수행합니다.\n\n2.3.1 관측 및 행동 (Observation & Action)\n\n비대칭 Actor-Critic:\n\nActor (Policy): 로봇 내부 센서 정보(Proprioception)만 받는 ‘Blind Policy’입니다. 노이즈가 포함된 관절 정보 등을 사용합니다.\nCritic: 지형 높이 맵(Height scan), 마찰 계수 등 시뮬레이터의 ‘Privileged Info’를 모두 봅니다.\n\nSafe PD Control: 관절 한계(Joint Limit) 근처에서는 더 나아가는 명령을 무시하고(0으로 포화), 돌아오는 명령만 허용하는 안전장치를 시뮬레이션과 실제 로봇 모두에 적용하여 하드웨어를 보호합니다.\n\n\n\n2.3.2 보상 함수 (Rewards)와 에너지 모델\n복잡한 튜닝 없이 단 4개의 항(속도 추종, 충돌, 발 착지, 에너지)만 사용합니다. 특히 에너지(Energy) 항은 단순한 \\(\\tau^2\\) 최소화가 아닌, PMSM 모터의 물리를 반영한 정교한 모델을 사용합니다.\n\\[\nP_{total} = P_{el} + P_{mech} + P_{pot}\n\\]\n\n\\(P_{el}\\) (전기적 손실): 모터 코일 저항(\\(R\\))과 전류(\\(i_q\\))에 의한 줄 발열(Joule Heating). 토크 기반으로 변환하여 계산합니다. \\[P_{el} \\propto \\sum \\tau^2 \\frac{R}{r^2 k_i^2}\\]\n\\(P_{mech}\\) (기계적 일률): 모터가 실제로 수행한 일. 회생 제동(Regeneration) 효율(\\(k_{regen}\\))까지 고려하여, 배터리로 회수되는 에너지는 차감합니다.\n\\(P_{pot}\\) (위치 에너지): 로봇 링크들의 위치 에너지 변화율. 이를 통해 로봇이 에너지를 아끼려 주저앉는 것을 방지합니다.\n\n이러한 물리 기반 보상은 로봇이 기구학적으로 유리한 자세를 취하고, 저항이 큰 모터 사용을 줄이는 등 실질적인 에너지 효율을 학습하게 만듭니다."
   },
   {
-    "objectID": "posts/paper-review/Unified_Force_Review.html#force-and-position-command-tracking",
-    "href": "posts/paper-review/Unified_Force_Review.html#force-and-position-command-tracking",
-    "title": "Unified Force and Position Control 리뷰",
-    "section": "4.1 Force and Position Command tracking",
-    "text": "4.1 Force and Position Command tracking\n\nActor Policy 자체의 기본 성능, 즉 주어진 명령을 얼마나 정확하게 추적하고 외부 힘을 잘 추정하는지를 평가합니다.\n\nPosition tracking\n\n목표: 외부 힘이나 힘 명령이 없는 상황에서 로봇의 end effector가 위치 명령을 얼마나 정확하게 추적하는지 시뮬레이션에서 평가하고, state estimator의 위치 추정 정확도를 확인.\n방법: 시뮬레이션에서 6000step의 rollouts을 수행하고 무작위로 생성된 end effector 궤적을 따르도록 지시함.\n측정: end effector tracking error 및 state estimator error.\n결과: tracking error는 대부분 0.1m 이내로 유지, state estimator 추정오차는 0.05m 이내로 유지.\n\nForce control\n\n목표: Actor Policy가 외부 힘을 추정하고 이에 대응하며 힘 명령을 수행하는 능력을 시뮬레이션 및 실제환경에서 평가합니다.\n방법(sim): 로봇이 외부 힘을 받는 동시에, 이 외부 힘과 동일한 힘 명령을 받도록 설정.\n측정: end effector tracking error.\n결과: 외부 힘이 없을 때보다 약간 증가하지만, 여전히 대부분 0.1m 이내로 유지. 이는 정책이 힘 상호작용 상황에서도 효과적으로 행동함을 보여줌.\n방법(real): 실제 로봇에 장착된 end effector에 dynamometer를 부착하여 실제 가해지는 힘을 측정.\n명령: 0N부터 60N까지 다양한 범위의 힘 명령을 로봇에 직접 입력.\n측정: 다이나모미터로 측정한 실제 힘과 로봇에 입력한 힘 명령간의 오차를 측정하고, state estimator가 추정한 힘의 정확도도 평가.\n결과: 평균 오차가 10N이내로 나타남. state estimator의 추정오차는 5~10N 내외."
+    "objectID": "posts/paper-review/PACE_Review.html#정밀한-시스템-식별-및-모델-정확도-in-air-identification",
+    "href": "posts/paper-review/PACE_Review.html#정밀한-시스템-식별-및-모델-정확도-in-air-identification",
+    "title": "PACE: System-ID for Sim-to-Real 리뷰",
+    "section": "3.1 정밀한 시스템 식별 및 모델 정확도 (In-air Identification)",
+    "text": "3.1 정밀한 시스템 식별 및 모델 정확도 (In-air Identification)\n가장 먼저 확인해야 할 것은 “과연 시뮬레이터가 현실과 똑같이 움직이는가?”입니다.\n \n\n3.1.1 Figure 1 & Figure 10: 기준 모델 대비 압도적인 정확도\n\n비교 대상: (1) 모델 없음(URDF Only), (2) 기존 SOTA (Actuator Network), (3) PACE (Ours).\n결과 분석 (Figure 1c, 7d):\n\nDelta Phase Portrait: 시뮬레이션과 현실의 오차(\\(\\Delta q, \\Delta \\dot{q}\\))를 점으로 찍었을 때, PACE(주황색)는 점들이 (0, 0) 원점 근처에 매우 조밀하게 모여 있습니다.\n반면, Actuator Network(파란색)는 원점 주변으로 퍼져 있고 편향(Bias, 약 5도)이 관찰되며, 모델 없음(회색)은 아예 큰 궤적을 그리며 빗나갑니다.\n\n효과: PACE는 블랙박스 신경망(Actuator Net)보다 더 적은 데이터(20초)를 쓰면서도, 물리적인 편향 없이 현실을 더 정밀하게 모사했습니다.\n\n\n\n\n3.1.2 Figure 5b & 17: 물리적 정합성 입증\n\n실험: 단일 구동기에 무게추(Mass)를 달아가며 관성(\\(I_a\\))을 식별했습니다.\n결과 분석: 무게추를 늘릴수록 PACE가 식별한 관성값(\\(I_a\\))이 이론적인 물리 법칙(이차곡선)을 따라 정확하게 증가합니다.\n효과: PACE가 단순히 데이터만 외우는 것이 아니라, 실제 물리량(관성, 마찰 등)을 정확히 찾아내고 있음을 증명합니다. 이는 학습된 모델이 새로운 동작(Unseen Trajectory)이나 다른 게인(Gain) 설정에서도 잘 작동하는 이유입니다."
   },
   {
-    "objectID": "posts/paper-review/Unified_Force_Review.html#force-aware-imitation-learning",
-    "href": "posts/paper-review/Unified_Force_Review.html#force-aware-imitation-learning",
-    "title": "Unified Force and Position Control 리뷰",
-    "section": "4.2 Force-aware Imitation Learning",
-    "text": "4.2 Force-aware Imitation Learning\n  Diffusion Policy의 효과를 실제 로봇 환경에서 검증합니다. 특히 Estimated Force 정보다 모방 학습 성능에 어떤 영향을 미치는지 보여줍니다.\n세가지 조작 환경은 다음과 같습니다.\n\nwipe-blackboard: 칠판 표면에 지속적인 접촉 압력을 유지하며 횡방향으로 움직여 잉크를 지우는 작업입니다.\nopen/close cabinet: 캐비닛의 문을 밀어서 열거나 닫는 작업입니다. 3mm의 매우 좁은 스트로크로 인해 시각정보만으로는 트리거하기 어려우며, 정확한 힘 감지가 필요합니다.\nopen-drawer-occlusion: 시각적으로 가려진(occluded) 상태에서 서랍을 밀어서 여는 작업입니다.\n\n우선, 각 작업에 대해 텔레오퍼레이션을 통해 force aware dataset을 수집합니다. 수집한 데이터를 이용해서 Diffusion Policy를 학습합니다. 각 작업당 50회 시도했으며, 각 시도는 20초 내 성공여부를 판단합니다. 또한, 텔레오퍼레이션 데이터 수집 시 force estimator와 force command신호를 제외한 position-only 정보만 사용한 Diffusion Policy를 비교군으로 삼았습니다.\n결과는 아래와 같습니다.\n\nwipe-blackboard: baseline 22% -&gt; Force-aware 58%\nopen-cabinet: baseline 36% → Force-aware 70% (미세한 접촉 압력 감지)\nclose-cabinet: baseline 30% → Force-aware 72%\nopen-drawer-occlusion: baseline 30% → Force-aware 76% (시각적으로 가려진 접촉 감지)"
+    "objectID": "posts/paper-review/PACE_Review.html#sim-to-real-보행-성능-및-추종력-tracking-performance",
+    "href": "posts/paper-review/PACE_Review.html#sim-to-real-보행-성능-및-추종력-tracking-performance",
+    "title": "PACE: System-ID for Sim-to-Real 리뷰",
+    "section": "3.2 Sim-to-Real 보행 성능 및 추종력 (Tracking Performance)",
+    "text": "3.2 Sim-to-Real 보행 성능 및 추종력 (Tracking Performance)\n식별된 모델로 학습한 정책이 실제 땅 위에서 얼마나 잘 걷는지 확인한 결과입니다.\n \n\n3.2.1 Figure 6 (TYTAN) & Figure 7 (ANYmal): 제로샷(Zero-shot) 배포 성공\n\nTYTAN (Figure 6):\n\n사용자의 속도 명령(점선)에 대해 실제 로봇(파란선)과 시뮬레이션(주황선)이 거의 완벽하게 일치합니다.\n특히 전진 속도(\\(v_x\\))뿐만 아니라 회전 속도(\\(\\dot{\\psi}\\)) 추종 능력도 매우 뛰어납니다.\n\nANYmal (Figure 7):\n\nNo Model: 크레인에 걸려 넘어지며 보행에 실패합니다. [cite: 753]\nPACE: 기존 SOTA인 Actuator Network와 대등하거나 더 우수한 보행 성능을 보여줍니다. 정상 상태(Steady-state)에서의 속도 오차 분포(Violin plot)가 매우 좁고 안정적입니다.\n\n\n\n\n\n3.2.2 Figure 20 & 21: 다양한 로봇 및 동작 검증\n\n소형 로봇 MINIMAL에서도 훈련 궤적과 테스트 궤적 모두에서 시뮬레이션과 현실이 일치했습니다.\nANYmal의 횡이동(Sideways)과 제자리 회전(Yaw) 같은 복잡한 동작에서도 목표 속도를 정확히 추종했습니다."
   },
   {
-    "objectID": "posts/paper-review/Unified_Force_Review.html#basic-manipulation-policies",
-    "href": "posts/paper-review/Unified_Force_Review.html#basic-manipulation-policies",
-    "title": "Unified Force and Position Control 리뷰",
-    "section": "4.3 Basic Manipulation Policies",
-    "text": "4.3 Basic Manipulation Policies\n\nUnified Force-position Policy가 다양한 기본 힘-위치 제어를 어떻게 수행하는지 보여줍니다.\n\nForce Control\n\n목표: force command를 직접 적용하는 능력\n방법: 2.5kg 아령을 end effector에 부착한 후, 로봇에게 25N의 상향 힘 명령을 줍니다.\n결과: 로봇은 아령의 중력에 대항하여 균형을 유지. 명령이 없으면 아령은 중력에 의해 떨어짐. 이는 force command와 force react가 일치하도록 target position이 조정되는 과정을 보여줍니다.\n\nForce Tracking\n\n목표: 외부 힘에 반응하여 움직이지만, 힘이 제거되면 원래 위치로 돌아오지 않고 변위된 위치에 머무는 능력.\n방법: force command를 0으로 설정한 후, end effector에 외력을 가했다가 제거.\n결과: end effector는 외력 방향으로 움직이고, 힘이 제거된 후에도 변위된 위치에 머뭄. 이는 외력에 의해 위치 명령이 동적으로 조정되는 과정을 보여줍니다.\n\nImpedance Control\n\n목표: 목표 위치를 추적하면서도 외부 힘에 스프링-댐퍼 시스템처럼 유연하게 반응하는 능력.\n방법: 사람-로봇 팔씨름, 줄다리기 시나리오에서 외력을 가함.\n결과: end effector가 목표 위치에서 멀어질수록 로봇이 더 큰 저항력을 발휘하여 임피던스 행동을 보임. 이는 Actor Network학습 시 사용한 공식에 따른 유연한 반응을 보여줍니다."
+    "objectID": "posts/paper-review/PACE_Review.html#획기적인-에너지-효율-향상-energetic-efficiency",
+    "href": "posts/paper-review/PACE_Review.html#획기적인-에너지-효율-향상-energetic-efficiency",
+    "title": "PACE: System-ID for Sim-to-Real 리뷰",
+    "section": "3.3 획기적인 에너지 효율 향상 (Energetic Efficiency)",
+    "text": "3.3 획기적인 에너지 효율 향상 (Energetic Efficiency)\n이 논문의 가장 강력한 성과 중 하나입니다. 물리 기반 에너지 보상을 사용한 효과가 데이터로 드러납니다.\n  \n\n3.3.1 Figure 8 & Table 3, 4: COT (Cost of Transport) 감소\n\n실험: 400m 육상 트랙을 배터리가 다 닳을 때까지 달리게 하여 에너지 효율을 측정했습니다.\n결과 분석 (Table 4):\n\nANYmal C (기존 SOTA): COT 1.86\nANYmal D (PACE 적용): COT 1.27\n효과: 이동 에너지 비용(COT)을 약 32% 감소시켰습니다.\n원인 분석: 정확한 모델링 덕분에 로봇이 다리를 더 펴고(Straight-leg) 걷는 보행을 학습할 수 있었습니다. 무릎을 굽히고 걸으면 토크가 많이 들어 에너지를 낭비하는데, PACE는 다리를 펴도 시뮬레이션이 불안정해지지 않기 때문에 효율적인 자세를 찾을 수 있었던 것입니다.\n\n\n\n\n\n3.3.2 Figure 25: 배터리 지속 시간\n\nTYTAN: 한 번 충전으로 6.1km를 보행하며 104분간 작동했습니다.\nANYmal D: 4.12km를 보행하며 82분간 작동했습니다. 이는 기존 제어기보다 월등히 긴 거리입니다."
+  },
+  {
+    "objectID": "posts/paper-review/PACE_Review.html#동적-한계-돌파-dynamic-limits",
+    "href": "posts/paper-review/PACE_Review.html#동적-한계-돌파-dynamic-limits",
+    "title": "PACE: System-ID for Sim-to-Real 리뷰",
+    "section": "3.4 동적 한계 돌파 (Dynamic Limits)",
+    "text": "3.4 동적 한계 돌파 (Dynamic Limits)\n단순한 걷기를 넘어, 하드웨어의 한계까지 밀어붙이는 고난도 동작 수행 능력입니다.\n \n\n3.4.1 Figure 11 & 12: 하드웨어 리미트 도달\n\n고속 주행 (Running): ANYmal 로봇으로 3m/s의 달리기 속도를 기록했습니다.\n\nFigure 12를 보면, 속도가 3m/s에 도달했을 때 배터리 전류가 한계치인 32A(빨간 점선)에 도달하여 포화(Saturation)되는 것을 볼 수 있습니다.\n의미: 제어기의 성능 부족이 아니라, 배터리 출력의 한계 때문에 더 못 달린 것입니다. 즉, PACE 제어기는 하드웨어 성능을 끝까지 뽑아냈습니다.\n\n이족 균형 (Two-legged Balance): 사족 보행 로봇으로 두 다리로만 서서 균형을 잡는 고난도 제어에 성공했습니다.\n계단 오르기: 4kg짜리 소형 로봇(MINIMAL)으로 일반적인 크기의 계단을 연속으로 오르는 데 성공했습니다."
   },
   {
     "objectID": "posts/paper-review/HIMLoco_Review.html",
