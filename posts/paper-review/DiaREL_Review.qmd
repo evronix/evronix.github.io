@@ -2,7 +2,7 @@
 title: "DiAReL 리뷰"
 author: "Jihong Kim"
 date: "2025-07-17"
-categories: [paper, DOB, RL, analysis]
+categories: [paper, DOB, RL, analysis, sim2real]
 format: html
 ---
 ::: {.callout-note title="🔗 Links"}
