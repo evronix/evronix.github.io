@@ -192,20 +192,53 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#배경-및-문제-정의" id="toc-배경-및-문제-정의" class="nav-link active" data-scroll-target="#배경-및-문제-정의"><span class="header-section-number">1</span> 1. 배경 및 문제 정의</a></li>
-  <li><a href="#himloco-개요" id="toc-himloco-개요" class="nav-link" data-scroll-target="#himloco-개요"><span class="header-section-number">2</span> 2. HIMLoco 개요</a></li>
-  <li><a href="#estimator-network-구조" id="toc-estimator-network-구조" class="nav-link" data-scroll-target="#estimator-network-구조"><span class="header-section-number">3</span> 3. Estimator Network 구조</a>
+  <li><a href="#배경-및-문제-정의" id="toc-배경-및-문제-정의" class="nav-link active" data-scroll-target="#배경-및-문제-정의"><span class="header-section-number">1</span> 배경 및 문제 정의</a></li>
+  <li><a href="#himloco-개요" id="toc-himloco-개요" class="nav-link" data-scroll-target="#himloco-개요"><span class="header-section-number">2</span> HIMLoco 개요</a></li>
+  <li><a href="#estimator-network-구조" id="toc-estimator-network-구조" class="nav-link" data-scroll-target="#estimator-network-구조"><span class="header-section-number">3</span> Estimator Network 구조</a>
   <ul class="collapse">
-  <li><a href="#source-encoder" id="toc-source-encoder" class="nav-link" data-scroll-target="#source-encoder"><span class="header-section-number">3.1</span> 3.1 Source Encoder</a></li>
-  <li><a href="#target-encoder" id="toc-target-encoder" class="nav-link" data-scroll-target="#target-encoder"><span class="header-section-number">3.2</span> 3.2 Target Encoder</a></li>
-  <li><a href="#prototypes" id="toc-prototypes" class="nav-link" data-scroll-target="#prototypes"><span class="header-section-number">3.3</span> 3.3 Prototypes</a></li>
+  <li><a href="#source-encoder" id="toc-source-encoder" class="nav-link" data-scroll-target="#source-encoder"><span class="header-section-number">3.1</span> Source Encoder</a></li>
+  <li><a href="#target-encoder" id="toc-target-encoder" class="nav-link" data-scroll-target="#target-encoder"><span class="header-section-number">3.2</span> Target Encoder</a></li>
+  <li><a href="#prototypes" id="toc-prototypes" class="nav-link" data-scroll-target="#prototypes"><span class="header-section-number">3.3</span> Prototypes</a></li>
   </ul></li>
-  <li><a href="#학습-과정-hybrid-internal-optimization-hio" id="toc-학습-과정-hybrid-internal-optimization-hio" class="nav-link" data-scroll-target="#학습-과정-hybrid-internal-optimization-hio"><span class="header-section-number">4</span> 4. 학습 과정: Hybrid Internal Optimization (HIO)</a>
+  <li><a href="#학습-과정-hybrid-internal-optimization-hio" id="toc-학습-과정-hybrid-internal-optimization-hio" class="nav-link" data-scroll-target="#학습-과정-hybrid-internal-optimization-hio"><span class="header-section-number">4</span> 학습 과정: Hybrid Internal Optimization (HIO)</a>
   <ul class="collapse">
-  <li><a href="#임베딩-및-정규화-embedding-normalization" id="toc-임베딩-및-정규화-embedding-normalization" class="nav-link" data-scroll-target="#임베딩-및-정규화-embedding-normalization"><span class="header-section-number">4.0.1</span> 4.1 임베딩 및 정규화 (Embedding &amp; Normalization)</a></li>
-  <li><a href="#프로토타입-매칭-prototype-matching" id="toc-프로토타입-매칭-prototype-matching" class="nav-link" data-scroll-target="#프로토타입-매칭-prototype-matching"><span class="header-section-number">4.0.2</span> 4.2 프로토타입 매칭 (Prototype Matching)</a></li>
-  <li><a href="#sinkhorn-알고리즘-정답지q-생성" id="toc-sinkhorn-알고리즘-정답지q-생성" class="nav-link" data-scroll-target="#sinkhorn-알고리즘-정답지q-생성"><span class="header-section-number">4.0.3</span> 4.3 Sinkhorn 알고리즘: 정답지(Q) 생성</a></li>
-  <li><a href="#swapped-prediction-loss" id="toc-swapped-prediction-loss" class="nav-link" data-scroll-target="#swapped-prediction-loss"><span class="header-section-number">4.0.4</span> 4.4 Swapped Prediction Loss</a></li>
+  <li><a href="#임베딩-및-정규화-embedding-normalization" id="toc-임베딩-및-정규화-embedding-normalization" class="nav-link" data-scroll-target="#임베딩-및-정규화-embedding-normalization"><span class="header-section-number">4.0.1</span> 임베딩 및 정규화 (Embedding &amp; Normalization)</a></li>
+  <li><a href="#프로토타입-매칭-prototype-matching" id="toc-프로토타입-매칭-prototype-matching" class="nav-link" data-scroll-target="#프로토타입-매칭-prototype-matching"><span class="header-section-number">4.0.2</span> 프로토타입 매칭 (Prototype Matching)</a></li>
+  <li><a href="#sinkhorn-알고리즘-정답지q-생성" id="toc-sinkhorn-알고리즘-정답지q-생성" class="nav-link" data-scroll-target="#sinkhorn-알고리즘-정답지q-생성"><span class="header-section-number">4.0.3</span> Sinkhorn 알고리즘: 정답지(Q) 생성</a></li>
+  <li><a href="#swapped-prediction-loss" id="toc-swapped-prediction-loss" class="nav-link" data-scroll-target="#swapped-prediction-loss"><span class="header-section-number">4.0.4</span> Swapped Prediction Loss</a></li>
+  <li><a href="#step-1-정규화-normalization" id="toc-step-1-정규화-normalization" class="nav-link" data-scroll-target="#step-1-정규화-normalization"><span class="header-section-number">4.1</span> [Step 1] 정규화 (Normalization)</a>
+  <ul class="collapse">
+  <li><a href="#입력-변수-및-차원" id="toc-입력-변수-및-차원" class="nav-link" data-scroll-target="#입력-변수-및-차원"><span class="header-section-number">4.1.1</span> 입력 변수 및 차원</a></li>
+  <li><a href="#연산-l2-normalization" id="toc-연산-l2-normalization" class="nav-link" data-scroll-target="#연산-l2-normalization"><span class="header-section-number">4.1.2</span> 연산: L2 Normalization</a></li>
+  <li><a href="#분석" id="toc-분석" class="nav-link" data-scroll-target="#분석"><span class="header-section-number">4.1.3</span> 분석</a></li>
+  </ul></li>
+  <li><a href="#step-2-scores-계산-similarity-matrix" id="toc-step-2-scores-계산-similarity-matrix" class="nav-link" data-scroll-target="#step-2-scores-계산-similarity-matrix"><span class="header-section-number">4.2</span> [Step 2] Scores 계산 (Similarity Matrix)</a>
+  <ul class="collapse">
+  <li><a href="#연산-matrix-multiplication" id="toc-연산-matrix-multiplication" class="nav-link" data-scroll-target="#연산-matrix-multiplication"><span class="header-section-number">4.2.1</span> 연산: Matrix Multiplication</a></li>
+  <li><a href="#차원-분석" id="toc-차원-분석" class="nav-link" data-scroll-target="#차원-분석"><span class="header-section-number">4.2.2</span> 차원 분석</a></li>
+  <li><a href="#분석-1" id="toc-분석-1" class="nav-link" data-scroll-target="#분석-1"><span class="header-section-number">4.2.3</span> 분석</a></li>
+  </ul></li>
+  <li><a href="#step-3-sinkhorn-알고리즘-q-matrix-생성" id="toc-step-3-sinkhorn-알고리즘-q-matrix-생성" class="nav-link" data-scroll-target="#step-3-sinkhorn-알고리즘-q-matrix-생성"><span class="header-section-number">4.3</span> [Step 3] Sinkhorn 알고리즘 (<span class="math inline">\(Q\)</span> Matrix 생성)</a>
+  <ul class="collapse">
+  <li><a href="#입력-및-목표" id="toc-입력-및-목표" class="nav-link" data-scroll-target="#입력-및-목표"><span class="header-section-number">4.3.1</span> 입력 및 목표</a></li>
+  <li><a href="#sinkhorn의-핵심-제약-조건-equipartition" id="toc-sinkhorn의-핵심-제약-조건-equipartition" class="nav-link" data-scroll-target="#sinkhorn의-핵심-제약-조건-equipartition"><span class="header-section-number">4.3.2</span> Sinkhorn의 핵심 제약 조건 (Equipartition)</a></li>
+  <li><a href="#알고리즘-과정-iterative-normalization" id="toc-알고리즘-과정-iterative-normalization" class="nav-link" data-scroll-target="#알고리즘-과정-iterative-normalization"><span class="header-section-number">4.3.3</span> 알고리즘 과정 (Iterative Normalization)</a></li>
+  <li><a href="#결과-q_t" id="toc-결과-q_t" class="nav-link" data-scroll-target="#결과-q_t"><span class="header-section-number">4.3.4</span> 결과 (<span class="math inline">\(Q_t\)</span>)</a></li>
+  </ul></li>
+  <li><a href="#step-4-prediction-증폭-log-softmax-temperature" id="toc-step-4-prediction-증폭-log-softmax-temperature" class="nav-link" data-scroll-target="#step-4-prediction-증폭-log-softmax-temperature"><span class="header-section-number">4.4</span> [Step 4] Prediction 증폭 (Log Softmax &amp; Temperature)</a>
+  <ul class="collapse">
+  <li><a href="#입력-및-연산" id="toc-입력-및-연산" class="nav-link" data-scroll-target="#입력-및-연산"><span class="header-section-number">4.4.1</span> 입력 및 연산</a></li>
+  <li><a href="#temperature-tau의-역할" id="toc-temperature-tau의-역할" class="nav-link" data-scroll-target="#temperature-tau의-역할"><span class="header-section-number">4.4.2</span> Temperature (<span class="math inline">\(\tau\)</span>)의 역할</a></li>
+  <li><a href="#결과-p_s" id="toc-결과-p_s" class="nav-link" data-scroll-target="#결과-p_s"><span class="header-section-number">4.4.3</span> 결과 (<span class="math inline">\(p_s\)</span>)</a></li>
+  </ul></li>
+  <li><a href="#step-5-swav-loss-swapped-prediction-loss" id="toc-step-5-swav-loss-swapped-prediction-loss" class="nav-link" data-scroll-target="#step-5-swav-loss-swapped-prediction-loss"><span class="header-section-number">4.5</span> [Step 5] SwAV Loss (Swapped Prediction Loss)</a>
+  <ul class="collapse">
+  <li><a href="#입력-변수" id="toc-입력-변수" class="nav-link" data-scroll-target="#입력-변수"><span class="header-section-number">4.5.1</span> 입력 변수</a></li>
+  <li><a href="#수식-cross-entropy" id="toc-수식-cross-entropy" class="nav-link" data-scroll-target="#수식-cross-entropy"><span class="header-section-number">4.5.2</span> 수식 (Cross Entropy)</a></li>
+  <li><a href="#구체적-분석과-symmetric-loss의-이유" id="toc-구체적-분석과-symmetric-loss의-이유" class="nav-link" data-scroll-target="#구체적-분석과-symmetric-loss의-이유"><span class="header-section-number">4.5.3</span> 구체적 분석과 Symmetric Loss의 이유</a></li>
+  <li><a href="#target-encoder-z_t의-학습-원리" id="toc-target-encoder-z_t의-학습-원리" class="nav-link" data-scroll-target="#target-encoder-z_t의-학습-원리"><span class="header-section-number">4.5.4</span> Target Encoder (<span class="math inline">\(z_t\)</span>)의 학습 원리</a></li>
+  </ul></li>
+  <li><a href="#요약-및-결론" id="toc-요약-및-결론" class="nav-link" data-scroll-target="#요약-및-결론"><span class="header-section-number">4.6</span> 요약 및 결론</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -249,7 +282,7 @@ Note
 </div>
 <p>본 포스트는 HIMLoco 논문 중 <strong>Estimator Network의 구조와 학습 방법론(HIO)</strong>을 중점적으로 분석합니다.</p>
 <section id="배경-및-문제-정의" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> 1. 배경 및 문제 정의</h1>
+<h1 data-number="1"><span class="header-section-number">1</span> 배경 및 문제 정의</h1>
 <p><img src="HIMLoco_Review_img/fig1.png" class="img-fluid"></p>
 <p>기존의 Model-based RL이나 DreamWaQ와 같은 연구들은 <strong>World Model</strong>이나 <strong>Representation</strong>을 학습하기 위해 주로 <strong>회귀(Regression)</strong> 목적함수를 사용했습니다. 즉, 신경망이 다음 상태(Next State)나 환경 파라미터(마찰계수, 지형 높이 등)를 직접 예측하도록 학습시킵니다.</p>
 <p>그러나 이러한 접근 방식은 <strong>Sim-to-Real</strong>을 위해 필수적인 <strong>도메인 랜덤화(Domain Randomization)</strong> 과정에서 아래와 같은 단점이 있습니다.</p>
@@ -263,17 +296,17 @@ Note
 </blockquote>
 </section>
 <section id="himloco-개요" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 2. HIMLoco 개요</h1>
+<h1 data-number="2"><span class="header-section-number">2</span> HIMLoco 개요</h1>
 <p>HIMLoco는 고전 제어 이론인 <strong>IMC (Internal Model Control)</strong>에서 영감을 받아, 외부 환경 변수 자체가 아니라 이에 대한 <strong>로봇의 반응(Response)</strong>을 나타내는 <strong>Hybrid Internal Embedding</strong>을 학습합니다.</p>
 <p>핵심은 <strong>대조 학습(Contrastive Learning)</strong>을 통해 Latent Vector를 생성한다는 점입니다. - <strong>Positive Pairs</strong>: 시계열적으로 연관된 과거와 미래 데이터는 잠재 공간에서 가깝게 위치시킵니다. - <strong>Negative Pairs</strong>: 서로 다른 맥락의 데이터는 멀리 위치시킵니다.</p>
 <p>이 방식은 개별 샘플의 수치적 노이즈보다는 <strong>샘플 간의 상대적인 관계</strong>에 집중하기 때문에 노이즈에 강건하며, <strong>Batch-level</strong> 정보를 활용하여 훨씬 견고한 표현(Representation)을 학습할 수 있습니다.</p>
 </section>
 <section id="estimator-network-구조" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 3. Estimator Network 구조</h1>
+<h1 data-number="3"><span class="header-section-number">3</span> Estimator Network 구조</h1>
 <p><img src="HIMLoco_Review_img/fig2.png" class="img-fluid"></p>
 <p>Estimator Network는 과거의 관측 기록을 통해 현재의 상태를 추론하는 핵심 모듈입니다.</p>
 <section id="source-encoder" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="source-encoder"><span class="header-section-number">3.1</span> 3.1 Source Encoder</h2>
+<h2 data-number="3.1" class="anchored" data-anchor-id="source-encoder"><span class="header-section-number">3.1</span> Source Encoder</h2>
 <ul>
 <li><strong>역할</strong>: 과거의 관측 기록(<span class="math inline">\(o_{t-H:t}\)</span>)을 입력받아 두 가지 정보를 출력합니다.
 <ol type="1">
@@ -285,7 +318,7 @@ Note
 </ul>
 </section>
 <section id="target-encoder" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="target-encoder"><span class="header-section-number">3.2</span> 3.2 Target Encoder</h2>
+<h2 data-number="3.2" class="anchored" data-anchor-id="target-encoder"><span class="header-section-number">3.2</span> Target Encoder</h2>
 <ul>
 <li><strong>역할</strong>: 미래의 관측값(<span class="math inline">\(o_{t+1}\)</span>)을 입력받아 <strong>Target Latent (<span class="math inline">\(l_t^{target}\)</span>)</strong>를 생성합니다.</li>
 <li><strong>차원</strong>: Input(45) <span class="math inline">\(\rightarrow\)</span> Output(16)</li>
@@ -293,7 +326,7 @@ Note
 </ul>
 </section>
 <section id="prototypes" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="prototypes"><span class="header-section-number">3.3</span> 3.3 Prototypes</h2>
+<h2 data-number="3.3" class="anchored" data-anchor-id="prototypes"><span class="header-section-number">3.3</span> Prototypes</h2>
 <ul>
 <li><strong>역할</strong>: 잠재 공간 내에서 <strong>군집의 중심(Cluster Centroids)</strong> 역할을 하는 학습 가능한 벡터 집합입니다.</li>
 <li><strong>구조</strong>: <span class="math inline">\(32 \times 16\)</span> 크기의 행렬 (32개의 프로토타입, 각 16차원).</li>
@@ -303,14 +336,14 @@ Note
 </section>
 </section>
 <section id="학습-과정-hybrid-internal-optimization-hio" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> 4. 학습 과정: Hybrid Internal Optimization (HIO)</h1>
+<h1 data-number="4"><span class="header-section-number">4</span> 학습 과정: Hybrid Internal Optimization (HIO)</h1>
 <p>Estimator의 최종 손실 함수는 다음과 같이 정의됩니다.</p>
 <p><span class="math display">\[
 \mathcal{L}_{total} = w_{vel} \cdot \mathcal{L}_{vel} + w_{con} \cdot \mathcal{L}_{con}
 \]</span></p>
 <p>여기서 첫 번째 항은 속도 추정에 대한 MSE Loss이며, 핵심이 되는 두 번째 항 <span class="math inline">\(\mathcal{L}_{con}\)</span>은 <strong>Swapped Prediction Loss</strong>를 사용합니다. 그 상세 과정은 다음과 같습니다.</p>
 <section id="임베딩-및-정규화-embedding-normalization" class="level3" data-number="4.0.1">
-<h3 data-number="4.0.1" class="anchored" data-anchor-id="임베딩-및-정규화-embedding-normalization"><span class="header-section-number">4.0.1</span> 4.1 임베딩 및 정규화 (Embedding &amp; Normalization)</h3>
+<h3 data-number="4.0.1" class="anchored" data-anchor-id="임베딩-및-정규화-embedding-normalization"><span class="header-section-number">4.0.1</span> 임베딩 및 정규화 (Embedding &amp; Normalization)</h3>
 <p>먼저 Source/Target Encoder를 통해 나온 Latent Vector를 <strong>L2-Normalization</strong> 하여 <span class="math inline">\(z_s, z_t\)</span>를 생성합니다.</p>
 <p><span class="math display">\[
 z = \frac{l}{\|l\|_2}
@@ -318,7 +351,7 @@ z = \frac{l}{\|l\|_2}
 <p>벡터의 크기를 1로 통일함으로써, 이후 수행될 내적 연산이 온전히 <strong>방향성(코사인 유사도)</strong>만을 나타내도록 만듭니다. 프로토타입 벡터(<span class="math inline">\(e_k\)</span>)들도 동일하게 정규화됩니다.</p>
 </section>
 <section id="프로토타입-매칭-prototype-matching" class="level3" data-number="4.0.2">
-<h3 data-number="4.0.2" class="anchored" data-anchor-id="프로토타입-매칭-prototype-matching"><span class="header-section-number">4.0.2</span> 4.2 프로토타입 매칭 (Prototype Matching)</h3>
+<h3 data-number="4.0.2" class="anchored" data-anchor-id="프로토타입-매칭-prototype-matching"><span class="header-section-number">4.0.2</span> 프로토타입 매칭 (Prototype Matching)</h3>
 <p>현재의 Latent Vector (<span class="math inline">\(z\)</span>)가 32개의 프로토타입 중 어디에 가까운지 <strong>유사도 점수(Score)</strong>를 계산합니다.</p>
 <p><span class="math display">\[
 \text{Scores} = z \cdot C^T
@@ -326,7 +359,7 @@ z = \frac{l}{\|l\|_2}
 <p>이 내적 연산을 통해, <span class="math inline">\(z_s\)</span>가 프로토타입 <span class="math inline">\(e_1\)</span>과는 0.9만큼 비슷하고, <span class="math inline">\(e_2\)</span>와는 0.1만큼 비슷하다는 식의 점수 분포를 얻게 됩니다.</p>
 </section>
 <section id="sinkhorn-알고리즘-정답지q-생성" class="level3" data-number="4.0.3">
-<h3 data-number="4.0.3" class="anchored" data-anchor-id="sinkhorn-알고리즘-정답지q-생성"><span class="header-section-number">4.0.3</span> 4.3 Sinkhorn 알고리즘: 정답지(Q) 생성</h3>
+<h3 data-number="4.0.3" class="anchored" data-anchor-id="sinkhorn-알고리즘-정답지q-생성"><span class="header-section-number">4.0.3</span> Sinkhorn 알고리즘: 정답지(Q) 생성</h3>
 <p>이 과정은 단순한 예측(<span class="math inline">\(p\)</span>)이 아니라, 학습의 기준이 될 <strong>이상적인 정답지(<span class="math inline">\(q\)</span>)</strong>를 만드는 과정입니다.</p>
 <ol type="1">
 <li><strong>점수 변환</strong>: 내적 점수를 확률 밀도 형태(<span class="math inline">\(Q = \exp(\text{score}/\epsilon)\)</span>)로 변환합니다.</li>
@@ -336,7 +369,7 @@ z = \frac{l}{\|l\|_2}
 <p>결과적으로 <span class="math inline">\(q_s\)</span> 및 <span class="math inline">\(q_t\)</span>는 <strong>전체 배치의 균형을 고려했을 때, 각 샘플이 속해야 하는 이상적인 프로토타입 확률 분포</strong>가 됩니다.</p>
 </section>
 <section id="swapped-prediction-loss" class="level3" data-number="4.0.4">
-<h3 data-number="4.0.4" class="anchored" data-anchor-id="swapped-prediction-loss"><span class="header-section-number">4.0.4</span> 4.4 Swapped Prediction Loss</h3>
+<h3 data-number="4.0.4" class="anchored" data-anchor-id="swapped-prediction-loss"><span class="header-section-number">4.0.4</span> Swapped Prediction Loss</h3>
 <p>마지막으로, <strong>과거(Source)</strong>와 <strong>미래(Target)</strong>가 서로의 정답지를 예측하도록 교차 학습을 수행합니다.</p>
 <p><span class="math display">\[
 \mathcal{L}_{con} = - \frac{1}{2H} \sum_{t=1}^{H} \left( q_s \log p_t + q_t \log p_s \right)
@@ -364,10 +397,332 @@ p_t = \text{Softmax}\left(\frac{z_t \cdot C^T}{\tau}\right)
 <li><strong>시간적 일관성 (Temporal Consistency)</strong>: 시간 <span class="math inline">\(t\)</span>에서 <span class="math inline">\(t+1\)</span>로 넘어가더라도 변하지 않는 지형의 본질적 특성을 담게 됩니다.</li>
 <li><strong>강건한 표현력</strong>: 구체적인 수치(마찰계수 등)를 맞추는 것이 아니라, <strong>“현재 상황이 어떤 프로토타입(유형)에 속하는지”</strong>를 학습함으로써 노이즈에 휘둘리지 않는 강건한 Context 정보를 Actor에게 제공합니다.</li>
 </ul>
-
-
-
+<hr>
+<p><strong>[Step-by-Step 정리]</strong></p>
 </section>
+</section>
+<section id="step-1-정규화-normalization" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="step-1-정규화-normalization"><span class="header-section-number">4.1</span> [Step 1] 정규화 (Normalization)</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+핵심 직관
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“모든 선수의 키를 1로 맞춰서, 오직 <strong>플레이 스타일(방향)</strong>만 비교하겠다.”</p>
+</div>
+</div>
+<section id="입력-변수-및-차원" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="입력-변수-및-차원"><span class="header-section-number">4.1.1</span> 입력 변수 및 차원</h3>
+<ul>
+<li><code>z_student</code>: (<span class="math inline">\(B\)</span>, <span class="math inline">\(D\)</span>) = <strong>(128, 16)</strong></li>
+<li><code>z_teacher</code>: (<span class="math inline">\(B\)</span>, <span class="math inline">\(D\)</span>) = <strong>(128, 16)</strong></li>
+<li><code>prototypes</code>: (<span class="math inline">\(K\)</span>, <span class="math inline">\(D\)</span>) = <strong>(32, 16)</strong></li>
+</ul>
+</section>
+<section id="연산-l2-normalization" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="연산-l2-normalization"><span class="header-section-number">4.1.2</span> 연산: L2 Normalization</h3>
+<p>벡터 <span class="math inline">\(v\)</span>에 대하여 다음 연산을 수행합니다.</p>
+<p><span class="math display">\[
+v_{norm} = \frac{v}{||v||_2}
+\]</span></p>
+</section>
+<section id="분석" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="분석"><span class="header-section-number">4.1.3</span> 분석</h3>
+<ul>
+<li><strong>결과:</strong> 모든 벡터(<span class="math inline">\(z\)</span>, prototypes)가 원점으로부터 반지름이 1인 <strong>초구(Hypersphere)</strong> 표면 위에 위치하게 됩니다.</li>
+<li><strong>목적:</strong> 내적(Dot Product) 연산 시 벡터의 <strong>크기(Magnitude)</strong>가 결과에 영향을 주지 않도록 통제합니다. 오직 벡터 간의 <strong>각도(Angle)</strong>만을 기준으로 유사도를 판단하기 위함입니다.
+<ul>
+<li>정규화 후 내적: <span class="math inline">\(A \cdot B = 1 \times 1 \times \cos\theta = \cos\theta\)</span> (코사인 유사도와 동일)</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="step-2-scores-계산-similarity-matrix" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="step-2-scores-계산-similarity-matrix"><span class="header-section-number">4.2</span> [Step 2] Scores 계산 (Similarity Matrix)</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+핵심 직관
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“학생(데이터)이 32개의 바구니(프로토타입)를 보고 각각 얼마나 마음에 드는지 점수 매기기.”</p>
+</div>
+</div>
+<section id="연산-matrix-multiplication" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="연산-matrix-multiplication"><span class="header-section-number">4.2.1</span> 연산: Matrix Multiplication</h3>
+<p>정규화된 학생 latent 벡터와 프로토타입의 전치 행렬을 내적합니다.</p>
+<p><span class="math display">\[
+\text{Scores} = z_{\text{student}} \times \text{prototypes}^T
+\]</span></p>
+</section>
+<section id="차원-분석" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="차원-분석"><span class="header-section-number">4.2.2</span> 차원 분석</h3>
+<p><span class="math display">\[
+(128, 16) \times (16, 32) \rightarrow \mathbf{(128, 32)}
+\]</span></p>
+</section>
+<section id="분석-1" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="분석-1"><span class="header-section-number">4.2.3</span> 분석</h3>
+<ul>
+<li>생성된 <code>scores_s</code> 행렬의 <span class="math inline">\((i, j)\)</span>번째 값은 <strong><span class="math inline">\(i\)</span>번째 데이터 이미지</strong>와 <strong><span class="math inline">\(j\)</span>번째 프로토타입</strong> 간의 <strong>코사인 유사도</strong>입니다.</li>
+<li>값의 범위는 <strong>-1 (완전 반대)</strong> 에서 <strong>1 (완전 일치)</strong> 사이입니다.</li>
+</ul>
+<p>이 점수(Score)가 높다는 것은 입력된 데이터의 잠재 표현(Latent Representation)이 특정 프로토타입 군집의 중심과 매우 유사함을 의미합니다. 예를 들어, 특정 프로토타입이 <strong>‘계단 지형에서의 동역학적 특징’</strong>을 학습했다고 가정해 봅시다. 로봇이 실제로 계단을 통과하며 얻은 관측 데이터(Observation)가 엔코더를 통과하면, 해당 프로토타입과의 내적값은 1.0에 가깝게 산출될 것입니다.</p>
+<p>학습의 핵심 목표는 로봇의 다양한 주행 상태가 <span class="math inline">\(K\)</span>개의 프로토타입으로 명확하게 구분(Disentanglement)되도록 클러스터링하는 것입니다. 이상적으로 학습된 모델은 매 타임스텝마다 현재 상태와 일치하는 단 하나의 프로토타입에 대해서만 높은 Score를 부여하고, 나머지 31개는 억제합니다. 이러한 명확한 상태 구분 능력은, 로봇이 시각 정보가 차단된 <strong>Blind 상황에서도 자신의 현재 상태와 지형 정보를 암묵적으로 추정(Implicit System Identification)</strong>할 수 있게 만듭니다.</p>
+<hr>
+</section>
+</section>
+<section id="step-3-sinkhorn-알고리즘-q-matrix-생성" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="step-3-sinkhorn-알고리즘-q-matrix-생성"><span class="header-section-number">4.3</span> [Step 3] Sinkhorn 알고리즘 (<span class="math inline">\(Q\)</span> Matrix 생성)</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+핵심 질문: 왜 단순히 Softmax를 쓰지 않고 복잡한 Sinkhorn을 쓰는가?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>만약 <code>Scores</code>를 그대로 Softmax에 넣어 정답지로 사용한다면, 모델은 학습 편의를 위해 <strong>가장 쉬운 하나의 프로토타입에 모든 데이터를 할당(Mode Collapse)</strong>해버리는 ’꼼수’를 부릴 수 있습니다. 이를 방지하기 위해 <strong>“강제 균등 배분”</strong>이 필요합니다.</p>
+</div>
+</div>
+<p><code>Scores</code>는 단순한 유사도 점수이고, <span class="math inline">\(Q\)</span>는 <strong>제약 조건이 적용된 확률 분포(Soft Assignment)</strong> 형태를 띱니다. 제약 조건을 부여해야 하는 이유는 위에서 설명한 강제 균등 배분 때문이고, 확률분포로 만들어야 하는 이유는 손실 함수인 Cross Entropy를 계산하기 위해, 학생의 예측값(<span class="math inline">\(P_s\)</span>)과 동일한 수학적 형태(합이 1인 확률)를 갖춰야 하기 때문입니다.</p>
+<section id="입력-및-목표" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="입력-및-목표"><span class="header-section-number">4.3.1</span> 입력 및 목표</h3>
+<ul>
+<li><strong>입력:</strong> <code>scores</code> <strong>(128, 32)</strong></li>
+<li><strong>목표:</strong> Target Assignment Matrix <span class="math inline">\(Q\)</span> <strong>(128, 32)</strong> 생성</li>
+</ul>
+</section>
+<section id="sinkhorn의-핵심-제약-조건-equipartition" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="sinkhorn의-핵심-제약-조건-equipartition"><span class="header-section-number">4.3.2</span> Sinkhorn의 핵심 제약 조건 (Equipartition)</h3>
+<p>Sinkhorn-Knopp 알고리즘은 다음 두 가지 조건을 만족하는 행렬 <span class="math inline">\(Q\)</span>를 찾습니다.</p>
+<ol type="1">
+<li><strong>Row Constraints:</strong> 각 데이터(행)의 확률 합은 1이어야 한다. (데이터는 어딘가에 속해야 함)</li>
+<li><strong>Column Constraints:</strong> <strong>각 프로토타입(열)에 할당된 데이터 양의 합은 <span class="math inline">\(B/K\)</span> (128/32 = 4)로 동일해야 한다.</strong>
+<ul>
+<li>이 제약 조건이 <strong>균등 분배(Equipartition)</strong>를 보장합니다. 즉, 한 배치 내에서 모든 프로토타입이 평균적으로 4번씩은 선택되도록 강제하여, 죽은 뉴런(Dead Prototypes)이 생기는 것을 방지합니다.</li>
+</ul></li>
+</ol>
+</section>
+<section id="알고리즘-과정-iterative-normalization" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="알고리즘-과정-iterative-normalization"><span class="header-section-number">4.3.3</span> 알고리즘 과정 (Iterative Normalization)</h3>
+<p><span class="math display">\[
+Q = \exp(\text{scores} / \epsilon)
+\]</span> 위 <span class="math inline">\(Q\)</span> 행렬에 대해 다음을 반복합니다 (약 3회): 1. <strong>Row Norm:</strong> <span class="math inline">\(Q\)</span>를 행의 합으로 나눔 (<span class="math inline">\(\sum_{col} Q_{ij} = 1\)</span>) 2. <strong>Column Norm:</strong> <span class="math inline">\(Q\)</span>를 열의 합으로 나눈 뒤 <span class="math inline">\(B/K\)</span>를 곱함 (<span class="math inline">\(\sum_{row} Q_{ij} = B/K\)</span>)</p>
+</section>
+<section id="결과-q_t" class="level3" data-number="4.3.4">
+<h3 data-number="4.3.4" class="anchored" data-anchor-id="결과-q_t"><span class="header-section-number">4.3.4</span> 결과 (<span class="math inline">\(Q_t\)</span>)</h3>
+<ul>
+<li>차원: <strong>(128, 32)</strong></li>
+<li><span class="math inline">\(Q_t\)</span>는 <strong>“인기도(Score)는 반영하되, 특정 반에만 데이터가 몰리지 않도록 조정한 정답지”</strong>입니다.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="step-4-prediction-증폭-log-softmax-temperature" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="step-4-prediction-증폭-log-softmax-temperature"><span class="header-section-number">4.4</span> [Step 4] Prediction 증폭 (Log Softmax &amp; Temperature)</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+핵심 직관
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“불확실성을 최대한 낮추자”</p>
+</div>
+</div>
+<section id="입력-및-연산" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="입력-및-연산"><span class="header-section-number">4.4.1</span> 입력 및 연산</h3>
+<ul>
+<li><strong>입력:</strong> <code>scores_s</code> <strong>(128, 32)</strong></li>
+<li><strong>연산:</strong> <span class="math display">\[
+  p_s = \text{softmax}\left(\frac{\text{scores}_s}{\tau}\right)
+  \]</span></li>
+</ul>
+</section>
+<section id="temperature-tau의-역할" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="temperature-tau의-역할"><span class="header-section-number">4.4.2</span> Temperature (<span class="math inline">\(\tau\)</span>)의 역할</h3>
+<ul>
+<li>보통 <span class="math inline">\(\tau = 0.1\)</span> 과 같이 1보다 작은 값을 사용합니다.</li>
+<li><strong>증폭 효과:</strong>
+<ul>
+<li>원래 Score: <code>[0.9, 0.8]</code> <span class="math inline">\(\rightarrow\)</span> 큰 차이 없음.</li>
+<li><span class="math inline">\(\tau=0.1\)</span> 적용: <code>[9.0, 8.0]</code> <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(e^9\)</span> vs <span class="math inline">\(e^8\)</span> (약 2.7배 차이 발생).</li>
+</ul></li>
+<li>이 과정은 분포를 <strong>뾰족하게(Sharp)</strong> 만들어서, 모델이 <strong>High Entropy(긴가민가한 상태)</strong>를 피하고 <strong>Low Entropy(확실한 결정)</strong>를 내리도록 유도합니다.</li>
+</ul>
+</section>
+<section id="결과-p_s" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="결과-p_s"><span class="header-section-number">4.4.3</span> 결과 (<span class="math inline">\(p_s\)</span>)</h3>
+<ul>
+<li>차원: <strong>(128, 32)</strong></li>
+<li>제약 조건(Sinkhorn)이 없는, 학생 엔코더의 <strong>순수한 예측값</strong>입니다.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="step-5-swav-loss-swapped-prediction-loss" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="step-5-swav-loss-swapped-prediction-loss"><span class="header-section-number">4.5</span> [Step 5] SwAV Loss (Swapped Prediction Loss)</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+핵심 직관
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“크로스 체크: View 1을 보고 만든 너의 예측이, View 2를 보고 만든 나의 정답(Sinkhorn)과 일치하니?”</p>
+</div>
+</div>
+<section id="입력-변수" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="입력-변수"><span class="header-section-number">4.5.1</span> 입력 변수</h3>
+<ul>
+<li><span class="math inline">\(Q_t\)</span>: 선생님 뷰(<span class="math inline">\(z_t\)</span>)기반의 Sinkhorn 정답지 <strong>(Target, Gradient X)</strong></li>
+<li><span class="math inline">\(P_s\)</span>: 학생 뷰(<span class="math inline">\(z_s\)</span>)기반의 예측 확률 <strong>(Prediction, Gradient O)</strong></li>
+</ul>
+</section>
+<section id="수식-cross-entropy" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="수식-cross-entropy"><span class="header-section-number">4.5.2</span> 수식 (Cross Entropy)</h3>
+<p><span class="math display">\[
+L(z_t, z_s) = - \sum_{k} Q_t^{(k)} \log P_s^{(k)}
+\]</span></p>
+</section>
+<section id="구체적-분석과-symmetric-loss의-이유" class="level3" data-number="4.5.3">
+<h3 data-number="4.5.3" class="anchored" data-anchor-id="구체적-분석과-symmetric-loss의-이유"><span class="header-section-number">4.5.3</span> 구체적 분석과 Symmetric Loss의 이유</h3>
+<ol type="1">
+<li><strong>Swapped Prediction:</strong>
+<ul>
+<li>같은 이미지에서 유래한 <code>View 1</code>과 <code>View 2</code>는 픽셀 값은 다르지만 <strong>의미(Semantic)</strong>는 같습니다.</li>
+<li>따라서 <code>View 2</code>를 보고 만든 군집 할당(<span class="math inline">\(Q_t\)</span>)을, <code>View 1</code>만 보고도 예측(<span class="math inline">\(P_s\)</span>)할 수 있어야 합니다.</li>
+</ul></li>
+<li><strong>왜 양방향(Symmetric)인가?</strong> ## 1. Symmetric Loss의 이론적 배경</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+핵심 이론: Mutual Information Maximization
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>양방향(Symmetric) 학습은 단순한 ’정확도 향상’을 넘어, 서로 다른 뷰(View) 사이의 <strong>정보 일관성(Information Consistency)</strong>을 강제하는 과정입니다.</p>
+</div>
+</div>
+<section id="loss-function-재정의" class="level4" data-number="4.5.3.1">
+<h4 data-number="4.5.3.1" class="anchored" data-anchor-id="loss-function-재정의"><span class="header-section-number">4.5.3.1</span> Loss Function 재정의</h4>
+<p>SwAV의 전체 손실 함수는 두 개의 항(Term)으로 구성됩니다.</p>
+<p><span class="math display">\[
+L_{total} = \frac{1}{2} (\underbrace{L(z_t, z_s)}_{\text{Term 1}} + \underbrace{L(z_s, z_t)}_{\text{Term 2}})
+\]</span></p>
+<ul>
+<li><strong>Term 1:</strong> <span class="math inline">\(Q_t \cdot \log P_s\)</span> (Teacher가 정답, Student가 예측)</li>
+<li><strong>Term 2:</strong> <span class="math inline">\(Q_s \cdot \log P_t\)</span> (Student가 정답, Teacher가 예측)</li>
+</ul>
+</section>
+<section id="왜-양방향인가-consistency-regularization" class="level4" data-number="4.5.3.2">
+<h4 data-number="4.5.3.2" class="anchored" data-anchor-id="왜-양방향인가-consistency-regularization"><span class="header-section-number">4.5.3.2</span> 왜 양방향인가? (Consistency Regularization)</h4>
+<ol type="1">
+<li><strong>Predictive Coding (예측 부호화):</strong>
+<ul>
+<li>Student (<span class="math inline">\(z_s\)</span>): <strong>과거</strong>의 기록(History, <span class="math inline">\(o_{0:t}\)</span>)을 보고</li>
+<li>Teacher (<span class="math inline">\(z_t\)</span>): <strong>미래</strong>의 관측(Next Obs, <span class="math inline">\(o_{t+1}\)</span>)을 봅니다.</li>
+<li>양방향 학습은 <strong>“과거 정보로 미래를 예측하고(<span class="math inline">\(S \to T\)</span>), 미래 정보로 과거를 유추(<span class="math inline">\(T \to S\)</span>)”</strong>하게 만듭니다.</li>
+</ul></li>
+<li><strong>Hub-and-Spoke Learning:</strong>
+<ul>
+<li>어느 한쪽이 절대적 정답(Ground Truth)이 아닙니다.</li>
+<li>Student와 Teacher는 서로가 서로의 <strong>임시 정답(Soft Label)</strong>이 되어주며, 노이즈가 제거된 <strong>공통된 잠재 공간(Common Latent Space)</strong>으로 함께 이동합니다.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="gradient-flow-시각화" class="level4" data-number="4.5.3.3">
+<h4 data-number="4.5.3.3" class="anchored" data-anchor-id="gradient-flow-시각화"><span class="header-section-number">4.5.3.3</span> Gradient Flow 시각화</h4>
+<p>두 개의 Loss 항이 각각 어떤 네트워크를 업데이트하는지 추적해 봅시다. (Stop Gradient 기호: <span class="math inline">\(sg[\cdot]\)</span>)</p>
+</section>
+<section id="term-1-lz_t-z_s---sum-sgq_t-log-p_s" class="level4" data-number="4.5.3.4">
+<h4 data-number="4.5.3.4" class="anchored" data-anchor-id="term-1-lz_t-z_s---sum-sgq_t-log-p_s"><span class="header-section-number">4.5.3.4</span> <strong>Term 1: <span class="math inline">\(L(z_t, z_s) = - \sum sg[Q_t] \log P_s\)</span></strong></h4>
+<ul>
+<li><strong>Target (<span class="math inline">\(Q_t\)</span>):</strong> <code>detach()</code>됨. Gradient가 흐르지 않음.</li>
+<li><strong>Prediction (<span class="math inline">\(P_s\)</span>):</strong> <strong>Student Encoder (<span class="math inline">\(z_s\)</span>)</strong>로 Backprop 진행.</li>
+<li><strong>해석:</strong> “Teacher가 만든 기준을 Student가 따라가라.”</li>
+</ul>
+</section>
+<section id="term-2-lz_s-z_t---sum-sgq_s-log-p_t" class="level4" data-number="4.5.3.5">
+<h4 data-number="4.5.3.5" class="anchored" data-anchor-id="term-2-lz_s-z_t---sum-sgq_s-log-p_t"><span class="header-section-number">4.5.3.5</span> <strong>Term 2: <span class="math inline">\(L(z_s, z_t) = - \sum sg[Q_s] \log P_t\)</span></strong></h4>
+<ul>
+<li><strong>Target (<span class="math inline">\(Q_s\)</span>):</strong> <code>detach()</code>됨. Gradient가 흐르지 않음.</li>
+<li><strong>Prediction (<span class="math inline">\(P_t\)</span>):</strong> <strong>Target Encoder (<span class="math inline">\(z_t\)</span>)</strong>로 Backprop 진행.</li>
+<li><strong>해석:</strong> “Student가 만든 기준을 Teacher가 따라가라.”</li>
+</ul>
+</section>
+</section>
+<section id="target-encoder-z_t의-학습-원리" class="level3" data-number="4.5.4">
+<h3 data-number="4.5.4" class="anchored" data-anchor-id="target-encoder-z_t의-학습-원리"><span class="header-section-number">4.5.4</span> Target Encoder (<span class="math inline">\(z_t\)</span>)의 학습 원리</h3>
+<p>결국 <code>Term 2</code>에 의해 <strong>Target Encoder</strong>에도 명확한 규제가 가해집니다.</p>
+<ol type="1">
+<li>Student Encoder가 History(<span class="math inline">\(o_{0:t}\)</span>)를 보고 “이건 3번 프로토타입이야”라고 판단(<span class="math inline">\(Q_s\)</span>)합니다.</li>
+<li>Target Encoder는 Next Obs(<span class="math inline">\(o_{t+1}\)</span>)만 보고도 똑같이 “이건 3번 프로토타입이야”라고 예측(<span class="math inline">\(P_t\)</span>)해야 합니다.</li>
+<li>만약 예측이 빗나가면 <span class="math inline">\(Loss\)</span>가 발생하고, <strong>Target Encoder의 가중치가 업데이트</strong>됩니다.</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="요약-및-결론" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="요약-및-결론"><span class="header-section-number">4.6</span> 요약 및 결론</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">구분</th>
+<th style="text-align: left;">역할</th>
+<th style="text-align: left;">Gradient Flow (규제 출처)</th>
+<th style="text-align: left;">학습 목표</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Term 1</strong></td>
+<td style="text-align: left;"><span class="math inline">\(Q_t \xrightarrow{\text{teach}} P_s\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(Loss \to P_s \to \mathbf{z_s \text{ (Student)}}\)</span></td>
+<td style="text-align: left;">“미래(<span class="math inline">\(z_t\)</span>)의 정보를 바탕으로 과거(<span class="math inline">\(z_s\)</span>)를 정리해라.”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Term 2</strong></td>
+<td style="text-align: left;"><span class="math inline">\(Q_s \xrightarrow{\text{teach}} P_t\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(Loss \to P_t \to \mathbf{z_t \text{ (Target)}}\)</span></td>
+<td style="text-align: left;">“과거(<span class="math inline">\(z_s\)</span>)의 판단과 일치하도록 미래(<span class="math inline">\(z_t\)</span>) 표현을 수정해라.”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>결론:</strong> Target Encoder는 방치되는 것이 아니라, <strong>“History(Student)가 판단한 것과 동일한 결론을 내리도록”</strong> 강력하게 규제받습니다. 이 상호 작용(Interplay)이 바로 HIM 알고리즘이 강건한 표현(Robust Representation)을 학습하는 핵심 원리입니다.</p>
+
+
+
 </section>
 </section>
 

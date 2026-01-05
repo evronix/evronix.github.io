@@ -158,7 +158,7 @@
     "href": "index.html",
     "title": "WorkSpace",
     "section": "",
-    "text": "PACE: System-ID for Sim-to-Real 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nlocomotion\n\n\nsim2real\n\n\n\n\n\n\n\n\n\nDec 4, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nHybrid Internal Model (HIM) 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nlocomotion\n\n\ncontrastive-learning\n\n\n\n\n\n\n\n\n\nNov 20, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nFR-Net 리뷰\n\n\n\n\n\n\npaper\n\n\nquadruped\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 10, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nUnified Force and Position Control 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 1, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nCOMPASS 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 21, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nDiAReL 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 17, 2025\n\n\nJihong Kim\n\n\n\n\n\n\nNo matching items"
+    "text": "PACE: System-ID for Sim-to-Real 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nlocomotion\n\n\nsim2real\n\n\n\n\n\n\n\n\n\nDec 4, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nHybrid Internal Model (HIM) 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nlocomotion\n\n\ncontrastive-learning\n\n\n\n\n\n\n\n\n\nNov 20, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nFR-Net 리뷰\n\n\n\n\n\n\npaper\n\n\nquadruped\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 10, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nUnified Force and Position Control 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 1, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nCOMPASS 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 21, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nDiAReL 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\nsim2real\n\n\n\n\n\n\n\n\n\nJul 17, 2025\n\n\nJihong Kim\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/paper-review/FRNet_Review.html",
@@ -276,21 +276,63 @@
     "objectID": "posts/paper-review/HIMLoco_Review.html#source-encoder",
     "href": "posts/paper-review/HIMLoco_Review.html#source-encoder",
     "title": "Hybrid Internal Model (HIM) 리뷰",
-    "section": "3.1 3.1 Source Encoder",
-    "text": "3.1 3.1 Source Encoder\n\n역할: 과거의 관측 기록(\\(o_{t-H:t}\\))을 입력받아 두 가지 정보를 출력합니다.\n\n명시적 속도 (\\(\\hat{v}_t\\)): 로봇의 선속도 추정값 (Supervised Learning 대상)\n잠재 벡터 (\\(l_t^{source}\\)): 지형 및 상태 맥락 정보 (Self-Supervised Learning 대상)\n\n차원: Input(270) \\(\\rightarrow\\) Output(19: 속도 3 + Latent 16)\n특징: 지도 학습과 자기 지도 학습을 동시에 수행하는 Hybrid 구조입니다."
+    "section": "3.1 Source Encoder",
+    "text": "3.1 Source Encoder\n\n역할: 과거의 관측 기록(\\(o_{t-H:t}\\))을 입력받아 두 가지 정보를 출력합니다.\n\n명시적 속도 (\\(\\hat{v}_t\\)): 로봇의 선속도 추정값 (Supervised Learning 대상)\n잠재 벡터 (\\(l_t^{source}\\)): 지형 및 상태 맥락 정보 (Self-Supervised Learning 대상)\n\n차원: Input(270) \\(\\rightarrow\\) Output(19: 속도 3 + Latent 16)\n특징: 지도 학습과 자기 지도 학습을 동시에 수행하는 Hybrid 구조입니다."
   },
   {
     "objectID": "posts/paper-review/HIMLoco_Review.html#target-encoder",
     "href": "posts/paper-review/HIMLoco_Review.html#target-encoder",
     "title": "Hybrid Internal Model (HIM) 리뷰",
-    "section": "3.2 3.2 Target Encoder",
-    "text": "3.2 3.2 Target Encoder\n\n역할: 미래의 관측값(\\(o_{t+1}\\))을 입력받아 Target Latent (\\(l_t^{target}\\))를 생성합니다.\n차원: Input(45) \\(\\rightarrow\\) Output(16)\n의미: 미래 시점의 상태가 과거 기록이 예측해야 할 지향점(Target) 역할을 합니다."
+    "section": "3.2 Target Encoder",
+    "text": "3.2 Target Encoder\n\n역할: 미래의 관측값(\\(o_{t+1}\\))을 입력받아 Target Latent (\\(l_t^{target}\\))를 생성합니다.\n차원: Input(45) \\(\\rightarrow\\) Output(16)\n의미: 미래 시점의 상태가 과거 기록이 예측해야 할 지향점(Target) 역할을 합니다."
   },
   {
     "objectID": "posts/paper-review/HIMLoco_Review.html#prototypes",
     "href": "posts/paper-review/HIMLoco_Review.html#prototypes",
     "title": "Hybrid Internal Model (HIM) 리뷰",
-    "section": "3.3 3.3 Prototypes",
-    "text": "3.3 3.3 Prototypes\n\n역할: 잠재 공간 내에서 군집의 중심(Cluster Centroids) 역할을 하는 학습 가능한 벡터 집합입니다.\n구조: \\(32 \\times 16\\) 크기의 행렬 (32개의 프로토타입, 각 16차원).\n학습: 역전파를 통해 데이터의 분포에 맞춰 이 프로토타입 벡터들의 위치도 지속적으로 업데이트됩니다."
+    "section": "3.3 Prototypes",
+    "text": "3.3 Prototypes\n\n역할: 잠재 공간 내에서 군집의 중심(Cluster Centroids) 역할을 하는 학습 가능한 벡터 집합입니다.\n구조: \\(32 \\times 16\\) 크기의 행렬 (32개의 프로토타입, 각 16차원).\n학습: 역전파를 통해 데이터의 분포에 맞춰 이 프로토타입 벡터들의 위치도 지속적으로 업데이트됩니다."
+  },
+  {
+    "objectID": "posts/paper-review/HIMLoco_Review.html#step-1-정규화-normalization",
+    "href": "posts/paper-review/HIMLoco_Review.html#step-1-정규화-normalization",
+    "title": "Hybrid Internal Model (HIM) 리뷰",
+    "section": "4.1 [Step 1] 정규화 (Normalization)",
+    "text": "4.1 [Step 1] 정규화 (Normalization)\n\n\n\n\n\n\n핵심 직관\n\n\n\n“모든 선수의 키를 1로 맞춰서, 오직 플레이 스타일(방향)만 비교하겠다.”\n\n\n\n4.1.1 입력 변수 및 차원\n\nz_student: (\\(B\\), \\(D\\)) = (128, 16)\nz_teacher: (\\(B\\), \\(D\\)) = (128, 16)\nprototypes: (\\(K\\), \\(D\\)) = (32, 16)\n\n\n\n4.1.2 연산: L2 Normalization\n벡터 \\(v\\)에 대하여 다음 연산을 수행합니다.\n\\[\nv_{norm} = \\frac{v}{||v||_2}\n\\]\n\n\n4.1.3 분석\n\n결과: 모든 벡터(\\(z\\), prototypes)가 원점으로부터 반지름이 1인 초구(Hypersphere) 표면 위에 위치하게 됩니다.\n목적: 내적(Dot Product) 연산 시 벡터의 크기(Magnitude)가 결과에 영향을 주지 않도록 통제합니다. 오직 벡터 간의 각도(Angle)만을 기준으로 유사도를 판단하기 위함입니다.\n\n정규화 후 내적: \\(A \\cdot B = 1 \\times 1 \\times \\cos\\theta = \\cos\\theta\\) (코사인 유사도와 동일)"
+  },
+  {
+    "objectID": "posts/paper-review/HIMLoco_Review.html#step-2-scores-계산-similarity-matrix",
+    "href": "posts/paper-review/HIMLoco_Review.html#step-2-scores-계산-similarity-matrix",
+    "title": "Hybrid Internal Model (HIM) 리뷰",
+    "section": "4.2 [Step 2] Scores 계산 (Similarity Matrix)",
+    "text": "4.2 [Step 2] Scores 계산 (Similarity Matrix)\n\n\n\n\n\n\n핵심 직관\n\n\n\n“학생(데이터)이 32개의 바구니(프로토타입)를 보고 각각 얼마나 마음에 드는지 점수 매기기.”\n\n\n\n4.2.1 연산: Matrix Multiplication\n정규화된 학생 latent 벡터와 프로토타입의 전치 행렬을 내적합니다.\n\\[\n\\text{Scores} = z_{\\text{student}} \\times \\text{prototypes}^T\n\\]\n\n\n4.2.2 차원 분석\n\\[\n(128, 16) \\times (16, 32) \\rightarrow \\mathbf{(128, 32)}\n\\]\n\n\n4.2.3 분석\n\n생성된 scores_s 행렬의 \\((i, j)\\)번째 값은 \\(i\\)번째 데이터 이미지와 \\(j\\)번째 프로토타입 간의 코사인 유사도입니다.\n값의 범위는 -1 (완전 반대) 에서 1 (완전 일치) 사이입니다.\n\n이 점수(Score)가 높다는 것은 입력된 데이터의 잠재 표현(Latent Representation)이 특정 프로토타입 군집의 중심과 매우 유사함을 의미합니다. 예를 들어, 특정 프로토타입이 ‘계단 지형에서의 동역학적 특징’을 학습했다고 가정해 봅시다. 로봇이 실제로 계단을 통과하며 얻은 관측 데이터(Observation)가 엔코더를 통과하면, 해당 프로토타입과의 내적값은 1.0에 가깝게 산출될 것입니다.\n학습의 핵심 목표는 로봇의 다양한 주행 상태가 \\(K\\)개의 프로토타입으로 명확하게 구분(Disentanglement)되도록 클러스터링하는 것입니다. 이상적으로 학습된 모델은 매 타임스텝마다 현재 상태와 일치하는 단 하나의 프로토타입에 대해서만 높은 Score를 부여하고, 나머지 31개는 억제합니다. 이러한 명확한 상태 구분 능력은, 로봇이 시각 정보가 차단된 Blind 상황에서도 자신의 현재 상태와 지형 정보를 암묵적으로 추정(Implicit System Identification)할 수 있게 만듭니다."
+  },
+  {
+    "objectID": "posts/paper-review/HIMLoco_Review.html#step-3-sinkhorn-알고리즘-q-matrix-생성",
+    "href": "posts/paper-review/HIMLoco_Review.html#step-3-sinkhorn-알고리즘-q-matrix-생성",
+    "title": "Hybrid Internal Model (HIM) 리뷰",
+    "section": "4.3 [Step 3] Sinkhorn 알고리즘 (\\(Q\\) Matrix 생성)",
+    "text": "4.3 [Step 3] Sinkhorn 알고리즘 (\\(Q\\) Matrix 생성)\n\n\n\n\n\n\n핵심 질문: 왜 단순히 Softmax를 쓰지 않고 복잡한 Sinkhorn을 쓰는가?\n\n\n\n만약 Scores를 그대로 Softmax에 넣어 정답지로 사용한다면, 모델은 학습 편의를 위해 가장 쉬운 하나의 프로토타입에 모든 데이터를 할당(Mode Collapse)해버리는 ’꼼수’를 부릴 수 있습니다. 이를 방지하기 위해 “강제 균등 배분”이 필요합니다.\n\n\nScores는 단순한 유사도 점수이고, \\(Q\\)는 제약 조건이 적용된 확률 분포(Soft Assignment) 형태를 띱니다. 제약 조건을 부여해야 하는 이유는 위에서 설명한 강제 균등 배분 때문이고, 확률분포로 만들어야 하는 이유는 손실 함수인 Cross Entropy를 계산하기 위해, 학생의 예측값(\\(P_s\\))과 동일한 수학적 형태(합이 1인 확률)를 갖춰야 하기 때문입니다.\n\n4.3.1 입력 및 목표\n\n입력: scores (128, 32)\n목표: Target Assignment Matrix \\(Q\\) (128, 32) 생성\n\n\n\n4.3.2 Sinkhorn의 핵심 제약 조건 (Equipartition)\nSinkhorn-Knopp 알고리즘은 다음 두 가지 조건을 만족하는 행렬 \\(Q\\)를 찾습니다.\n\nRow Constraints: 각 데이터(행)의 확률 합은 1이어야 한다. (데이터는 어딘가에 속해야 함)\nColumn Constraints: 각 프로토타입(열)에 할당된 데이터 양의 합은 \\(B/K\\) (128/32 = 4)로 동일해야 한다.\n\n이 제약 조건이 균등 분배(Equipartition)를 보장합니다. 즉, 한 배치 내에서 모든 프로토타입이 평균적으로 4번씩은 선택되도록 강제하여, 죽은 뉴런(Dead Prototypes)이 생기는 것을 방지합니다.\n\n\n\n\n4.3.3 알고리즘 과정 (Iterative Normalization)\n\\[\nQ = \\exp(\\text{scores} / \\epsilon)\n\\] 위 \\(Q\\) 행렬에 대해 다음을 반복합니다 (약 3회): 1. Row Norm: \\(Q\\)를 행의 합으로 나눔 (\\(\\sum_{col} Q_{ij} = 1\\)) 2. Column Norm: \\(Q\\)를 열의 합으로 나눈 뒤 \\(B/K\\)를 곱함 (\\(\\sum_{row} Q_{ij} = B/K\\))\n\n\n4.3.4 결과 (\\(Q_t\\))\n\n차원: (128, 32)\n\\(Q_t\\)는 “인기도(Score)는 반영하되, 특정 반에만 데이터가 몰리지 않도록 조정한 정답지”입니다."
+  },
+  {
+    "objectID": "posts/paper-review/HIMLoco_Review.html#step-4-prediction-증폭-log-softmax-temperature",
+    "href": "posts/paper-review/HIMLoco_Review.html#step-4-prediction-증폭-log-softmax-temperature",
+    "title": "Hybrid Internal Model (HIM) 리뷰",
+    "section": "4.4 [Step 4] Prediction 증폭 (Log Softmax & Temperature)",
+    "text": "4.4 [Step 4] Prediction 증폭 (Log Softmax & Temperature)\n\n\n\n\n\n\n핵심 직관\n\n\n\n“불확실성을 최대한 낮추자”\n\n\n\n4.4.1 입력 및 연산\n\n입력: scores_s (128, 32)\n연산: \\[\n  p_s = \\text{softmax}\\left(\\frac{\\text{scores}_s}{\\tau}\\right)\n  \\]\n\n\n\n4.4.2 Temperature (\\(\\tau\\))의 역할\n\n보통 \\(\\tau = 0.1\\) 과 같이 1보다 작은 값을 사용합니다.\n증폭 효과:\n\n원래 Score: [0.9, 0.8] \\(\\rightarrow\\) 큰 차이 없음.\n\\(\\tau=0.1\\) 적용: [9.0, 8.0] \\(\\rightarrow\\) \\(e^9\\) vs \\(e^8\\) (약 2.7배 차이 발생).\n\n이 과정은 분포를 뾰족하게(Sharp) 만들어서, 모델이 High Entropy(긴가민가한 상태)를 피하고 Low Entropy(확실한 결정)를 내리도록 유도합니다.\n\n\n\n4.4.3 결과 (\\(p_s\\))\n\n차원: (128, 32)\n제약 조건(Sinkhorn)이 없는, 학생 엔코더의 순수한 예측값입니다."
+  },
+  {
+    "objectID": "posts/paper-review/HIMLoco_Review.html#step-5-swav-loss-swapped-prediction-loss",
+    "href": "posts/paper-review/HIMLoco_Review.html#step-5-swav-loss-swapped-prediction-loss",
+    "title": "Hybrid Internal Model (HIM) 리뷰",
+    "section": "4.5 [Step 5] SwAV Loss (Swapped Prediction Loss)",
+    "text": "4.5 [Step 5] SwAV Loss (Swapped Prediction Loss)\n\n\n\n\n\n\n핵심 직관\n\n\n\n“크로스 체크: View 1을 보고 만든 너의 예측이, View 2를 보고 만든 나의 정답(Sinkhorn)과 일치하니?”\n\n\n\n4.5.1 입력 변수\n\n\\(Q_t\\): 선생님 뷰(\\(z_t\\))기반의 Sinkhorn 정답지 (Target, Gradient X)\n\\(P_s\\): 학생 뷰(\\(z_s\\))기반의 예측 확률 (Prediction, Gradient O)\n\n\n\n4.5.2 수식 (Cross Entropy)\n\\[\nL(z_t, z_s) = - \\sum_{k} Q_t^{(k)} \\log P_s^{(k)}\n\\]\n\n\n4.5.3 구체적 분석과 Symmetric Loss의 이유\n\nSwapped Prediction:\n\n같은 이미지에서 유래한 View 1과 View 2는 픽셀 값은 다르지만 의미(Semantic)는 같습니다.\n따라서 View 2를 보고 만든 군집 할당(\\(Q_t\\))을, View 1만 보고도 예측(\\(P_s\\))할 수 있어야 합니다.\n\n왜 양방향(Symmetric)인가? ## 1. Symmetric Loss의 이론적 배경\n\n\n\n\n\n\n\n핵심 이론: Mutual Information Maximization\n\n\n\n양방향(Symmetric) 학습은 단순한 ’정확도 향상’을 넘어, 서로 다른 뷰(View) 사이의 정보 일관성(Information Consistency)을 강제하는 과정입니다.\n\n\n\n4.5.3.1 Loss Function 재정의\nSwAV의 전체 손실 함수는 두 개의 항(Term)으로 구성됩니다.\n\\[\nL_{total} = \\frac{1}{2} (\\underbrace{L(z_t, z_s)}_{\\text{Term 1}} + \\underbrace{L(z_s, z_t)}_{\\text{Term 2}})\n\\]\n\nTerm 1: \\(Q_t \\cdot \\log P_s\\) (Teacher가 정답, Student가 예측)\nTerm 2: \\(Q_s \\cdot \\log P_t\\) (Student가 정답, Teacher가 예측)\n\n\n\n4.5.3.2 왜 양방향인가? (Consistency Regularization)\n\nPredictive Coding (예측 부호화):\n\nStudent (\\(z_s\\)): 과거의 기록(History, \\(o_{0:t}\\))을 보고\nTeacher (\\(z_t\\)): 미래의 관측(Next Obs, \\(o_{t+1}\\))을 봅니다.\n양방향 학습은 “과거 정보로 미래를 예측하고(\\(S \\to T\\)), 미래 정보로 과거를 유추(\\(T \\to S\\))”하게 만듭니다.\n\nHub-and-Spoke Learning:\n\n어느 한쪽이 절대적 정답(Ground Truth)이 아닙니다.\nStudent와 Teacher는 서로가 서로의 임시 정답(Soft Label)이 되어주며, 노이즈가 제거된 공통된 잠재 공간(Common Latent Space)으로 함께 이동합니다.\n\n\n\n\n\n4.5.3.3 Gradient Flow 시각화\n두 개의 Loss 항이 각각 어떤 네트워크를 업데이트하는지 추적해 봅시다. (Stop Gradient 기호: \\(sg[\\cdot]\\))\n\n\n4.5.3.4 Term 1: \\(L(z_t, z_s) = - \\sum sg[Q_t] \\log P_s\\)\n\nTarget (\\(Q_t\\)): detach()됨. Gradient가 흐르지 않음.\nPrediction (\\(P_s\\)): Student Encoder (\\(z_s\\))로 Backprop 진행.\n해석: “Teacher가 만든 기준을 Student가 따라가라.”\n\n\n\n4.5.3.5 Term 2: \\(L(z_s, z_t) = - \\sum sg[Q_s] \\log P_t\\)\n\nTarget (\\(Q_s\\)): detach()됨. Gradient가 흐르지 않음.\nPrediction (\\(P_t\\)): Target Encoder (\\(z_t\\))로 Backprop 진행.\n해석: “Student가 만든 기준을 Teacher가 따라가라.”\n\n\n\n\n4.5.4 Target Encoder (\\(z_t\\))의 학습 원리\n결국 Term 2에 의해 Target Encoder에도 명확한 규제가 가해집니다.\n\nStudent Encoder가 History(\\(o_{0:t}\\))를 보고 “이건 3번 프로토타입이야”라고 판단(\\(Q_s\\))합니다.\nTarget Encoder는 Next Obs(\\(o_{t+1}\\))만 보고도 똑같이 “이건 3번 프로토타입이야”라고 예측(\\(P_t\\))해야 합니다.\n만약 예측이 빗나가면 \\(Loss\\)가 발생하고, Target Encoder의 가중치가 업데이트됩니다."
+  },
+  {
+    "objectID": "posts/paper-review/HIMLoco_Review.html#요약-및-결론",
+    "href": "posts/paper-review/HIMLoco_Review.html#요약-및-결론",
+    "title": "Hybrid Internal Model (HIM) 리뷰",
+    "section": "4.6 요약 및 결론",
+    "text": "4.6 요약 및 결론\n\n\n\n\n\n\n\n\n\n구분\n역할\nGradient Flow (규제 출처)\n학습 목표\n\n\n\n\nTerm 1\n\\(Q_t \\xrightarrow{\\text{teach}} P_s\\)\n\\(Loss \\to P_s \\to \\mathbf{z_s \\text{ (Student)}}\\)\n“미래(\\(z_t\\))의 정보를 바탕으로 과거(\\(z_s\\))를 정리해라.”\n\n\nTerm 2\n\\(Q_s \\xrightarrow{\\text{teach}} P_t\\)\n\\(Loss \\to P_t \\to \\mathbf{z_t \\text{ (Target)}}\\)\n“과거(\\(z_s\\))의 판단과 일치하도록 미래(\\(z_t\\)) 표현을 수정해라.”\n\n\n\n결론: Target Encoder는 방치되는 것이 아니라, “History(Student)가 판단한 것과 동일한 결론을 내리도록” 강력하게 규제받습니다. 이 상호 작용(Interplay)이 바로 HIM 알고리즘이 강건한 표현(Robust Representation)을 학습하는 핵심 원리입니다."
   }
 ]
