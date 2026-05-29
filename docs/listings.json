@@ -2,6 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/paper-review/Residual_RL_ISS_ko.html",
+      "/posts/paper-review/Residual_RL_ISS.html",
       "/posts/paper-review/RL_based_compensation_Review.html",
       "/posts/paper-review/PACE_Review.html",
       "/posts/paper-review/HIMLoco_Review.html",

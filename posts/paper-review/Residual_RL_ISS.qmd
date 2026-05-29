@@ -1,0 +1,881 @@
+---
+title: "Stability-Aware Residual Reinforcement Learning"
+subtitle: |
+  Input-to-State Stability Analysis and Action-Clipping Law\
+  for a Cascade NMPC--DOB--RL Controller on a 6-DOF Manipulator
+author: "Piper Manipulator Project"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    theme: cosmo
+    code-fold: false
+    fig-cap-location: bottom
+  pdf:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    documentclass: article
+    fontsize: 11pt
+    geometry:
+      - margin=1in
+    include-in-header:
+      text: |
+        \usepackage{amsmath,amssymb,amsthm,bm}
+        \usepackage{mathtools}
+crossref:
+  thm-title: "Theorem"
+  def-title: "Definition"
+  lem-title: "Lemma"
+  cor-title: "Corollary"
+  fig-title: "Fig."
+  eq-prefix: "Eq."
+  custom:
+    - kind: float
+      key: asm
+      reference-prefix: "Assumption"
+      caption-prefix: "Assumption"
+      latex-env: "assumption"
+    - kind: float
+      key: rem
+      reference-prefix: "Remark"
+      caption-prefix: "Remark"
+      latex-env: "remark"
+---
+::: {.content-visible when-format="html"}
+$$
+\newcommand{\bm}[1]{\boldsymbol{#1}}
+$$
+:::
+# Introduction {#sec-intro}
+
+This report establishes a deterministic stability guarantee for a residual
+reinforcement-learning (RL) controller deployed on top of a nominal
+nonlinear model-predictive controller (NMPC) and a model-based
+disturbance observer (DOB). The combined NMPC--DOB layer is mature and
+admits a classical stability certificate; the RL layer, by contrast, is a
+neural-network policy and resists direct stability analysis.
+
+Our strategy is to *borrow* the stability certificate of the baseline. We
+first show that the NMPC--DOB cascade is *Input-to-State Stable* (ISS)
+with respect to the uncompensated residual disturbance that escapes the
+observer's passband. From the ISS inequality we extract a quantitative
+budget on the admissible residual, then *map this budget back onto the RL
+action space* as a hard, state-aware magnitude ceiling. Any RL torque
+within the ceiling is admissible by construction; any torque exceeding
+the ceiling is radially scaled back. The cage is built entirely from
+quantities of the certified baseline, so the learning agent inherits a
+provable stability margin without itself being verified.
+
+The remainder of the document is organised as follows.
+@sec-setup fixes notation and the cascade control law.
+@sec-cascade introduces the three layers.
+@sec-lyap states the standing assumptions that make the NMPC optimal cost
+a valid Lyapunov candidate.
+@sec-iss derives the baseline ISS inequality.
+@sec-clip is the core contribution: the ISS-based action-clipping law and
+its derivation via the Cauchy--Schwarz inequality.
+@sec-estim describes how the three constants $c_x$, $\gamma_0$, and $r$
+are obtained from simulation and hardware experiments.
+
+# Setup and Notation {#sec-setup}
+
+## Tracking-error state and the cascade control law
+
+We work in the discrete-time tracking-error coordinates of the 6-DOF
+manipulator. Let $\bm{q}_k,\bm{v}_k \in \mathbb{R}^6$ denote the measured
+joint position and velocity at sample $k$, and let
+$\bm{q}^{\mathrm{ref}}_k,\bm{v}^{\mathrm{ref}}_k$ be the time-varying
+joint-space reference obtained by inverse kinematics of the Cartesian
+end-effector target. The tracking-error state is
+
+$$
+\bm{x}_k \;\triangleq\;
+\begin{bmatrix}
+\bm{q}_k - \bm{q}^{\mathrm{ref}}_k \\[2pt]
+\bm{v}_k - \bm{v}^{\mathrm{ref}}_k
+\end{bmatrix}
+\;\in\; \mathbb{R}^{12}.
+$$ {#eq-state}
+
+The origin $\bm{x}_k = \bm{0}$ denotes perfect tracking. Throughout this
+document, $\|\,\cdot\,\|$ denotes the Euclidean norm.
+
+The cascade control law executed by our implementation is
+
+$$
+\bm{u}_{\mathrm{cmd},k}
+\;=\;
+\underbrace{\bm{u}_{\mathrm{MPC},k}}_{\text{nominal NMPC}}
+\;-\;
+\underbrace{\bm{d}_{\mathrm{filter},k}}_{\text{DOB estimate}}
+\;-\;
+\underbrace{\bm{u}_{\mathrm{RL},k}}_{\text{residual RL}},
+$$ {#eq-cmd}
+
+where all three components live in the same physical joint-torque space
+$\mathbb{R}^6$. The minus sign on the RL term reflects that the policy
+is trained to *cancel* the residual disturbance, mirroring the DOB.
+
+## Plant dynamics under the residual disturbance
+
+Let $\bm{f}(\bm{x},\bm{u})$ denote the nominal (URDF-modelled) closed-loop
+dynamics. The true plant, on real hardware or in simulation with friction
+and base excitation, evolves as
+
+$$
+\bm{x}_{k+1} \;=\; \bm{f}\bigl(\bm{x}_k,\bm{u}_{\mathrm{cmd},k}\bigr)
+\;+\; \bm{w}_k,
+$$ {#eq-plant}
+
+where $\bm{w}_k$ collects all sources of model mismatch (un-modelled
+friction, base excitation, payload variation, parameter drift). The DOB
+estimates the in-band component of $\bm{w}_k$ and subtracts it as
+$\bm{d}_{\mathrm{filter},k}$; what the observer cannot capture remains
+as the *residual disturbance*
+
+$$
+\bm{d}_{\mathrm{res},k} \;\triangleq\;
+\bm{w}_k \;-\; \bm{d}_{\mathrm{filter},k}
+\;\in\;\mathbb{R}^6.
+$$ {#eq-dres-def}
+
+The residual is the *only* exogenous input that appears in the
+forthcoming ISS analysis. We will frequently abuse notation and write
+$\bm{x}_{k+1} = \bm{x}_{k+1}^{\mathrm{nom}} + \bm{d}_{\mathrm{res},k}$,
+where $\bm{x}_{k+1}^{\mathrm{nom}}$ is the disturbance-free successor
+state under the nominal closed loop; this is the standard
+state-displacement embedding of an input disturbance and is sufficient
+for the Lyapunov analysis that follows.
+
+# The Cascade Architecture {#sec-cascade}
+
+## Layer 1 --- Nominal NMPC {#sec-nmpc}
+
+The NMPC solves, at each sample $k$, a finite-horizon optimal-control
+problem
+
+$$
+V_N^*(\bm{x}_k)
+\;=\;
+\min_{\bm{u}_{0:N-1}}
+\sum_{j=0}^{N-1} \ell\bigl(\bm{x}_{k+j},\bm{u}_{k+j}\bigr)
+\;+\; V_f\bigl(\bm{x}_{k+N}\bigr)
+$$ {#eq-vstar}
+
+subject to the nominal dynamics $\bm{x}_{j+1}=\bm{f}(\bm{x}_j,\bm{u}_j)$,
+input bounds, and (implicitly) a terminal set. The NMPC feedback law is
+the first element of the minimising sequence,
+$\bm{u}_{\mathrm{MPC},k} = \kappa_N(\bm{x}_k) \triangleq
+\bm{u}^*_{0}(\bm{x}_k)$. In our implementation the stage cost is
+$$
+\ell(\bm{x},\bm{u}) \;=\;
+Q_{\mathrm{pos}}\,\bigl\|\bm{p}(\bm{x})-\bm{p}^{\star}\bigr\|^2
++ Q_{\mathrm{vel}}\,\bigl\|\bm{v}(\bm{x})\bigr\|^2
++ R_{\tau}\,\|\bm{u}\|^2,
+$$ {#eq-stage}
+with $Q_{\mathrm{pos}}=5000$, $Q_{\mathrm{vel}}=10$, $R_{\tau}=0.1$,
+horizon $N=8$, and sample time $\Delta t = 0.02$~s; $\bm{p}(\bm{x})$
+denotes the forward-kinematics end-effector position.
+
+The optimal cost $V_N^*$ defined in @eq-vstar will serve as our
+Lyapunov candidate.
+
+## Layer 2 --- Model-based DOB {#sec-dob}
+
+The DOB estimates the disturbance from the dynamics residual:
+$\bm{d}_{\mathrm{raw},k} = \mathrm{RNEA}\bigl(\bm{q}_k,\bm{v}_k,
+\hat{\bm{a}}_k\bigr) - \bm{u}_{\mathrm{cmd},k-1}$,
+where $\hat{\bm{a}}_k$ is an acceleration estimate (in simulation this is
+the ground-truth physical acceleration; on hardware it is the finite
+difference of $\bm{v}_k$). The raw estimate is passed through a
+first-order low-pass filter with smoothing factor $\alpha \in (0,1)$:
+
+$$
+\bm{d}_{\mathrm{filter},k}
+\;=\; (1-\alpha)\,\bm{d}_{\mathrm{filter},k-1}
+\;+\; \alpha\,\bm{d}_{\mathrm{raw},k}.
+$$ {#eq-dob-lpf}
+
+The filter shapes which disturbances are cancelled and which fall through
+to the residual @eq-dres-def. Reducing $\alpha$ tightens the passband,
+which *enlarges* the residual that the RL layer must handle.
+
+## Layer 3 --- Residual RL {#sec-rl}
+
+The RL policy $\bm{u}_{\mathrm{RL},k} = \pi(\bm{o}_k)$ is a neural
+network that observes the same signals available to the DOB plus the
+DOB's output, and emits an additive joint torque whose ideal target is
+the residual itself, i.e.
+$\bm{u}_{\mathrm{RL},k} \to \bm{d}_{\mathrm{res},k}$.
+The policy is trained against a reward that penalises the residual
+$\bm{d}_{\mathrm{eff},k} \triangleq \bm{d}_{\mathrm{res},k} -
+\bm{u}_{\mathrm{RL},k}$ and tracking error.
+Because $\pi$ is a learned, possibly stochastic, function, no closed-form
+stability statement is available for the closed loop that includes it.
+The role of @sec-clip is to provide one.
+
+# Lyapunov Candidate: The Optimal NMPC Cost {#sec-lyap}
+
+We adopt the NMPC value function $V_N^*$ from @eq-vstar as the
+composite Lyapunov candidate for the cascade. This choice is standard in
+the predictive-control literature and avoids the need to design a
+Lyapunov function by hand.
+
+## Standing assumptions
+
+We collect the three structural assumptions used throughout the rest of
+the document. They are the standard hypotheses behind the quasi-infinite
+horizon NMPC stability theorem [@mayne2000; @rawlings2017], adapted to
+our cascade setting.
+
+::: {#asm-lyap}
+**Standing assumptions on the operating domain and the NMPC value function.**
+
+There exists a compact operating domain $\mathcal{X} \subset
+\mathbb{R}^{12}$ containing the origin in its interior, such that on
+$\mathcal{X}$ the following hold:
+
+- **(A1) Lyapunov sandwich.** There exist $\alpha_1,\alpha_2 \in
+  \mathcal{K}_\infty$ such that
+  $\alpha_1(\|\bm{x}\|) \le V_N^*(\bm{x}) \le \alpha_2(\|\bm{x}\|)$
+  for all $\bm{x}\in\mathcal{X}$.
+
+- **(A2) Quadratic stage-cost lower bound.** There exists $c_x>0$ with
+  $\ell\bigl(\bm{x},\kappa_N(\bm{x})\bigr) \;\ge\; c_x\,\|\bm{x}\|^2$
+  for all $\bm{x}\in\mathcal{X}$.
+
+- **(A3) Local Lipschitz continuity of $V_N^*$.** There exists
+  $\gamma_0>0$ such that, for every $\bm{x}\in\mathcal{X}$ and every
+  perturbation $\bm{\delta}\in\mathbb{R}^{12}$ with
+  $\bm{x}+\bm{\delta}\in\mathcal{X}$,
+  $\bigl|V_N^*(\bm{x}+\bm{\delta}) - V_N^*(\bm{x})\bigr|
+  \;\le\; \gamma_0\,\|\bm{\delta}\|$.
+
+:::
+
+(A1)–(A3) are mild: (A1) follows from positive-definiteness and radial
+unboundedness of the cost; (A2) is design-driven and is automatically
+satisfied by the quadratic stage cost @eq-stage; (A3) holds locally
+because $V_N^*$ is the value of a smooth, finite-horizon quadratic
+program on a compact set.
+
+The constants $c_x$ and $\gamma_0$ that appear in (A2)–(A3) are *exactly*
+the two constants we will need to size the action-clipping law. How to
+obtain them in practice is the subject of @sec-estim.
+
+## Value-function descent (nominal stability) {#sec-vfdescent}
+
+Under (A1)–(A2) and the standard NMPC terminal ingredients (a
+control-invariant terminal set $\mathcal{X}_f \subset \mathcal{X}$ with a
+local control-Lyapunov terminal cost $V_f$), the NMPC value function
+satisfies the well-known *descent property* along the nominal closed
+loop.
+
+::: {#lem-descent}
+**Lemma 1 (Value-function descent).**
+Under @asm-lyap and the standard NMPC terminal assumptions, the optimal
+cost $V_N^*$ satisfies
+$$
+V_N^*\bigl(\bm{x}_{k+1}^{\mathrm{nom}}\bigr) - V_N^*(\bm{x}_k)
+\;\le\;
+-\ell\bigl(\bm{x}_k,\kappa_N(\bm{x}_k)\bigr)
+\;\le\;
+-c_x\,\|\bm{x}_k\|^2
+$$ {#eq-descent}
+for every $\bm{x}_k \in \mathcal{X}$, where
+$\bm{x}_{k+1}^{\mathrm{nom}} = \bm{f}\bigl(\bm{x}_k,\kappa_N(\bm{x}_k)\bigr)$
+is the disturbance-free successor.
+:::
+
+::: {.callout-note collapse="true"}
+## Proof sketch (standard)
+
+The argument is the canonical "tail-shift" of NMPC stability theory
+[@mayne2000, Thm. 1; @rawlings2017, §2.4]. From $\bm{x}_k$ the optimal
+plan costs $V_N^*(\bm{x}_k)$ over $N$ steps. After applying its first
+input the system reaches $\bm{x}_{k+1}^{\mathrm{nom}}$; *re-using the
+tail* of the previous plan and appending the terminal controller yields
+a *feasible* (not necessarily optimal) plan from $\bm{x}_{k+1}^{\mathrm{nom}}$
+whose cost is at most $V_N^*(\bm{x}_k) - \ell(\bm{x}_k,\kappa_N(\bm{x}_k))$.
+The re-optimised value $V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})$ cannot exceed
+this feasible cost, which proves the first inequality. Applying (A2)
+proves the second.
+:::
+
+@lem-descent isolates the *intrinsic convergence strength* of the
+controller: every disturbance-free step strips at least $c_x\|\bm{x}_k\|^2$
+units of cost. The constant $c_x$ is the **convergence coefficient** of
+the nominal loop and is the first ingredient of the action-clipping law.
+
+# Input-to-State Stability of the Baseline {#sec-iss}
+
+We now activate the residual disturbance and the DOB, keeping
+$\bm{u}_{\mathrm{RL},k} = \bm{0}$ (i.e., the *baseline* is the
+NMPC--DOB cascade alone). The goal is to certify ISS of the baseline
+with respect to $\bm{d}_{\mathrm{res},k}$.
+
+## Cost propagation under the residual disturbance
+
+The true successor state under the residual disturbance is
+$$
+\bm{x}_{k+1} \;=\; \bm{x}_{k+1}^{\mathrm{nom}}
+\;+\; \bm{d}_{\mathrm{res},k}.
+$$ {#eq-disturbed-succ}
+
+The one-step change of the Lyapunov candidate decomposes by adding and
+subtracting $V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})$:
+
+$$
+\begin{aligned}
+V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)
+&= \underbrace{\bigl[V_N^*(\bm{x}_{k+1}^{\mathrm{nom}}
+                 + \bm{d}_{\mathrm{res},k})
+        - V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})\bigr]}_{\text{perturbation term}}
+\\[4pt]
+&\quad+ \underbrace{\bigl[V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})
+        - V_N^*(\bm{x}_k)\bigr]}_{\text{nominal descent term}}.
+\end{aligned}
+$$ {#eq-split}
+
+This decomposition is an identity: nothing has been bounded yet. Its
+purpose is to *isolate the only place the disturbance enters*—the first
+bracket—from the part already controlled by @lem-descent.
+
+## Lipschitz bound on the perturbation term
+
+The first bracket of @eq-split is bounded directly by Assumption (A3):
+$$
+V_N^*\bigl(\bm{x}_{k+1}^{\mathrm{nom}} + \bm{d}_{\mathrm{res},k}\bigr)
+- V_N^*\bigl(\bm{x}_{k+1}^{\mathrm{nom}}\bigr)
+\;\le\; \gamma_0\,\bigl\|\bm{d}_{\mathrm{res},k}\bigr\|.
+$$ {#eq-lip}
+
+The constant $\gamma_0$ is the **disturbance gain** of the cascade. It
+plays the role of an "exchange rate" from units of state displacement
+(metres of error) to units of cost. A large $\gamma_0$ means the cost
+landscape is steep near the operating trajectory and the system is
+sensitive to small disturbances; a small $\gamma_0$ means the cost
+surface is flat and the system is tolerant.
+
+## The baseline ISS inequality
+
+Combining @lem-descent and @eq-lip yields the central result of this
+section.
+
+::: {#thm-baseline-iss}
+**Theorem 1 (Baseline ISS).**
+Under @asm-lyap and the standard NMPC terminal assumptions, the
+NMPC--DOB baseline cascade (i.e., @eq-cmd with $\bm{u}_{\mathrm{RL}}=\bm{0}$)
+satisfies, on the operating domain $\mathcal{X}$,
+$$
+V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)
+\;\le\;
+-c_x\,\|\bm{x}_k\|^2
+\;+\; \gamma_0\,\|\bm{d}_{\mathrm{res},k}\|.
+$$ {#eq-iss}
+Equivalently, the baseline is *Input-to-State Stable* with respect to
+the residual disturbance $\bm{d}_{\mathrm{res},k}$, with ISS-Lyapunov
+function $V_N^*$, dissipation rate $\alpha_3(s)=c_x s^2$, and disturbance
+gain $\sigma(s)=\gamma_0 s$.
+:::
+
+::: {.callout-note collapse="true"}
+## Proof
+
+The decomposition @eq-split is an identity. Bound its first bracket
+using @eq-lip and its second using @eq-descent; sum the two bounds.
+The resulting inequality @eq-iss matches the ISS-Lyapunov template of
+Jiang & Wang [@jiang2001, Thm. 1], so ISS follows immediately. $\square$
+:::
+
+@eq-iss is the *quantitative* statement of stability. The first term on
+the right is the energy *drain* due to the controller; it scales like
+$\|\bm{x}_k\|^2$ and dominates far from the origin. The second term is
+the energy *refill* due to the disturbance; it scales linearly with
+$\|\bm{d}_{\mathrm{res},k}\|$. Equilibrium between drain and refill sets
+the steady-state radius of the tracking error.
+
+# ISS-Based Action Clipping {#sec-clip}
+
+We now use the budget hidden inside @eq-iss to constrain the RL action.
+The argument proceeds in four steps: (i) extract the admissible
+residual budget from the ISS inequality; (ii) write the ISS inequality
+for the closed loop *with* the RL layer; (iii) impose a *preservation
+criterion* that the RL action must not enlarge the residual it is meant
+to shrink; (iv) reduce that criterion, via the Cauchy--Schwarz
+inequality, to a hard magnitude ceiling on
+$\bm{u}_{\mathrm{RL},k}$.
+
+## The admissible residual budget {#sec-budget}
+
+Fix a desired *practical convergence radius* $r > 0$: we want the
+tracking error to settle inside $\|\bm{x}_k\| \le r$. From @eq-iss, the
+cost stops contracting precisely when the drain no longer dominates the
+refill, i.e. when $c_x\,\|\bm{x}_k\|^2 \le \gamma_0\,\|\bm{d}_{\mathrm{res},k}\|$.
+To force this balance to occur *at* or *inside* the target radius, the
+refill at $\|\bm{x}_k\|=r$ must not exceed the drain there:
+$$
+\gamma_0\,\|\bm{d}_{\mathrm{res},k}\| \;\le\; c_x\,r^2
+\quad\Longleftrightarrow\quad
+\|\bm{d}_{\mathrm{res},k}\| \;\le\; \bar{d}_{\mathrm{res}}
+\;\triangleq\; \frac{c_x\,r^2}{\gamma_0}.
+$$ {#eq-budget}
+
+::: {#def-budget}
+**Definition 1 (Admissible residual budget).**
+The scalar
+$\bar{d}_{\mathrm{res}} \triangleq c_x r^2 / \gamma_0$
+is the **admissible residual budget**: the largest residual norm that
+the baseline NMPC--DOB cascade can absorb while keeping the
+tracking-error state within radius $r$.
+:::
+
+The three quantities entering @eq-budget have crisp roles:
+$c_x$ rewards strong convergence (larger $c_x$ enlarges the budget),
+$r$ rewards looser performance targets (the budget grows like $r^2$),
+and $\gamma_0$ punishes sensitivity to disturbance (a steeper cost
+surface shrinks the budget).
+
+## ISS inequality with the RL layer active
+
+With $\bm{u}_{\mathrm{RL},k} \ne \bm{0}$, the effective disturbance seen
+by the baseline is shifted:
+$$
+\bm{d}_{\mathrm{eff},k}
+\;\triangleq\;
+\bm{d}_{\mathrm{res},k} - \bm{u}_{\mathrm{RL},k},
+$$ {#eq-deff}
+and the ISS inequality @eq-iss becomes
+$$
+V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)
+\;\le\;
+-c_x\,\|\bm{x}_k\|^2
+\;+\; \gamma_0\,\|\bm{d}_{\mathrm{res},k} - \bm{u}_{\mathrm{RL},k}\|.
+$$ {#eq-iss-with-rl}
+
+## The stability-preservation criterion
+
+We declare that the RL layer is *admissible at step $k$* whenever it
+does not enlarge the residual it is intended to cancel:
+$$
+\boxed{\quad
+\|\bm{d}_{\mathrm{res},k} - \bm{u}_{\mathrm{RL},k}\|
+\;\le\; \|\bm{d}_{\mathrm{res},k}\|.
+\quad}
+$$ {#eq-criterion}
+
+If @eq-criterion holds, then @eq-iss-with-rl is *no worse* than @eq-iss,
+so the baseline ISS certificate carries over verbatim and the closed
+loop remains ISS with the same constants.
+
+## From the preservation criterion to a magnitude bound {#sec-magbound}
+
+@eq-criterion is geometric and depends on the unmeasurable internal
+quantity $\bm{d}_{\mathrm{res},k}$. We now reduce it to a *measurable*
+condition on $\|\bm{u}_{\mathrm{RL},k}\|$ alone, in three algebraic
+steps.
+
+**Step 1 --- Square both sides.** Squaring @eq-criterion and expanding
+the inner product on the left:
+$$
+\|\bm{d}_{\mathrm{res},k}\|^2
+- 2\,\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k}
++ \|\bm{u}_{\mathrm{RL},k}\|^2
+\;\le\;
+\|\bm{d}_{\mathrm{res},k}\|^2,
+$$
+which simplifies to
+$$
+\|\bm{u}_{\mathrm{RL},k}\|^2
+\;\le\;
+2\,\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k}.
+$$ {#eq-squared}
+
+**Step 2 --- Cauchy--Schwarz, with the known bound.**
+The inner product on the right of @eq-squared depends on the
+unmeasurable $\bm{d}_{\mathrm{res},k}$. Writing
+$\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k} =
+\|\bm{d}_{\mathrm{res},k}\|\,\|\bm{u}_{\mathrm{RL},k}\|\cos\theta$
+with $\theta \in [0,\pi]$ the angle between the two vectors, the
+Cauchy--Schwarz inequality gives $\cos\theta \le 1$, and the residual
+budget @eq-budget gives
+$\|\bm{d}_{\mathrm{res},k}\| \le \bar{d}_{\mathrm{res}}$. Together,
+$$
+\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k}
+\;\le\;
+\|\bm{d}_{\mathrm{res},k}\|\,\|\bm{u}_{\mathrm{RL},k}\|
+\;\le\;
+\bar{d}_{\mathrm{res}}\,\|\bm{u}_{\mathrm{RL},k}\|.
+$$ {#eq-cs}
+
+**Step 3 --- Solve for $\|\bm{u}_{\mathrm{RL},k}\|$.** Substituting
+@eq-cs into @eq-squared,
+$$
+\|\bm{u}_{\mathrm{RL},k}\|^2
+\;\le\;
+2\,\bar{d}_{\mathrm{res}}\,\|\bm{u}_{\mathrm{RL},k}\|.
+$$
+Dividing both sides by $\|\bm{u}_{\mathrm{RL},k}\| > 0$ (the case
+$\bm{u}_{\mathrm{RL},k}=\bm{0}$ is trivial) yields the ceiling.
+
+::: {#thm-ceiling}
+**Theorem 2 (ISS action-magnitude ceiling).**
+Suppose @asm-lyap holds and the baseline satisfies @thm-baseline-iss.
+For any step $k$ at which the preservation criterion @eq-criterion is
+demanded, the RL action magnitude must satisfy
+$$
+\|\bm{u}_{\mathrm{RL},k}\|
+\;\le\;
+2\,\bar{d}_{\mathrm{res}}
+\;=\;
+\frac{2\,c_x\,r^2}{\gamma_0}.
+$$ {#eq-ceiling}
+:::
+
+## The clipping law {#sec-cliplaw}
+
+The ceiling @eq-ceiling is enforced as a *stateless, radial* saturation
+layer interposed between the actor network and the joint command. If
+the raw output already satisfies the ceiling, it passes through
+unchanged; otherwise it is scaled radially back onto the boundary of
+the admissible ball:
+
+::: {#def-clip}
+**Definition 2 (ISS clipping law).**
+The clipped RL torque applied to the cascade is
+$$
+\boxed{\quad
+\bm{u}_{\mathrm{RL},k}^{\mathrm{clip}}
+\;=\;
+\bm{u}_{\mathrm{RL},k}\cdot
+\min\!\Bigl[\,1,\;
+\frac{2\,c_x\,r^2}{\gamma_0\,\|\bm{u}_{\mathrm{RL},k}\|}
+\Bigr].
+\quad}
+$$ {#eq-clip}
+:::
+
+Two properties of @eq-clip deserve emphasis:
+
+1. **Direction-preserving.** The scaling is radial, so a well-aimed but
+   over-strong correction is *softened*, never *redirected*. This is
+   important because the policy's reward function rewards alignment of
+   $\bm{u}_{\mathrm{RL}}$ with $\bm{d}_{\mathrm{res}}$; per-component
+   clamping would destroy that alignment.
+
+2. **Stateless.** The clip depends only on the constants $c_x,\gamma_0,r$
+   (fixed once and for all) and on the current $\bm{u}_{\mathrm{RL},k}$.
+   It does not depend on the state $\bm{x}_k$ or on the residual
+   $\bm{d}_{\mathrm{res},k}$. This makes the clip cheap on hardware and
+   trivial to implement.
+
+## Geometric interpretation and honest caveat {#sec-geom}
+
+@eq-ceiling is a *necessary* condition for @eq-criterion to be
+satisfiable; it is **not** a blanket *sufficient* condition. Reading
+@eq-squared exactly, the preservation criterion holds if and only if
+$\|\bm{u}_{\mathrm{RL},k}\| \le 2\,\|\bm{d}_{\mathrm{res},k}\|\,\cos\theta$.
+The largest value the right-hand side can take, over all admissible
+residuals and all angles, is $2\,\bar{d}_{\mathrm{res}}$, attained only
+when the action is *perfectly aligned* with the residual at the
+worst-case magnitude. Thus $2\,\bar{d}_{\mathrm{res}}$ is the **outer
+envelope**: any action exceeding it cannot satisfy @eq-criterion under
+*any* alignment, and is therefore provably unsafe; the clip removes
+exactly these actions.
+
+Inside the envelope, alignment is the policy's job, not the clip's.
+What the clip guarantees, even in the adversarial worst case where the
+clipped action is *anti-aligned* with the residual, is a hard upper
+bound on the effective residual via the triangle inequality:
+$$
+\|\bm{d}_{\mathrm{eff},k}\|
+\;\le\;
+\|\bm{d}_{\mathrm{res},k}\| + \|\bm{u}_{\mathrm{RL},k}^{\mathrm{clip}}\|
+\;\le\;
+\bar{d}_{\mathrm{res}} + 2\,\bar{d}_{\mathrm{res}}
+\;=\;
+3\,\bar{d}_{\mathrm{res}}.
+$$
+Plugging $3\,\bar{d}_{\mathrm{res}}$ back into the ISS inequality @eq-iss
+in place of $\|\bm{d}_{\mathrm{res}}\|$ shows that the closed loop
+remains ISS with an enlarged—but still finite—ultimate radius
+$\sqrt{3}\,r$. **The cage never opens.**
+
+::: {.callout-tip}
+## What the clip guarantees, in one sentence
+
+If the RL policy aligns with the residual (its trained behaviour), the
+error settles inside the target radius $r$; if the policy fails
+arbitrarily, the error stays inside $\sqrt{3}\,r$.
+:::
+
+# Practical Estimation of the ISS Constants {#sec-estim}
+
+The clipping law @eq-clip contains three constants: $c_x$, $\gamma_0$,
+and $r$. This section explains how each is obtained.
+
+## Convergence coefficient $c_x$ {#sec-estim-cx}
+
+By Assumption (A2), $c_x$ is the largest scalar satisfying
+$\ell(\bm{x},\kappa_N(\bm{x})) \ge c_x \|\bm{x}\|^2$. Equivalently, by
+@lem-descent, $c_x$ is the largest scalar consistent with the
+descent property
+$$
+\frac{V_N^*(\bm{x}_k) - V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})}
+     {\|\bm{x}_k\|^2}
+\;\ge\; c_x
+\quad\text{for all nominal } \bm{x}_k\in\mathcal{X}.
+$$ {#eq-cx-defn}
+
+A nominal trajectory is one in which the disturbance is small or absent;
+on real hardware we approximate "nominal" by *quiet* operating
+conditions (no intentional disturbance, no external excitation, no
+payload changes). The empirical estimator is then
+
+::: {#def-cx-emp}
+**Definition 3 (Empirical convergence coefficient).**
+Let $\{(\bm{x}_k, V_N^*(\bm{x}_k))\}_{k=1}^{K}$ be a sequence of
+state--cost pairs logged from quiet closed-loop operation. The empirical
+convergence coefficient is the lower 5th percentile,
+$$
+\hat{c}_x \;=\;
+\mathrm{percentile}_{5}\!\Biggl\{\;
+\frac{V_N^*(\bm{x}_k) - V_N^*(\bm{x}_{k+1})}
+     {\|\bm{x}_k\|^2}
+\;:\;
+\|\bm{x}_k\| > \epsilon,\;\;
+V_N^*(\bm{x}_k) > V_N^*(\bm{x}_{k+1})
+\;\Biggr\},
+$$ {#eq-cx-emp}
+where $\epsilon$ is a small floor (e.g.\ $10^{-3}\,$m) preventing the
+ratio from exploding near the origin.
+:::
+
+The use of the 5th percentile rather than the strict minimum trades off
+two competing concerns: the strict minimum is contaminated by isolated
+numerical outliers (e.g.\ MPC solves that hit the iteration cap), while
+the median over-estimates the descent and would violate the lower-bound
+interpretation for a non-trivial fraction of samples. The 5th percentile
+gives a *robust lower envelope* that is safe in the ISS sense (i.e.\ a
+valid lower bound for $\ge 95\%$ of samples).
+
+This procedure can be applied identically in simulation and on real
+hardware. We recommend taking
+$\hat{c}_x = \min(\hat{c}_x^{\mathrm{sim}},\hat{c}_x^{\mathrm{real}})$
+to absorb the discrepancy caused by unmodelled friction on the physical
+plant.
+
+## Disturbance gain $\gamma_0$ {#sec-estim-gamma}
+
+By Assumption (A3) and the construction of @eq-lip, $\gamma_0$ is the
+smallest scalar that upper-bounds the cost change induced by a state
+displacement of the magnitude of $\bm{d}_{\mathrm{res},k}$.
+Re-arranging the ISS inequality @eq-iss,
+$$
+\gamma_0 \;\ge\;
+\frac{-\bigl[V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)\bigr]
+       \;+\; c_x\,\|\bm{x}_k\|^2}
+     {\|\bm{d}_{\mathrm{res},k}\|}
+\quad\text{whenever } \|\bm{d}_{\mathrm{res},k}\| > 0.
+$$ {#eq-gamma-defn}
+
+The numerator is computable from logged $V_N^*$ and $\|\bm{x}_k\|$; the
+denominator requires the *clean ground-truth residual*. This is the
+critical practical asymmetry:
+
+- **In simulation**, $\bm{d}_{\mathrm{res},k}$ is computable exactly
+  from $\bm{d}_{\mathrm{true},k}^{\mathrm{sim}} -
+  \bm{d}_{\mathrm{filter},k}$, where the "true" disturbance is obtained
+  by inverse dynamics with the ground-truth joint acceleration provided
+  by the physics engine.
+- **On real hardware**, the joint acceleration is reconstructed by
+  finite differences, which injects numerical noise into the residual
+  estimate. The empirical fit @eq-gamma-defn would *under-estimate*
+  $\gamma_0$ (because the noisy denominator is inflated), which is the
+  unsafe direction.
+
+The remedy is to estimate $\gamma_0$ *in simulation only*, then transfer
+the value to real hardware. The transfer is exact because $\gamma_0$ is
+a property of the cost function $V_N^*$, and $V_N^*$ is the *same
+mathematical function* in sim and real (same NMPC weights, same URDF,
+same horizon, same sample time).
+
+::: {#def-gamma-emp}
+**Definition 4 (Empirical disturbance gain).**
+Let $\{(\bm{x}_k, V_N^*(\bm{x}_k), \bm{d}_{\mathrm{res},k}^{\mathrm{sim}})\}_{k=1}^{K}$
+be logged from a baseline simulation run with the full disturbance
+curriculum active. The empirical disturbance gain is the 95th
+percentile,
+$$
+\hat{\gamma}_0 \;=\;
+\mathrm{percentile}_{95}\!\Biggl\{\;
+\frac{-\Delta V_k + \hat{c}_x\,\|\bm{x}_k\|^2}
+     {\|\bm{d}_{\mathrm{res},k}^{\mathrm{sim}}\|}
+\;:\;
+\|\bm{d}_{\mathrm{res},k}^{\mathrm{sim}}\| > \delta,
+\;\;\text{(ratio)} > 0
+\;\Biggr\},
+$$
+where $\Delta V_k = V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)$ and $\delta$
+is a small floor preventing division by near-zero residuals.
+:::
+
+The 95th percentile—rather than the strict maximum—gives a *robust upper
+envelope* in the same way the 5th percentile gave a robust lower
+envelope for $\hat{c}_x$.
+
+## Target radius $r$ {#sec-estim-r}
+
+The radius $r$ is the *only* design quantity in the clipping law; it is
+not measured but *selected*. It encodes the practical tracking accuracy
+the user is willing to certify. Three observations guide the choice:
+
+1. **The clip ceiling scales as $r^2$.** Halving $r$ shrinks the
+   ceiling by a factor of four; doubling $r$ enlarges it sixteen-fold.
+   Aggressive (small) $r$ yields a tighter guarantee but allows the RL
+   layer almost no contribution; permissive (large) $r$ enlarges the
+   guarantee region but lets the policy be more active.
+
+2. **$r$ should be consistent with what the baseline can already
+   achieve.** If the baseline NMPC--DOB tracking error is observed to
+   settle around $\|\bm{x}_k\| \approx r_{\mathrm{base}}$ in steady
+   state, then choosing $r \ll r_{\mathrm{base}}$ certifies an
+   unattainable guarantee and forces the clip to be uselessly tight.
+   A pragmatic choice is $r \approx r_{\mathrm{base}}$, or slightly
+   smaller if the RL layer is expected to close the gap.
+
+3. **$r$ does not appear in the ISS certificate of @thm-baseline-iss
+   itself.** It only appears in the *budget* @eq-budget and the
+   *ceiling* @eq-ceiling. ISS holds independently of $r$; the choice
+   of $r$ only specifies *which* radius the budget targets.
+
+## Hybrid sim--real workflow {#sec-estim-flow}
+
+Putting the three estimators together:
+
+| Constant            | Where measured                | Why                                       |
+|---------------------|-------------------------------|-------------------------------------------|
+| $c_x$               | both, take $\min$             | property of NMPC + plant; real may be smaller due to friction |
+| $\gamma_0$          | simulation only               | property of $V_N^*$ alone; transfers exactly to real          |
+| $r$                 | design choice                 | not measured                              |
+
+The final clip ceiling used at run-time is
+$$
+\|\bm{u}_{\mathrm{RL}}\|
+\;\le\;
+\frac{2\,\hat{c}_x\,r^2}{\hat{\gamma}_0},
+\qquad
+\hat{c}_x = \min(\hat{c}_x^{\mathrm{sim}}, \hat{c}_x^{\mathrm{real}}),
+\quad
+\hat{\gamma}_0 = \hat{\gamma}_0^{\mathrm{sim}}.
+$$ {#eq-final-clip}
+
+Because the strict minimum of $c_x$ and the strict maximum form of
+$\gamma_0$ are *both* taken in the conservative direction, all
+estimation error is absorbed by a small reduction in the clip
+ceiling. Stability is therefore preserved under estimation error; only
+the RL layer's freedom is reduced. This is the desired robustness
+property of the proposed certificate.
+
+# Summary {#sec-summary}
+
+Under the standing assumptions @asm-lyap, the NMPC--DOB cascade is ISS
+with respect to the residual disturbance (@thm-baseline-iss), with
+quadratic dissipation rate $c_x$ and linear disturbance gain $\gamma_0$.
+For any target radius $r > 0$, the admissible residual budget
+$\bar{d}_{\mathrm{res}} = c_x r^2/\gamma_0$ specifies the largest
+residual the baseline can absorb while keeping the tracking error inside
+$r$. The residual RL layer is admissible at step $k$ if it does not
+enlarge the residual it is meant to cancel; this preservation criterion
+reduces, via the Cauchy--Schwarz inequality, to the magnitude ceiling
+$\|\bm{u}_{\mathrm{RL},k}\| \le 2 c_x r^2/\gamma_0$ (@thm-ceiling) and
+the radial clipping law @eq-clip. Provably-unsafe actions—those whose
+magnitude exceeds $2\bar{d}_{\mathrm{res}}$ and cannot satisfy the
+preservation criterion under any alignment—are removed by construction.
+Inside the envelope, even adversarial misalignment of the clipped
+action leaves the closed loop ISS with enlarged ultimate radius
+$\sqrt{3}\,r$; the cage never opens. The three constants $c_x,
+\gamma_0, r$ are obtained via @def-cx-emp, @def-gamma-emp, and the
+design rule of @sec-estim-r; the resulting hybrid sim--real workflow
+@eq-final-clip is robust to estimation error in the conservative
+direction.
+
+# Symbol Reference {.appendix}
+
+| Symbol                                | Meaning                                                       |
+|---------------------------------------|---------------------------------------------------------------|
+| $\bm{x}_k \in \mathbb{R}^{12}$        | Tracking-error state (6 position errors + 6 velocity errors)  |
+| $\bm{u}_{\mathrm{MPC},k}$             | Nominal NMPC torque, $\kappa_N(\bm{x}_k)$                     |
+| $\bm{d}_{\mathrm{filter},k}$          | DOB low-pass-filtered disturbance estimate                    |
+| $\bm{u}_{\mathrm{RL},k}$              | Residual RL torque (pre-clip)                                 |
+| $\bm{u}_{\mathrm{RL},k}^{\mathrm{clip}}$ | RL torque after ISS clipping @eq-clip                      |
+| $\bm{d}_{\mathrm{res},k}$             | Residual disturbance (DOB out-of-band leftover)               |
+| $\bm{d}_{\mathrm{eff},k}$             | Effective residual under RL, $\bm{d}_{\mathrm{res}}-\bm{u}_{\mathrm{RL}}$ |
+| $V_N^*(\bm{x})$                       | NMPC optimal cost (Lyapunov candidate)                        |
+| $\kappa_N(\bm{x})$                    | NMPC feedback law (first element of optimal sequence)         |
+| $\ell(\bm{x},\bm{u})$                 | NMPC per-step stage cost                                      |
+| $c_x > 0$                             | Convergence coefficient, stage-cost lower bound (A2)          |
+| $\gamma_0 > 0$                        | Disturbance gain, local Lipschitz constant of $V_N^*$ (A3)    |
+| $r > 0$                               | Target practical convergence radius                           |
+| $\bar{d}_{\mathrm{res}} = c_x r^2/\gamma_0$ | Admissible residual budget (@def-budget)                |
+| $2\bar{d}_{\mathrm{res}} = 2c_x r^2/\gamma_0$ | ISS action ceiling (@thm-ceiling)                     |
+
+# References {.appendix .unnumbered}
+
+::: {#refs}
+:::
+
+::: {.callout-note}
+## Suggested bibliography entries (`refs.bib`)
+
+```bibtex
+@article{mayne2000,
+  author  = {D. Q. Mayne and J. B. Rawlings and C. V. Rao and P. O. M. Scokaert},
+  title   = {Constrained model predictive control: stability and optimality},
+  journal = {Automatica},
+  volume  = {36},
+  number  = {6},
+  pages   = {789--814},
+  year    = {2000}
+}
+
+@book{rawlings2017,
+  author    = {J. B. Rawlings and D. Q. Mayne and M. M. Diehl},
+  title     = {Model Predictive Control: Theory, Computation, and Design},
+  edition   = {2nd},
+  publisher = {Nob Hill Publishing},
+  year      = {2017}
+}
+
+@article{jiang2001,
+  author  = {Z.-P. Jiang and Y. Wang},
+  title   = {Input-to-state stability for discrete-time nonlinear systems},
+  journal = {Automatica},
+  volume  = {37},
+  number  = {6},
+  pages   = {857--869},
+  year    = {2001}
+}
+
+@book{khalil2002,
+  author    = {H. K. Khalil},
+  title     = {Nonlinear Systems},
+  edition   = {3rd},
+  publisher = {Prentice Hall},
+  year      = {2002}
+}
+
+@article{sontag1995,
+  author  = {E. D. Sontag and Y. Wang},
+  title   = {On characterizations of the input-to-state stability property},
+  journal = {Systems \& Control Letters},
+  volume  = {24},
+  pages   = {351--359},
+  year    = {1995}
+}
+```
+:::

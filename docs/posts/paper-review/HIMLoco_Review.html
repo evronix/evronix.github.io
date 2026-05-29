@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,6 +11,9 @@
 
 <title>Hybrid Internal Model (HIM) 리뷰 – evronix.github.io</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -32,15 +35,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-d6e031b110e580bd284b866af807ec24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-ca3bbfca76e3a613b5dcb2b0cc53e6e9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,7 +83,7 @@ gtag('config', 'G-Q3HR0GH2ZQ', { 'anonymize_ip': true});
 </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -92,7 +96,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -111,7 +115,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -218,27 +222,28 @@ window.Quarto = {
   <li><a href="#차원-분석" id="toc-차원-분석" class="nav-link" data-scroll-target="#차원-분석"><span class="header-section-number">4.2.2</span> 차원 분석</a></li>
   <li><a href="#분석-1" id="toc-분석-1" class="nav-link" data-scroll-target="#분석-1"><span class="header-section-number">4.2.3</span> 분석</a></li>
   </ul></li>
-  <li><a href="#step-3-sinkhorn-알고리즘-q-matrix-생성" id="toc-step-3-sinkhorn-알고리즘-q-matrix-생성" class="nav-link" data-scroll-target="#step-3-sinkhorn-알고리즘-q-matrix-생성"><span class="header-section-number">4.3</span> [Step 3] Sinkhorn 알고리즘 (<span class="math inline">\(Q\)</span> Matrix 생성)</a>
+  <li><a href="#학습의-핵심-목표는-로봇의-다양한-주행-상태가-k개의-프로토타입으로-명확하게-구분disentanglement되도록-클러스터링하는-것입니다.-이상적으로-학습된-모델은-매-타임스텝마다-현재-상태와-일치하는-단-하나의-프로토타입에-대해서만-높은-score를-부여하고-나머지-31개는-억제합니다.-이러한-명확한-상태-구분-능력은-로봇이-시각-정보가-차단된-blind-상황에서도-자신의-현재-상태와-지형-정보를-암묵적으로-추정implicit-system-identification할-수-있게-만듭니다." id="toc-학습의-핵심-목표는-로봇의-다양한-주행-상태가-k개의-프로토타입으로-명확하게-구분disentanglement되도록-클러스터링하는-것입니다.-이상적으로-학습된-모델은-매-타임스텝마다-현재-상태와-일치하는-단-하나의-프로토타입에-대해서만-높은-score를-부여하고-나머지-31개는-억제합니다.-이러한-명확한-상태-구분-능력은-로봇이-시각-정보가-차단된-blind-상황에서도-자신의-현재-상태와-지형-정보를-암묵적으로-추정implicit-system-identification할-수-있게-만듭니다." class="nav-link" data-scroll-target="#학습의-핵심-목표는-로봇의-다양한-주행-상태가-k개의-프로토타입으로-명확하게-구분disentanglement되도록-클러스터링하는-것입니다.-이상적으로-학습된-모델은-매-타임스텝마다-현재-상태와-일치하는-단-하나의-프로토타입에-대해서만-높은-score를-부여하고-나머지-31개는-억제합니다.-이러한-명확한-상태-구분-능력은-로봇이-시각-정보가-차단된-blind-상황에서도-자신의-현재-상태와-지형-정보를-암묵적으로-추정implicit-system-identification할-수-있게-만듭니다."><span class="header-section-number">4.3</span> 학습의 핵심 목표는 로봇의 다양한 주행 상태가 <span class="math inline">\(K\)</span>개의 프로토타입으로 명확하게 구분(Disentanglement)되도록 클러스터링하는 것입니다. 이상적으로 학습된 모델은 매 타임스텝마다 현재 상태와 일치하는 단 하나의 프로토타입에 대해서만 높은 Score를 부여하고, 나머지 31개는 억제합니다. 이러한 명확한 상태 구분 능력은, 로봇이 시각 정보가 차단된 <strong>Blind 상황에서도 자신의 현재 상태와 지형 정보를 암묵적으로 추정(Implicit System Identification)</strong>할 수 있게 만듭니다.</a></li>
+  <li><a href="#step-3-sinkhorn-알고리즘-q-matrix-생성" id="toc-step-3-sinkhorn-알고리즘-q-matrix-생성" class="nav-link" data-scroll-target="#step-3-sinkhorn-알고리즘-q-matrix-생성"><span class="header-section-number">4.4</span> [Step 3] Sinkhorn 알고리즘 (<span class="math inline">\(Q\)</span> Matrix 생성)</a>
   <ul class="collapse">
-  <li><a href="#입력-및-목표" id="toc-입력-및-목표" class="nav-link" data-scroll-target="#입력-및-목표"><span class="header-section-number">4.3.1</span> 입력 및 목표</a></li>
-  <li><a href="#sinkhorn의-핵심-제약-조건-equipartition" id="toc-sinkhorn의-핵심-제약-조건-equipartition" class="nav-link" data-scroll-target="#sinkhorn의-핵심-제약-조건-equipartition"><span class="header-section-number">4.3.2</span> Sinkhorn의 핵심 제약 조건 (Equipartition)</a></li>
-  <li><a href="#알고리즘-과정-iterative-normalization" id="toc-알고리즘-과정-iterative-normalization" class="nav-link" data-scroll-target="#알고리즘-과정-iterative-normalization"><span class="header-section-number">4.3.3</span> 알고리즘 과정 (Iterative Normalization)</a></li>
-  <li><a href="#결과-q_t" id="toc-결과-q_t" class="nav-link" data-scroll-target="#결과-q_t"><span class="header-section-number">4.3.4</span> 결과 (<span class="math inline">\(Q_t\)</span>)</a></li>
+  <li><a href="#입력-및-목표" id="toc-입력-및-목표" class="nav-link" data-scroll-target="#입력-및-목표"><span class="header-section-number">4.4.1</span> 입력 및 목표</a></li>
+  <li><a href="#sinkhorn의-핵심-제약-조건-equipartition" id="toc-sinkhorn의-핵심-제약-조건-equipartition" class="nav-link" data-scroll-target="#sinkhorn의-핵심-제약-조건-equipartition"><span class="header-section-number">4.4.2</span> Sinkhorn의 핵심 제약 조건 (Equipartition)</a></li>
+  <li><a href="#알고리즘-과정-iterative-normalization" id="toc-알고리즘-과정-iterative-normalization" class="nav-link" data-scroll-target="#알고리즘-과정-iterative-normalization"><span class="header-section-number">4.4.3</span> 알고리즘 과정 (Iterative Normalization)</a></li>
+  <li><a href="#결과-q_t" id="toc-결과-q_t" class="nav-link" data-scroll-target="#결과-q_t"><span class="header-section-number">4.4.4</span> 결과 (<span class="math inline">\(Q_t\)</span>)</a></li>
   </ul></li>
-  <li><a href="#step-4-prediction-증폭-log-softmax-temperature" id="toc-step-4-prediction-증폭-log-softmax-temperature" class="nav-link" data-scroll-target="#step-4-prediction-증폭-log-softmax-temperature"><span class="header-section-number">4.4</span> [Step 4] Prediction 증폭 (Log Softmax &amp; Temperature)</a>
+  <li><a href="#step-4-prediction-증폭-log-softmax-temperature" id="toc-step-4-prediction-증폭-log-softmax-temperature" class="nav-link" data-scroll-target="#step-4-prediction-증폭-log-softmax-temperature"><span class="header-section-number">4.5</span> [Step 4] Prediction 증폭 (Log Softmax &amp; Temperature)</a>
   <ul class="collapse">
-  <li><a href="#입력-및-연산" id="toc-입력-및-연산" class="nav-link" data-scroll-target="#입력-및-연산"><span class="header-section-number">4.4.1</span> 입력 및 연산</a></li>
-  <li><a href="#temperature-tau의-역할" id="toc-temperature-tau의-역할" class="nav-link" data-scroll-target="#temperature-tau의-역할"><span class="header-section-number">4.4.2</span> Temperature (<span class="math inline">\(\tau\)</span>)의 역할</a></li>
-  <li><a href="#결과-p_s" id="toc-결과-p_s" class="nav-link" data-scroll-target="#결과-p_s"><span class="header-section-number">4.4.3</span> 결과 (<span class="math inline">\(p_s\)</span>)</a></li>
+  <li><a href="#입력-및-연산" id="toc-입력-및-연산" class="nav-link" data-scroll-target="#입력-및-연산"><span class="header-section-number">4.5.1</span> 입력 및 연산</a></li>
+  <li><a href="#temperature-tau의-역할" id="toc-temperature-tau의-역할" class="nav-link" data-scroll-target="#temperature-tau의-역할"><span class="header-section-number">4.5.2</span> Temperature (<span class="math inline">\(\tau\)</span>)의 역할</a></li>
+  <li><a href="#결과-p_s" id="toc-결과-p_s" class="nav-link" data-scroll-target="#결과-p_s"><span class="header-section-number">4.5.3</span> 결과 (<span class="math inline">\(p_s\)</span>)</a></li>
   </ul></li>
-  <li><a href="#step-5-swav-loss-swapped-prediction-loss" id="toc-step-5-swav-loss-swapped-prediction-loss" class="nav-link" data-scroll-target="#step-5-swav-loss-swapped-prediction-loss"><span class="header-section-number">4.5</span> [Step 5] SwAV Loss (Swapped Prediction Loss)</a>
+  <li><a href="#step-5-swav-loss-swapped-prediction-loss" id="toc-step-5-swav-loss-swapped-prediction-loss" class="nav-link" data-scroll-target="#step-5-swav-loss-swapped-prediction-loss"><span class="header-section-number">4.6</span> [Step 5] SwAV Loss (Swapped Prediction Loss)</a>
   <ul class="collapse">
-  <li><a href="#입력-변수" id="toc-입력-변수" class="nav-link" data-scroll-target="#입력-변수"><span class="header-section-number">4.5.1</span> 입력 변수</a></li>
-  <li><a href="#수식-cross-entropy" id="toc-수식-cross-entropy" class="nav-link" data-scroll-target="#수식-cross-entropy"><span class="header-section-number">4.5.2</span> 수식 (Cross Entropy)</a></li>
-  <li><a href="#구체적-분석과-symmetric-loss의-이유" id="toc-구체적-분석과-symmetric-loss의-이유" class="nav-link" data-scroll-target="#구체적-분석과-symmetric-loss의-이유"><span class="header-section-number">4.5.3</span> 구체적 분석과 Symmetric Loss의 이유</a></li>
-  <li><a href="#target-encoder-z_t의-학습-원리" id="toc-target-encoder-z_t의-학습-원리" class="nav-link" data-scroll-target="#target-encoder-z_t의-학습-원리"><span class="header-section-number">4.5.4</span> Target Encoder (<span class="math inline">\(z_t\)</span>)의 학습 원리</a></li>
+  <li><a href="#입력-변수" id="toc-입력-변수" class="nav-link" data-scroll-target="#입력-변수"><span class="header-section-number">4.6.1</span> 입력 변수</a></li>
+  <li><a href="#수식-cross-entropy" id="toc-수식-cross-entropy" class="nav-link" data-scroll-target="#수식-cross-entropy"><span class="header-section-number">4.6.2</span> 수식 (Cross Entropy)</a></li>
+  <li><a href="#구체적-분석과-symmetric-loss의-이유" id="toc-구체적-분석과-symmetric-loss의-이유" class="nav-link" data-scroll-target="#구체적-분석과-symmetric-loss의-이유"><span class="header-section-number">4.6.3</span> 구체적 분석과 Symmetric Loss의 이유</a></li>
+  <li><a href="#target-encoder-z_t의-학습-원리" id="toc-target-encoder-z_t의-학습-원리" class="nav-link" data-scroll-target="#target-encoder-z_t의-학습-원리"><span class="header-section-number">4.6.4</span> Target Encoder (<span class="math inline">\(z_t\)</span>)의 학습 원리</a></li>
   </ul></li>
-  <li><a href="#요약-및-결론" id="toc-요약-및-결론" class="nav-link" data-scroll-target="#요약-및-결론"><span class="header-section-number">4.6</span> 요약 및 결론</a></li>
+  <li><a href="#요약-및-결론" id="toc-요약-및-결론" class="nav-link" data-scroll-target="#요약-및-결론"><span class="header-section-number">4.7</span> 요약 및 결론</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -256,7 +261,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-🔗 Links
+<span class="screen-reader-only">Note</span>🔗 Links
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -409,7 +414,7 @@ p_t = \text{Softmax}\left(\frac{z_t \cdot C^T}{\tau}\right)
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-핵심 직관
+<span class="screen-reader-only">Note</span>핵심 직관
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -451,7 +456,7 @@ v_{norm} = \frac{v}{||v||_2}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-핵심 직관
+<span class="screen-reader-only">Note</span>핵심 직관
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -478,19 +483,20 @@ v_{norm} = \frac{v}{||v||_2}
 <li>값의 범위는 <strong>-1 (완전 반대)</strong> 에서 <strong>1 (완전 일치)</strong> 사이입니다.</li>
 </ul>
 <p>이 점수(Score)가 높다는 것은 입력된 데이터의 잠재 표현(Latent Representation)이 특정 프로토타입 군집의 중심과 매우 유사함을 의미합니다. 예를 들어, 특정 프로토타입이 <strong>‘계단 지형에서의 동역학적 특징’</strong>을 학습했다고 가정해 봅시다. 로봇이 실제로 계단을 통과하며 얻은 관측 데이터(Observation)가 엔코더를 통과하면, 해당 프로토타입과의 내적값은 1.0에 가깝게 산출될 것입니다.</p>
-<p>학습의 핵심 목표는 로봇의 다양한 주행 상태가 <span class="math inline">\(K\)</span>개의 프로토타입으로 명확하게 구분(Disentanglement)되도록 클러스터링하는 것입니다. 이상적으로 학습된 모델은 매 타임스텝마다 현재 상태와 일치하는 단 하나의 프로토타입에 대해서만 높은 Score를 부여하고, 나머지 31개는 억제합니다. 이러한 명확한 상태 구분 능력은, 로봇이 시각 정보가 차단된 <strong>Blind 상황에서도 자신의 현재 상태와 지형 정보를 암묵적으로 추정(Implicit System Identification)</strong>할 수 있게 만듭니다.</p>
-<hr>
 </section>
 </section>
-<section id="step-3-sinkhorn-알고리즘-q-matrix-생성" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="step-3-sinkhorn-알고리즘-q-matrix-생성"><span class="header-section-number">4.3</span> [Step 3] Sinkhorn 알고리즘 (<span class="math inline">\(Q\)</span> Matrix 생성)</h2>
+<section id="학습의-핵심-목표는-로봇의-다양한-주행-상태가-k개의-프로토타입으로-명확하게-구분disentanglement되도록-클러스터링하는-것입니다.-이상적으로-학습된-모델은-매-타임스텝마다-현재-상태와-일치하는-단-하나의-프로토타입에-대해서만-높은-score를-부여하고-나머지-31개는-억제합니다.-이러한-명확한-상태-구분-능력은-로봇이-시각-정보가-차단된-blind-상황에서도-자신의-현재-상태와-지형-정보를-암묵적으로-추정implicit-system-identification할-수-있게-만듭니다." class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="학습의-핵심-목표는-로봇의-다양한-주행-상태가-k개의-프로토타입으로-명확하게-구분disentanglement되도록-클러스터링하는-것입니다.-이상적으로-학습된-모델은-매-타임스텝마다-현재-상태와-일치하는-단-하나의-프로토타입에-대해서만-높은-score를-부여하고-나머지-31개는-억제합니다.-이러한-명확한-상태-구분-능력은-로봇이-시각-정보가-차단된-blind-상황에서도-자신의-현재-상태와-지형-정보를-암묵적으로-추정implicit-system-identification할-수-있게-만듭니다."><span class="header-section-number">4.3</span> 학습의 핵심 목표는 로봇의 다양한 주행 상태가 <span class="math inline">\(K\)</span>개의 프로토타입으로 명확하게 구분(Disentanglement)되도록 클러스터링하는 것입니다. 이상적으로 학습된 모델은 매 타임스텝마다 현재 상태와 일치하는 단 하나의 프로토타입에 대해서만 높은 Score를 부여하고, 나머지 31개는 억제합니다. 이러한 명확한 상태 구분 능력은, 로봇이 시각 정보가 차단된 <strong>Blind 상황에서도 자신의 현재 상태와 지형 정보를 암묵적으로 추정(Implicit System Identification)</strong>할 수 있게 만듭니다.</h2>
+</section>
+<section id="step-3-sinkhorn-알고리즘-q-matrix-생성" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="step-3-sinkhorn-알고리즘-q-matrix-생성"><span class="header-section-number">4.4</span> [Step 3] Sinkhorn 알고리즘 (<span class="math inline">\(Q\)</span> Matrix 생성)</h2>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-핵심 질문: 왜 단순히 Softmax를 쓰지 않고 복잡한 Sinkhorn을 쓰는가?
+<span class="screen-reader-only">Important</span>핵심 질문: 왜 단순히 Softmax를 쓰지 않고 복잡한 Sinkhorn을 쓰는가?
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -498,15 +504,15 @@ v_{norm} = \frac{v}{||v||_2}
 </div>
 </div>
 <p><code>Scores</code>는 단순한 유사도 점수이고, <span class="math inline">\(Q\)</span>는 <strong>제약 조건이 적용된 확률 분포(Soft Assignment)</strong> 형태를 띱니다. 제약 조건을 부여해야 하는 이유는 위에서 설명한 강제 균등 배분 때문이고, 확률분포로 만들어야 하는 이유는 손실 함수인 Cross Entropy를 계산하기 위해, 학생의 예측값(<span class="math inline">\(P_s\)</span>)과 동일한 수학적 형태(합이 1인 확률)를 갖춰야 하기 때문입니다.</p>
-<section id="입력-및-목표" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="입력-및-목표"><span class="header-section-number">4.3.1</span> 입력 및 목표</h3>
+<section id="입력-및-목표" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="입력-및-목표"><span class="header-section-number">4.4.1</span> 입력 및 목표</h3>
 <ul>
 <li><strong>입력:</strong> <code>scores</code> <strong>(128, 32)</strong></li>
 <li><strong>목표:</strong> Target Assignment Matrix <span class="math inline">\(Q\)</span> <strong>(128, 32)</strong> 생성</li>
 </ul>
 </section>
-<section id="sinkhorn의-핵심-제약-조건-equipartition" class="level3" data-number="4.3.2">
-<h3 data-number="4.3.2" class="anchored" data-anchor-id="sinkhorn의-핵심-제약-조건-equipartition"><span class="header-section-number">4.3.2</span> Sinkhorn의 핵심 제약 조건 (Equipartition)</h3>
+<section id="sinkhorn의-핵심-제약-조건-equipartition" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="sinkhorn의-핵심-제약-조건-equipartition"><span class="header-section-number">4.4.2</span> Sinkhorn의 핵심 제약 조건 (Equipartition)</h3>
 <p>Sinkhorn-Knopp 알고리즘은 다음 두 가지 조건을 만족하는 행렬 <span class="math inline">\(Q\)</span>를 찾습니다.</p>
 <ol type="1">
 <li><strong>Row Constraints:</strong> 각 데이터(행)의 확률 합은 1이어야 한다. (데이터는 어딘가에 속해야 함)</li>
@@ -516,14 +522,14 @@ v_{norm} = \frac{v}{||v||_2}
 </ul></li>
 </ol>
 </section>
-<section id="알고리즘-과정-iterative-normalization" class="level3" data-number="4.3.3">
-<h3 data-number="4.3.3" class="anchored" data-anchor-id="알고리즘-과정-iterative-normalization"><span class="header-section-number">4.3.3</span> 알고리즘 과정 (Iterative Normalization)</h3>
+<section id="알고리즘-과정-iterative-normalization" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="알고리즘-과정-iterative-normalization"><span class="header-section-number">4.4.3</span> 알고리즘 과정 (Iterative Normalization)</h3>
 <p><span class="math display">\[
 Q = \exp(\text{scores} / \epsilon)
 \]</span> 위 <span class="math inline">\(Q\)</span> 행렬에 대해 다음을 반복합니다 (약 3회): 1. <strong>Row Norm:</strong> <span class="math inline">\(Q\)</span>를 행의 합으로 나눔 (<span class="math inline">\(\sum_{col} Q_{ij} = 1\)</span>) 2. <strong>Column Norm:</strong> <span class="math inline">\(Q\)</span>를 열의 합으로 나눈 뒤 <span class="math inline">\(B/K\)</span>를 곱함 (<span class="math inline">\(\sum_{row} Q_{ij} = B/K\)</span>)</p>
 </section>
-<section id="결과-q_t" class="level3" data-number="4.3.4">
-<h3 data-number="4.3.4" class="anchored" data-anchor-id="결과-q_t"><span class="header-section-number">4.3.4</span> 결과 (<span class="math inline">\(Q_t\)</span>)</h3>
+<section id="결과-q_t" class="level3" data-number="4.4.4">
+<h3 data-number="4.4.4" class="anchored" data-anchor-id="결과-q_t"><span class="header-section-number">4.4.4</span> 결과 (<span class="math inline">\(Q_t\)</span>)</h3>
 <ul>
 <li>차원: <strong>(128, 32)</strong></li>
 <li><span class="math inline">\(Q_t\)</span>는 <strong>“인기도(Score)는 반영하되, 특정 반에만 데이터가 몰리지 않도록 조정한 정답지”</strong>입니다.</li>
@@ -531,23 +537,23 @@ Q = \exp(\text{scores} / \epsilon)
 <hr>
 </section>
 </section>
-<section id="step-4-prediction-증폭-log-softmax-temperature" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="step-4-prediction-증폭-log-softmax-temperature"><span class="header-section-number">4.4</span> [Step 4] Prediction 증폭 (Log Softmax &amp; Temperature)</h2>
+<section id="step-4-prediction-증폭-log-softmax-temperature" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="step-4-prediction-증폭-log-softmax-temperature"><span class="header-section-number">4.5</span> [Step 4] Prediction 증폭 (Log Softmax &amp; Temperature)</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-핵심 직관
+<span class="screen-reader-only">Note</span>핵심 직관
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>“불확실성을 최대한 낮추자”</p>
 </div>
 </div>
-<section id="입력-및-연산" class="level3" data-number="4.4.1">
-<h3 data-number="4.4.1" class="anchored" data-anchor-id="입력-및-연산"><span class="header-section-number">4.4.1</span> 입력 및 연산</h3>
+<section id="입력-및-연산" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="입력-및-연산"><span class="header-section-number">4.5.1</span> 입력 및 연산</h3>
 <ul>
 <li><strong>입력:</strong> <code>scores_s</code> <strong>(128, 32)</strong></li>
 <li><strong>연산:</strong> <span class="math display">\[
@@ -555,8 +561,8 @@ Q = \exp(\text{scores} / \epsilon)
   \]</span></li>
 </ul>
 </section>
-<section id="temperature-tau의-역할" class="level3" data-number="4.4.2">
-<h3 data-number="4.4.2" class="anchored" data-anchor-id="temperature-tau의-역할"><span class="header-section-number">4.4.2</span> Temperature (<span class="math inline">\(\tau\)</span>)의 역할</h3>
+<section id="temperature-tau의-역할" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="temperature-tau의-역할"><span class="header-section-number">4.5.2</span> Temperature (<span class="math inline">\(\tau\)</span>)의 역할</h3>
 <ul>
 <li>보통 <span class="math inline">\(\tau = 0.1\)</span> 과 같이 1보다 작은 값을 사용합니다.</li>
 <li><strong>증폭 효과:</strong>
@@ -567,8 +573,8 @@ Q = \exp(\text{scores} / \epsilon)
 <li>이 과정은 분포를 <strong>뾰족하게(Sharp)</strong> 만들어서, 모델이 <strong>High Entropy(긴가민가한 상태)</strong>를 피하고 <strong>Low Entropy(확실한 결정)</strong>를 내리도록 유도합니다.</li>
 </ul>
 </section>
-<section id="결과-p_s" class="level3" data-number="4.4.3">
-<h3 data-number="4.4.3" class="anchored" data-anchor-id="결과-p_s"><span class="header-section-number">4.4.3</span> 결과 (<span class="math inline">\(p_s\)</span>)</h3>
+<section id="결과-p_s" class="level3" data-number="4.5.3">
+<h3 data-number="4.5.3" class="anchored" data-anchor-id="결과-p_s"><span class="header-section-number">4.5.3</span> 결과 (<span class="math inline">\(p_s\)</span>)</h3>
 <ul>
 <li>차원: <strong>(128, 32)</strong></li>
 <li>제약 조건(Sinkhorn)이 없는, 학생 엔코더의 <strong>순수한 예측값</strong>입니다.</li>
@@ -576,36 +582,36 @@ Q = \exp(\text{scores} / \epsilon)
 <hr>
 </section>
 </section>
-<section id="step-5-swav-loss-swapped-prediction-loss" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="step-5-swav-loss-swapped-prediction-loss"><span class="header-section-number">4.5</span> [Step 5] SwAV Loss (Swapped Prediction Loss)</h2>
+<section id="step-5-swav-loss-swapped-prediction-loss" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="step-5-swav-loss-swapped-prediction-loss"><span class="header-section-number">4.6</span> [Step 5] SwAV Loss (Swapped Prediction Loss)</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-핵심 직관
+<span class="screen-reader-only">Note</span>핵심 직관
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>“크로스 체크: View 1을 보고 만든 너의 예측이, View 2를 보고 만든 나의 정답(Sinkhorn)과 일치하니?”</p>
 </div>
 </div>
-<section id="입력-변수" class="level3" data-number="4.5.1">
-<h3 data-number="4.5.1" class="anchored" data-anchor-id="입력-변수"><span class="header-section-number">4.5.1</span> 입력 변수</h3>
+<section id="입력-변수" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="입력-변수"><span class="header-section-number">4.6.1</span> 입력 변수</h3>
 <ul>
 <li><span class="math inline">\(Q_t\)</span>: 선생님 뷰(<span class="math inline">\(z_t\)</span>)기반의 Sinkhorn 정답지 <strong>(Target, Gradient X)</strong></li>
 <li><span class="math inline">\(P_s\)</span>: 학생 뷰(<span class="math inline">\(z_s\)</span>)기반의 예측 확률 <strong>(Prediction, Gradient O)</strong></li>
 </ul>
 </section>
-<section id="수식-cross-entropy" class="level3" data-number="4.5.2">
-<h3 data-number="4.5.2" class="anchored" data-anchor-id="수식-cross-entropy"><span class="header-section-number">4.5.2</span> 수식 (Cross Entropy)</h3>
+<section id="수식-cross-entropy" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="수식-cross-entropy"><span class="header-section-number">4.6.2</span> 수식 (Cross Entropy)</h3>
 <p><span class="math display">\[
 L(z_t, z_s) = - \sum_{k} Q_t^{(k)} \log P_s^{(k)}
 \]</span></p>
 </section>
-<section id="구체적-분석과-symmetric-loss의-이유" class="level3" data-number="4.5.3">
-<h3 data-number="4.5.3" class="anchored" data-anchor-id="구체적-분석과-symmetric-loss의-이유"><span class="header-section-number">4.5.3</span> 구체적 분석과 Symmetric Loss의 이유</h3>
+<section id="구체적-분석과-symmetric-loss의-이유" class="level3" data-number="4.6.3">
+<h3 data-number="4.6.3" class="anchored" data-anchor-id="구체적-분석과-symmetric-loss의-이유"><span class="header-section-number">4.6.3</span> 구체적 분석과 Symmetric Loss의 이유</h3>
 <ol type="1">
 <li><strong>Swapped Prediction:</strong>
 <ul>
@@ -620,15 +626,15 @@ L(z_t, z_s) = - \sum_{k} Q_t^{(k)} \log P_s^{(k)}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-핵심 이론: Mutual Information Maximization
+<span class="screen-reader-only">Note</span>핵심 이론: Mutual Information Maximization
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>양방향(Symmetric) 학습은 단순한 ’정확도 향상’을 넘어, 서로 다른 뷰(View) 사이의 <strong>정보 일관성(Information Consistency)</strong>을 강제하는 과정입니다.</p>
 </div>
 </div>
-<section id="loss-function-재정의" class="level4" data-number="4.5.3.1">
-<h4 data-number="4.5.3.1" class="anchored" data-anchor-id="loss-function-재정의"><span class="header-section-number">4.5.3.1</span> Loss Function 재정의</h4>
+<section id="loss-function-재정의" class="level4" data-number="4.6.3.1">
+<h4 data-number="4.6.3.1" class="anchored" data-anchor-id="loss-function-재정의"><span class="header-section-number">4.6.3.1</span> Loss Function 재정의</h4>
 <p>SwAV의 전체 손실 함수는 두 개의 항(Term)으로 구성됩니다.</p>
 <p><span class="math display">\[
 L_{total} = \frac{1}{2} (\underbrace{L(z_t, z_s)}_{\text{Term 1}} + \underbrace{L(z_s, z_t)}_{\text{Term 2}})
@@ -638,8 +644,8 @@ L_{total} = \frac{1}{2} (\underbrace{L(z_t, z_s)}_{\text{Term 1}} + \underbrace{
 <li><strong>Term 2:</strong> <span class="math inline">\(Q_s \cdot \log P_t\)</span> (Student가 정답, Teacher가 예측)</li>
 </ul>
 </section>
-<section id="왜-양방향인가-consistency-regularization" class="level4" data-number="4.5.3.2">
-<h4 data-number="4.5.3.2" class="anchored" data-anchor-id="왜-양방향인가-consistency-regularization"><span class="header-section-number">4.5.3.2</span> 왜 양방향인가? (Consistency Regularization)</h4>
+<section id="왜-양방향인가-consistency-regularization" class="level4" data-number="4.6.3.2">
+<h4 data-number="4.6.3.2" class="anchored" data-anchor-id="왜-양방향인가-consistency-regularization"><span class="header-section-number">4.6.3.2</span> 왜 양방향인가? (Consistency Regularization)</h4>
 <ol type="1">
 <li><strong>Predictive Coding (예측 부호화):</strong>
 <ul>
@@ -655,20 +661,20 @@ L_{total} = \frac{1}{2} (\underbrace{L(z_t, z_s)}_{\text{Term 1}} + \underbrace{
 </ol>
 <hr>
 </section>
-<section id="gradient-flow-시각화" class="level4" data-number="4.5.3.3">
-<h4 data-number="4.5.3.3" class="anchored" data-anchor-id="gradient-flow-시각화"><span class="header-section-number">4.5.3.3</span> Gradient Flow 시각화</h4>
+<section id="gradient-flow-시각화" class="level4" data-number="4.6.3.3">
+<h4 data-number="4.6.3.3" class="anchored" data-anchor-id="gradient-flow-시각화"><span class="header-section-number">4.6.3.3</span> Gradient Flow 시각화</h4>
 <p>두 개의 Loss 항이 각각 어떤 네트워크를 업데이트하는지 추적해 봅시다. (Stop Gradient 기호: <span class="math inline">\(sg[\cdot]\)</span>)</p>
 </section>
-<section id="term-1-lz_t-z_s---sum-sgq_t-log-p_s" class="level4" data-number="4.5.3.4">
-<h4 data-number="4.5.3.4" class="anchored" data-anchor-id="term-1-lz_t-z_s---sum-sgq_t-log-p_s"><span class="header-section-number">4.5.3.4</span> <strong>Term 1: <span class="math inline">\(L(z_t, z_s) = - \sum sg[Q_t] \log P_s\)</span></strong></h4>
+<section id="term-1-lz_t-z_s---sum-sgq_t-log-p_s" class="level4" data-number="4.6.3.4">
+<h4 data-number="4.6.3.4" class="anchored" data-anchor-id="term-1-lz_t-z_s---sum-sgq_t-log-p_s"><span class="header-section-number">4.6.3.4</span> <strong>Term 1: <span class="math inline">\(L(z_t, z_s) = - \sum sg[Q_t] \log P_s\)</span></strong></h4>
 <ul>
 <li><strong>Target (<span class="math inline">\(Q_t\)</span>):</strong> <code>detach()</code>됨. Gradient가 흐르지 않음.</li>
 <li><strong>Prediction (<span class="math inline">\(P_s\)</span>):</strong> <strong>Student Encoder (<span class="math inline">\(z_s\)</span>)</strong>로 Backprop 진행.</li>
 <li><strong>해석:</strong> “Teacher가 만든 기준을 Student가 따라가라.”</li>
 </ul>
 </section>
-<section id="term-2-lz_s-z_t---sum-sgq_s-log-p_t" class="level4" data-number="4.5.3.5">
-<h4 data-number="4.5.3.5" class="anchored" data-anchor-id="term-2-lz_s-z_t---sum-sgq_s-log-p_t"><span class="header-section-number">4.5.3.5</span> <strong>Term 2: <span class="math inline">\(L(z_s, z_t) = - \sum sg[Q_s] \log P_t\)</span></strong></h4>
+<section id="term-2-lz_s-z_t---sum-sgq_s-log-p_t" class="level4" data-number="4.6.3.5">
+<h4 data-number="4.6.3.5" class="anchored" data-anchor-id="term-2-lz_s-z_t---sum-sgq_s-log-p_t"><span class="header-section-number">4.6.3.5</span> <strong>Term 2: <span class="math inline">\(L(z_s, z_t) = - \sum sg[Q_s] \log P_t\)</span></strong></h4>
 <ul>
 <li><strong>Target (<span class="math inline">\(Q_s\)</span>):</strong> <code>detach()</code>됨. Gradient가 흐르지 않음.</li>
 <li><strong>Prediction (<span class="math inline">\(P_t\)</span>):</strong> <strong>Target Encoder (<span class="math inline">\(z_t\)</span>)</strong>로 Backprop 진행.</li>
@@ -676,8 +682,8 @@ L_{total} = \frac{1}{2} (\underbrace{L(z_t, z_s)}_{\text{Term 1}} + \underbrace{
 </ul>
 </section>
 </section>
-<section id="target-encoder-z_t의-학습-원리" class="level3" data-number="4.5.4">
-<h3 data-number="4.5.4" class="anchored" data-anchor-id="target-encoder-z_t의-학습-원리"><span class="header-section-number">4.5.4</span> Target Encoder (<span class="math inline">\(z_t\)</span>)의 학습 원리</h3>
+<section id="target-encoder-z_t의-학습-원리" class="level3" data-number="4.6.4">
+<h3 data-number="4.6.4" class="anchored" data-anchor-id="target-encoder-z_t의-학습-원리"><span class="header-section-number">4.6.4</span> Target Encoder (<span class="math inline">\(z_t\)</span>)의 학습 원리</h3>
 <p>결국 <code>Term 2</code>에 의해 <strong>Target Encoder</strong>에도 명확한 규제가 가해집니다.</p>
 <ol type="1">
 <li>Student Encoder가 History(<span class="math inline">\(o_{0:t}\)</span>)를 보고 “이건 3번 프로토타입이야”라고 판단(<span class="math inline">\(Q_s\)</span>)합니다.</li>
@@ -687,8 +693,8 @@ L_{total} = \frac{1}{2} (\underbrace{L(z_t, z_s)}_{\text{Term 1}} + \underbrace{
 <hr>
 </section>
 </section>
-<section id="요약-및-결론" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="요약-및-결론"><span class="header-section-number">4.6</span> 요약 및 결론</h2>
+<section id="요약-및-결론" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="요약-및-결론"><span class="header-section-number">4.7</span> 요약 및 결론</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -728,236 +734,243 @@ L_{total} = \frac{1}{2} (\underbrace{L(z_t, z_s)}_{\text{Term 1}} + \underbrace{
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -965,185 +978,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 
 

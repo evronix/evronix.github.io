@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.9.38" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+
+<title>Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller – evronix.github.io</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+<!-- htmldependencies:E3FAD763 -->
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3HR0GH2ZQ"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q3HR0GH2ZQ', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="/index.html">
+    <span class="navbar-title">evronix.github.io</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+  aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation"
+  onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="/about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i 
+  class="bi bi-github" 
+  role="img" 
+>
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i 
+  class="bi bi-twitter" 
+  role="img" 
+>
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div id="quarto-toc-target"></div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" ></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default toc-left">
+  <div class="quarto-title-banner">
+    <div class="quarto-title column-body">
+      <h1 class="title">Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-intro" id="toc-sec-intro"><span class="header-section-number">1</span> 서론</a></li>
+  <li><a href="#sec-setup" id="toc-sec-setup"><span class="header-section-number">2</span> 표기법과 설정</a>
+  <ul>
+  <li><a href="#tracking-error-state-and-the-control-law" id="toc-tracking-error-state-and-the-control-law"><span class="header-section-number">2.1</span> Tracking-error state and the control law</a></li>
+  <li><a href="#plant-dynamics-under-the-residual-disturbance" id="toc-plant-dynamics-under-the-residual-disturbance"><span class="header-section-number">2.2</span> Plant dynamics under the residual disturbance</a></li>
+  <li><a href="#sec-nmpc" id="toc-sec-nmpc"><span class="header-section-number">2.3</span> 계층 1 - Nominal NMPC</a></li>
+  <li><a href="#sec-dob" id="toc-sec-dob"><span class="header-section-number">2.4</span> 계층 2 - 모델 기반 DOB</a></li>
+  <li><a href="#sec-rl" id="toc-sec-rl"><span class="header-section-number">2.5</span> 계층 3 - Residual RL</a></li>
+  </ul></li>
+  <li><a href="#sec-lyap" id="toc-sec-lyap"><span class="header-section-number">3</span> Lyapunov Candidate</a>
+  <ul>
+  <li><a href="#기본-가정" id="toc-기본-가정"><span class="header-section-number">3.1</span> 기본 가정</a></li>
+  <li><a href="#sec-vfdescent" id="toc-sec-vfdescent"><span class="header-section-number">3.2</span> 가치 함수의 감소성 (공칭 안정성)</a></li>
+  </ul></li>
+  <li><a href="#sec-iss" id="toc-sec-iss"><span class="header-section-number">4</span> Input-to-State Stability</a>
+  <ul>
+  <li><a href="#잔차-외란-하에서의-비용-전파" id="toc-잔차-외란-하에서의-비용-전파"><span class="header-section-number">4.1</span> 잔차 외란 하에서의 비용 전파</a></li>
+  <li><a href="#lipschitz-bound-on-the-perturbation-term" id="toc-lipschitz-bound-on-the-perturbation-term"><span class="header-section-number">4.2</span> Lipschitz bound on the perturbation term</a></li>
+  <li><a href="#the-baseline-iss-inequality" id="toc-the-baseline-iss-inequality"><span class="header-section-number">4.3</span> The baseline ISS inequality</a></li>
+  </ul></li>
+  <li><a href="#sec-clip" id="toc-sec-clip"><span class="header-section-number">5</span> ISS-Based Action Clipping</a>
+  <ul>
+  <li><a href="#sec-budget" id="toc-sec-budget"><span class="header-section-number">5.1</span> 허용 잔차</a></li>
+  <li><a href="#iss-inequality-with-the-rl" id="toc-iss-inequality-with-the-rl"><span class="header-section-number">5.2</span> ISS inequality with the RL</a></li>
+  <li><a href="#안정성-보존-기준" id="toc-안정성-보존-기준"><span class="header-section-number">5.3</span> 안정성 보존 기준</a></li>
+  <li><a href="#sec-cliplaw" id="toc-sec-cliplaw"><span class="header-section-number">5.4</span> Action Clipping</a></li>
+  </ul></li>
+  <li><a href="#sec-estim" id="toc-sec-estim"><span class="header-section-number">6</span> ISS 상수의 실용적 추정</a>
+  <ul>
+  <li><a href="#sec-estim-cx" id="toc-sec-estim-cx"><span class="header-section-number">6.1</span> 수렴 계수 <span class="math inline">\(c_x\)</span></a></li>
+  <li><a href="#sec-estim-gamma" id="toc-sec-estim-gamma"><span class="header-section-number">6.2</span> 외란 이득 <span class="math inline">\(\gamma_0\)</span></a></li>
+  <li><a href="#sec-estim-r" id="toc-sec-estim-r"><span class="header-section-number">6.3</span> 목표 반경 <span class="math inline">\(r\)</span></a></li>
+  <li><a href="#시뮬레이션-측정" id="toc-시뮬레이션-측정"><span class="header-section-number">6.4</span> 시뮬레이션 측정</a></li>
+  </ul></li>
+  </ul>
+</nav>
+<p><span class="math display">\[
+\newcommand{\bm}[1]{\boldsymbol{#1}}
+\]</span></p>
+<section id="sec-intro" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 서론</h1>
+<p>이 페이지에서는 NMPC 와 모델 기반 DOB, residual RL을 결합한 캐스케이드 제어기에 대해 결정론적 안정성을 보장하는 방법을 정리한다. 결합된 NMPC-DOB 계층은 표준적인 안정성 증명이 가능한 기법인 반면, RL 계층은 신경망 정책 (policy) 이라 직접적인 안정성 해석이 어렵다.</p>
+<p>먼저 NMPC-DOB가 잡지 못한 잔차 외란(residual disturbance) 에 대해 입력-상태 안정성 (Input-to-State Stability, 이하 ISS) 을 만족함을 보이고, 이로부터 허용 가능한 잔차의 범위를 정량적으로 추출한다. 이 범위를 RL의 action space의 상한선으로 설정하면, 에이전트는 이 안전 범위 안에서 자유롭게 학습할 수 있으면서 인증된 안정성 여유를 그대로 물려받는다.</p>
+</section>
+<section id="sec-setup" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 표기법과 설정</h1>
+<table class="caption-top">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 61%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>기호</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\bm{x}_k \in \mathbb{R}^{12}\)</span></td>
+<td>추적 오차 상태 (관절 위치 오차 6 + 속도 오차 6)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bm{u}_{\mathrm{MPC},k}\)</span></td>
+<td>NMPC 토크, <span class="math inline">\(\kappa_N(\bm{x}_k)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\bm{d}_{\mathrm{filter},k}\)</span></td>
+<td>LPF 필터를 거친 외란 추정값</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bm{u}_{\mathrm{RL},k}\)</span></td>
+<td>잔차 RL 토크 (클리핑 전)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\bm{u}_{\mathrm{RL},k}^{\mathrm{clip}}\)</span></td>
+<td>ISS 클리핑 <a href="#eq-clip" class="quarto-xref">식 20</a> 적용 후 RL 토크</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span></td>
+<td>잔차 외란 (DOB 필터 거친 후 잔여분)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\bm{d}_{\mathrm{eff},k}\)</span></td>
+<td>RL 활성화 시 유효 잔차, <span class="math inline">\(\bm{d}_{\mathrm{res}}-\bm{u}_{\mathrm{RL}}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(V_N^*(\bm{x})\)</span></td>
+<td>NMPC 최적 비용 (Lyapunov 후보)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\kappa_N(\bm{x})\)</span></td>
+<td>NMPC 피드백 법칙 (최적해 수열의 첫 원소)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\ell(\bm{x},\bm{u})\)</span></td>
+<td>NMPC stage cost</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(c_x &gt; 0\)</span></td>
+<td>수렴 계수, 단계 비용 이차 하한 (A2)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\gamma_0 &gt; 0\)</span></td>
+<td>외란 이득, <span class="math inline">\(V_N^*\)</span> 의 국소 Lipschitz 상수 (A3)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(r &gt; 0\)</span></td>
+<td>목표 수렴 반경</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bar{d}_{\mathrm{res}} = c_x r^2/\gamma_0\)</span></td>
+<td>허용 잔차 예산 (<a href="#def-budget" class="quarto-xref">Definition 1</a>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(2\bar{d}_{\mathrm{res}} = 2c_x r^2/\gamma_0\)</span></td>
+<td>ISS 행동 크기 상한 (<a href="#thm-ceiling" class="quarto-xref">Theorem 2</a>)</td>
+</tr>
+</tbody>
+</table>
+<section id="tracking-error-state-and-the-control-law" class="level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Tracking-error state and the control law</h2>
+<p>6자유도 매니퓰레이터의 <span class="math inline">\(k\)</span>번째 샘플에서 측정된 관절 위치를 <span class="math inline">\(\bm{q}_k \in \mathbb{R}^6\)</span>, 관절 속도를 <span class="math inline">\(\bm{v}_k \in \mathbb{R}^6\)</span>, 그리고 직교 좌표계 (Cartesian) 말단 위치 목표로부터 역기구학으로 얻은 시간 가변 관절 공간 기준 궤적을 <span class="math inline">\(\bm{q}^{\mathrm{ref}}_k, \bm{v}^{\mathrm{ref}}_k\)</span> 로 표기한다. 추적 오차 상태는 다음과 같이 정의된다.</p>
+<p><span id="eq-state"><span class="math display">\[
+\bm{x}_k \;\triangleq\;
+\begin{bmatrix}
+\bm{q}_k - \bm{q}^{\mathrm{ref}}_k \\[2pt]
+\bm{v}_k - \bm{v}^{\mathrm{ref}}_k
+\end{bmatrix}
+\;\in\; \mathbb{R}^{12}.
+\tag{1}\]</span></span></p>
+<p>원점 <span class="math inline">\(\bm{x}_k = \bm{0}\)</span> 은 완벽한 추적을 의미한다.</p>
+<p>매니퓰레이터의 joint에 들어가는 제어입력은 다음과 같다.</p>
+<p><span id="eq-cmd"><span class="math display">\[
+\bm{u}_{\mathrm{cmd},k}
+\;=\;
+\underbrace{\bm{u}_{\mathrm{MPC},k}}_{\text{nominal NMPC}}
+\;-\;
+\underbrace{\bm{d}_{\mathrm{filter},k}}_{\text{DOB}}
+\;-\;
+\underbrace{\bm{u}_{\mathrm{RL},k}}_{\text{RL}}.
+\tag{2}\]</span></span></p>
+<p>세 구성 요소 모두 동일한 물리적 관절 토크 공간 <span class="math inline">\(\mathbb{R}^6\)</span> 에 속한다.</p>
+</section>
+<section id="plant-dynamics-under-the-residual-disturbance" class="level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Plant dynamics under the residual disturbance</h2>
+<p>URDF 모델로 기술된 공칭 폐루프 동역학을 <span class="math inline">\(\bm{f}(\bm{x},\bm{u})\)</span> 라 하자. 마찰, 베이스 가진, 적재량 변화, 파라미터 표류 등 모든 모델 불일치를 집약한 외란을 <span class="math inline">\(\bm{w}_k\)</span> 라 할 때, 실제 시스템 (실험 하드웨어 또는 물리 시뮬레이션) 의 동역학은 다음과 같이 표현된다.</p>
+<p><span id="eq-plant"><span class="math display">\[
+\bm{x}_{k+1} \;=\; \bm{f}\bigl(\bm{x}_k,\bm{u}_{\mathrm{cmd},k}\bigr)
+\;+\; \bm{w}_k.
+\tag{3}\]</span></span></p>
+<p>DOB 는 <span class="math inline">\(\bm{w}_k\)</span> 의 <em>통과 대역 (in-band) 성분</em> 을 추정하여 <span class="math inline">\(\bm{d}_{\mathrm{filter},k}\)</span> 로 차감하고, DOB가 잡지 못한 잔여 성분은 아래와 같이 정의한다.</p>
+<p><span id="eq-dres-def"><span class="math display">\[
+\bm{d}_{\mathrm{res},k} \;\triangleq\;
+\bm{w}_k \;-\; \bm{d}_{\mathrm{filter},k}
+\;\in\;\mathbb{R}^6
+\tag{4}\]</span></span></p>
+<p>이후 전개되는 ISS 해석에서 외부 입력으로 등장하는 유일한 양은 이 잔차 외란이다. 표기의 편의를 위해 흔히 <span class="math inline">\(\bm{x}_{k+1} = \bm{x}_{k+1}^{\mathrm{nom}} + \bm{d}_{\mathrm{res},k}\)</span> 로 쓰는데, 여기서 <span class="math inline">\(\bm{x}_{k+1}^{\mathrm{nom}}\)</span> 은 외란이 없을 때 nominal 폐루프에서의 다음 상태를 의미한다.</p>
+</section>
+<section id="sec-nmpc" class="level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span> 계층 1 - Nominal NMPC</h2>
+<p>NMPC 는 매 샘플 <span class="math inline">\(k\)</span> 마다 유한 구간 최적 제어 문제</p>
+<p><span id="eq-vstar"><span class="math display">\[
+V_N^*(\bm{x}_k)
+\;=\;
+\min_{\bm{u}_{0:N-1}}
+\sum_{j=0}^{N-1} \ell\bigl(\bm{x}_{k+j},\bm{u}_{k+j}\bigr)
+\;+\; V_f\bigl(\bm{x}_{k+N}\bigr)
+\tag{5}\]</span></span></p>
+<p>를 푼다. piper manipulator에서 사용한 stage cost는</p>
+<p><span id="eq-stage"><span class="math display">\[
+\ell(\bm{x},\bm{u}) \;=\;
+Q_{\mathrm{pos}}\,\bigl\|\bm{p}(\bm{x})-\bm{p}^{\star}\bigr\|^2
++ Q_{\mathrm{vel}}\,\bigl\|\bm{v}(\bm{x})\bigr\|^2
++ R_{\tau}\,\|\bm{u}\|^2
+\tag{6}\]</span></span></p>
+<p>이며, 가중치는 <span class="math inline">\(Q_{\mathrm{pos}}=5000\)</span>, <span class="math inline">\(Q_{\mathrm{vel}}=10\)</span>, <span class="math inline">\(R_{\tau}=0.1\)</span>, 지평 (horizon) <span class="math inline">\(N=8\)</span>, 샘플 시간 <span class="math inline">\(\Delta t = 0.02\,\text{s}\)</span> 이다. <span class="math inline">\(\bm{p}(\bm{x})\)</span> 는 순기구학 (forward kinematics) 으로 계산되는 말단 위치를 의미한다.</p>
+<p><a href="#eq-vstar" class="quarto-xref">식 5</a> 에서 정의된 최적 비용 <span class="math inline">\(V_N^*\)</span> 은 본 보고서의 Lyapunov 후보 함수로 사용된다.</p>
+</section>
+<section id="sec-dob" class="level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> 계층 2 - 모델 기반 DOB</h2>
+<p>DOB 는 동역학 잔차로부터 외란을 추정한다. 즉, <span class="math inline">\(\bm{d}_{\mathrm{raw},k} = \mathrm{RNEA}\bigl(\bm{q}_k,\bm{v}_k,
+\hat{\bm{a}}_k\bigr) - \bm{u}_{\mathrm{cmd},k-1}\)</span> 이며, <span class="math inline">\(\hat{\bm{a}}_k\)</span> 는 가속도 추정값이다 (RNEA는 역동역학을 푸는 recursive newton-euler algorithm). 원시 추정값은 <span class="math inline">\(\alpha = 0.2\)</span> 의 1차 LPF를 거친다.</p>
+<p><span id="eq-dob-lpf"><span class="math display">\[
+\bm{d}_{\mathrm{filter},k}
+\;=\; (1-\alpha)\,\bm{d}_{\mathrm{filter},k-1}
+\;+\; \alpha\,\bm{d}_{\mathrm{raw},k}.
+\tag{7}\]</span></span></p>
+</section>
+<section id="sec-rl" class="level2" data-number="2.5">
+<h2 data-number="2.5"><span class="header-section-number">2.5</span> 계층 3 - Residual RL</h2>
+<p>RL 정책 <span class="math inline">\(\bm{u}_{\mathrm{RL},k} = \pi(\bm{o}_k)\)</span> 는 DOB 와 동일한 관측 신호 및 DOB 출력을 입력으로 받아 추가 관절 토크를 출력하는 신경망이다. 이상적인 목표는 <span class="math inline">\(\bm{u}_{\mathrm{RL},k} \to \bm{d}_{\mathrm{res},k}\)</span>, 즉 잔차를 정확히 상쇄하는 것이다. 학습 목표 (reward) 는 <em>유효 잔차</em></p>
+<p><span class="math display">\[
+\bm{d}_{\mathrm{eff},k} \;\triangleq\;
+\bm{d}_{\mathrm{res},k} - \bm{u}_{\mathrm{RL},k}
+\]</span></p>
+<p>의 크기와 추적 오차를 함께 페널티로 부과한다. <span class="math inline">\(\pi\)</span> 는 확률적 함수이므로 RL 을 포함한 폐루프에 대해서는 closed-form 안정성 증명방법이 존재하지 않는다.</p>
+</section>
+</section>
+<section id="sec-lyap" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Lyapunov Candidate</h1>
+<p>NMPC 의 최적 비용 <span class="math inline">\(V_N^*\)</span> (<a href="#eq-vstar" class="quarto-xref">식 5</a>) 을 시스템 전체에 대한 통합 Lyapunov 후보 함수로 채택한다.</p>
+<section id="기본-가정" class="level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> 기본 가정</h2>
+<p>이 연구에서는 세 가지 가정을 설정한다. ::: {#asm-lyap} 원점을 내부에 포함하는 어떤 local 영역 <span class="math inline">\(\mathcal{X} \subset \mathbb{R}^{12}\)</span> 이 존재하여, <span class="math inline">\(\mathcal{X}\)</span> 위에서 다음이 성립한다.</p>
+<ul>
+<li><p><strong>(A1)</strong> 어떤 클래스 <span class="math inline">\(\mathcal{K}_\infty\)</span> 함수 <span class="math inline">\(\alpha_1, \alpha_2\)</span> 가 존재하여, 임의의 <span class="math inline">\(\bm{x}\in\mathcal{X}\)</span> 에 대해 <span class="math inline">\(\alpha_1(\|\bm{x}\|) \le V_N^*(\bm{x}) \le \alpha_2(\|\bm{x}\|)\)</span> 이 성립한다.</p></li>
+<li><p><strong>(A2)</strong> 어떤 양수 <span class="math inline">\(c_x&gt;0\)</span> 이 존재하여, 임의의 <span class="math inline">\(\bm{x}\in\mathcal{X}\)</span> 에 대해 <span class="math inline">\(\ell\bigl(\bm{x},\kappa_N(\bm{x})\bigr) \;\ge\; c_x\,\|\bm{x}\|^2\)</span> 이 성립한다.</p></li>
+<li><p><strong>(A3)</strong> 어떤 양수 <span class="math inline">\(\gamma_0&gt;0\)</span> 이 존재하여, 임의의 <span class="math inline">\(\bm{x}\in\mathcal{X}\)</span> 와 <span class="math inline">\(\bm{x}+\bm{\delta}\in\mathcal{X}\)</span> 를 만족하는 임의의 외란 <span class="math inline">\(\bm{\delta}\in\mathbb{R}^{12}\)</span> 에 대해 <span class="math inline">\(\bigl|V_N^*(\bm{x}+\bm{\delta}) - V_N^*(\bm{x})\bigr|
+\;\le\; \gamma_0\,\|\bm{\delta}\|\)</span> 이 성립한다.</p></li>
+</ul>
+<p>:::</p>
+<p>위 세 조건은 모두 합리적이다. (A1) 은 cost function의 positive definite과 radial unboundedness 로부터 자동으로 따라온다. (A2) 는 설계자가 선택하는 조건이며, <a href="#eq-stage" class="quarto-xref">식 6</a> 의 quadratic cost에 의해 자명히 만족된다. 가정 (A2)–(A3) 에 등장하는 두 상수 <span class="math inline">\(c_x\)</span> 와 <span class="math inline">\(\gamma_0\)</span> 은 *이후 행동 클리핑 법칙의 크기를 결정한다. 이들을 실제로 어떻게 추정하는지는 <a href="#sec-estim" class="quarto-xref">Section 6</a> 에서 다룬다.</p>
+</section>
+<section id="sec-vfdescent" class="level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> 가치 함수의 감소성 (공칭 안정성)</h2>
+<p>가정 (A1)–(A2) 하에서, NMPC 가치 함수는 nominal 폐루프를 따라 잘 알려진 감소성을 만족한다.</p>
+<div id="lem-descent" class="theorem lemma">
+<p><span class="theorem-title"><strong>보조정리 1</strong></span> <strong>보조정리 1 (가치 함수의 감소성).</strong> <strong>?@asm-lyap</strong> 와 위 가정1과 NMPC 종단 조건이 성립할 때, 임의의 <span class="math inline">\(\bm{x}_k \in \mathcal{X}\)</span> 에 대해 최적 비용 <span class="math inline">\(V_N^*\)</span> 은 다음을 만족한다. <span id="eq-descent"><span class="math display">\[
+V_N^*\bigl(\bm{x}_{k+1}^{\mathrm{nom}}\bigr) - V_N^*(\bm{x}_k)
+\;\le\;
+-\ell\bigl(\bm{x}_k,\kappa_N(\bm{x}_k)\bigr)
+\;\le\;
+-c_x\,\|\bm{x}_k\|^2.
+\tag{8}\]</span></span> 여기서 <span class="math inline">\(\bm{x}_{k+1}^{\mathrm{nom}} = \bm{f}\bigl(\bm{x}_k,\kappa_N(\bm{x}_k)\bigr)\)</span> 은 외란이 없는 경우의 다음 상태이다.</p>
+</div>
+<p><a href="#lem-descent" class="quarto-xref">Lemma 1</a> 는 <em>제어기 자체의 수렴 강도</em> 를 분리해 보여 준다. 외란이 없는 한 스텝마다 비용은 최소 <span class="math inline">\(c_x\|\bm{x}_k\|^2\)</span> 만큼 줄어든다. 상수 <span class="math inline">\(c_x\)</span> 는 공칭 폐루프의 <strong>수렴 계수 (convergence coefficient)</strong> 이며, 이후 행동 클리핑 법칙을 구성하는 첫 번째 재료이다.</p>
+</section>
+</section>
+<section id="sec-iss" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Input-to-State Stability</h1>
+<p>이제 잔차 외란과 DOB 를 함께 활성화하되 <span class="math inline">\(\bm{u}_{\mathrm{RL},k} = \bm{0}\)</span> 인 <em>기저 시스템</em> (NMPC–DOB 캐스케이드만) 의 ISS 를 정리한다.</p>
+<section id="잔차-외란-하에서의-비용-전파" class="level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> 잔차 외란 하에서의 비용 전파</h2>
+<p>잔차 외란이 있을 때의 실제 다음 상태는</p>
+<p><span id="eq-disturbed-succ"><span class="math display">\[
+\bm{x}_{k+1} \;=\; \bm{x}_{k+1}^{\mathrm{nom}}
+\;+\; \bm{d}_{\mathrm{res},k}
+\tag{9}\]</span></span></p>
+<p>이다. Lyapunov 후보 함수의 한 스텝 변화는 <span class="math inline">\(V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})\)</span> 을 더하고 빼는 항등식 변형으로 다음과 같이 분해된다.</p>
+<p><span id="eq-split"><span class="math display">\[
+\begin{aligned}
+V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)
+&amp;= \underbrace{\bigl[V_N^*(\bm{x}_{k+1}^{\mathrm{nom}}
+                 + \bm{d}_{\mathrm{res},k})
+        - V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})\bigr]}_{\text{perturbation}}
+\\[4pt]
+&amp;\quad+ \underbrace{\bigl[V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})
+        - V_N^*(\bm{x}_k)\bigr]}_{\text{nominal descent}}.
+\end{aligned}
+\tag{10}\]</span></span></p>
+</section>
+<section id="lipschitz-bound-on-the-perturbation-term" class="level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> Lipschitz bound on the perturbation term</h2>
+<p><a href="#eq-split" class="quarto-xref">식 10</a> 의 첫 번째 대괄호 항은 가정 (A3) 으로 직접 상한이 잡힌다.</p>
+<p><span id="eq-lip"><span class="math display">\[
+V_N^*\bigl(\bm{x}_{k+1}^{\mathrm{nom}} + \bm{d}_{\mathrm{res},k}\bigr)
+- V_N^*\bigl(\bm{x}_{k+1}^{\mathrm{nom}}\bigr)
+\;\le\; \gamma_0\,\bigl\|\bm{d}_{\mathrm{res},k}\bigr\|.
+\tag{11}\]</span></span></p>
+<p>상수 <span class="math inline">\(\gamma_0\)</span> 은 <strong>외란 이득 (disturbance gain)</strong> 이다. 물리적으로는 상태 변위 (미터 단위) 를 비용 단위로 환산하는 discount factor의 역할을 한다. <span class="math inline">\(\gamma_0\)</span> 이 크면 cost 변화가 가파르다는 뜻이므로 작은 외란에도 시스템이 민감해진다. 반대로 <span class="math inline">\(\gamma_0\)</span> 이 작으면 시스템이 외란에 관대해진다.</p>
+</section>
+<section id="the-baseline-iss-inequality" class="level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span> The baseline ISS inequality</h2>
+<p><a href="#lem-descent" class="quarto-xref">Lemma 1</a> 와 <a href="#eq-lip" class="quarto-xref">식 11</a> 을 <a href="#eq-split" class="quarto-xref">식 10</a> 에 대입하면 ISS 부등식이 얻어진다.</p>
+<div id="thm-baseline-iss" class="theorem">
+<p><span class="theorem-title"><strong>정리 1</strong></span> <strong>정리 1 (기저 시스템의 ISS).</strong> <strong>?@asm-lyap</strong> 과 표준 NMPC 종단 조건이 성립할 때, 다음을 만족한다. <span id="eq-iss"><span class="math display">\[
+V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)
+\;\le\;
+-c_x\,\|\bm{x}_k\|^2
+\;+\; \gamma_0\,\|\bm{d}_{\mathrm{res},k}\|.
+\tag{12}\]</span></span></p>
+</div>
+<p>부등식 <a href="#eq-iss" class="quarto-xref">식 12</a> 는 안정성의 정량적 표현이다. 우변의 첫 항은 제어기에 의한 cost의 소산으로 <span class="math inline">\(\|\bm{x}_k\|^2\)</span> 에 비례하여 원점에서 멀어질수록 커진다. 두 번째 항은 외란에 의한 cost의 주입으로 <span class="math inline">\(\|\bm{d}_{\mathrm{res},k}\|\)</span> 에 선형이다. 소산과 주입이 균형을 이루는 지점이 추적 오차의 정상상태 (steady-state) 반경을 결정한다.</p>
+</section>
+</section>
+<section id="sec-clip" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> ISS-Based Action Clipping</h1>
+<section id="sec-budget" class="level2" data-number="5.1">
+<h2 data-number="5.1"><span class="header-section-number">5.1</span> 허용 잔차</h2>
+<p>원하는 수렴 반경 <span class="math inline">\(r &gt; 0\)</span> 을 하나 고정한다. 즉, 추적 오차가 <span class="math inline">\(\|\bm{x}_k\| \le r\)</span> 안에 머물도록 하고자 한다. <a href="#eq-iss" class="quarto-xref">식 12</a> 로부터 cost가 더 이상 감소하지 않는 (소산이 주입을 넘지 못하는) 조건은 <span class="math inline">\(c_x\,\|\bm{x}_k\|^2 \le \gamma_0\,\|\bm{d}_{\mathrm{res},k}\|\)</span> 이다. 이 균형점이 목표 반경 <em>안</em> 에 위치하려면 <span class="math inline">\(\|\bm{x}_k\|=r\)</span> 에서의 주입이 소산을 넘지 않아야 한다.</p>
+<p><span id="eq-budget"><span class="math display">\[
+\gamma_0\,\|\bm{d}_{\mathrm{res},k}\| \;\le\; c_x\,r^2
+\quad\Longleftrightarrow\quad
+\|\bm{d}_{\mathrm{res},k}\| \;\le\; \bar{d}_{\mathrm{res}}
+\;\triangleq\; \frac{c_x\,r^2}{\gamma_0}.
+\tag{13}\]</span></span></p>
+<div id="def-budget" class="theorem definition">
+<p><span class="theorem-title"><strong>정의 1</strong></span> <strong>허용 잔차.</strong> 스칼라 <span class="math inline">\(\bar{d}_{\mathrm{res}} \triangleq c_x r^2 / \gamma_0\)</span> 을 <strong>허용 잔차(admissible residual budget)</strong> 이라 한다. 이는 NMPC-DOB가 추적 오차를 반경 <span class="math inline">\(r\)</span> 안에 유지하면서 흡수할 수 있는 최대 잔차 크기이다.</p>
+</div>
+<p><a href="#eq-budget" class="quarto-xref">식 13</a> 에 등장하는 세 양의 역할은 명료하다. <span class="math inline">\(c_x\)</span> 가 클수록 (제어기 수렴이 강할수록) 범위가 늘어나고, <span class="math inline">\(r\)</span> 이 클수록 (목표가 느슨할수록) 범위가 <span class="math inline">\(r^2\)</span> 으로 빠르게 늘어나며, <span class="math inline">\(\gamma_0\)</span> 이 클수록 (외란에 민감할수록) 줄어든다.</p>
+</section>
+<section id="iss-inequality-with-the-rl" class="level2" data-number="5.2">
+<h2 data-number="5.2"><span class="header-section-number">5.2</span> ISS inequality with the RL</h2>
+<p><span class="math inline">\(\bm{u}_{\mathrm{RL},k} \ne \bm{0}\)</span> 일 때, 기저 시스템이 보는 유효 외란은</p>
+<p><span id="eq-deff"><span class="math display">\[
+\bm{d}_{\mathrm{eff},k}
+\;\triangleq\;
+\bm{d}_{\mathrm{res},k} - \bm{u}_{\mathrm{RL},k}
+\tag{14}\]</span></span></p>
+<p>로 시프트되며, 이에 따라 ISS 부등식 <a href="#eq-iss" class="quarto-xref">식 12</a> 는 다음과 같이 갱신된다.</p>
+<p><span id="eq-iss-with-rl"><span class="math display">\[
+V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)
+\;\le\;
+-c_x\,\|\bm{x}_k\|^2
+\;+\; \gamma_0\,\|\bm{d}_{\mathrm{res},k} - \bm{u}_{\mathrm{RL},k}\|.
+\tag{15}\]</span></span></p>
+</section>
+<section id="안정성-보존-기준" class="level2" data-number="5.3">
+<h2 data-number="5.3"><span class="header-section-number">5.3</span> 안정성 보존 기준</h2>
+<p>RL 계층이 단계 <span class="math inline">\(k\)</span> 에서 <em>admissible</em> 하다는 것을, 자신이 상쇄하려는 잔차를 키우지 않는다는 조건으로 정의한다.</p>
+<p><span id="eq-criterion"><span class="math display">\[
+\boxed{\quad
+\|\bm{d}_{\mathrm{res},k} - \bm{u}_{\mathrm{RL},k}\|
+\;\le\; \|\bm{d}_{\mathrm{res},k}\|.
+\quad}
+\tag{16}\]</span></span></p>
+<p><a href="#eq-criterion" class="quarto-xref">식 16</a> 이 성립하면 <a href="#eq-iss-with-rl" class="quarto-xref">식 15</a> 은 <a href="#eq-iss" class="quarto-xref">식 12</a> 보다 <em>나빠질 수 없으므로</em>, 기저 시스템의 ISS 인증서가 동일한 상수로 그대로 이어진다.</p>
+<p><a href="#eq-criterion" class="quarto-xref">식 16</a> 은 기하학적 조건이며, 측정 불가능한 내부량 <span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span> 에 의존한다. 이를 측정 가능한 <span class="math inline">\(\|\bm{u}_{\mathrm{RL},k}\|\)</span> 만의 조건으로 바꿔야한다.</p>
+<p><strong>단계 1 — 양변 제곱.</strong> <a href="#eq-criterion" class="quarto-xref">식 16</a> 의 양변을 제곱하고 좌변의 내적을 전개하면</p>
+<p><span class="math display">\[
+\|\bm{d}_{\mathrm{res},k}\|^2
+- 2\,\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k}
++ \|\bm{u}_{\mathrm{RL},k}\|^2
+\;\le\;
+\|\bm{d}_{\mathrm{res},k}\|^2,
+\]</span></p>
+<p>이는 다음과 같이 단순화된다.</p>
+<p><span id="eq-squared"><span class="math display">\[
+\|\bm{u}_{\mathrm{RL},k}\|^2
+\;\le\;
+2\,\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k}.
+\tag{17}\]</span></span></p>
+<p><strong>단계 2 — Cauchy–Schwarz 부등식과 알려진 상한.</strong> <a href="#eq-squared" class="quarto-xref">식 17</a> 우변의 내적은 측정 불가능한 <span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span> 에 의존한다. <span class="math inline">\(\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k} =
+\|\bm{d}_{\mathrm{res},k}\|\,\|\bm{u}_{\mathrm{RL},k}\|\cos\theta\)</span> 로 쓰고 (<span class="math inline">\(\theta \in [0,\pi]\)</span> 는 두 벡터 사이의 각도) Cauchy–Schwarz 로 <span class="math inline">\(\cos\theta \le 1\)</span>, 그리고 <a href="#eq-budget" class="quarto-xref">식 13</a> 으로부터 <span class="math inline">\(\|\bm{d}_{\mathrm{res},k}\| \le \bar{d}_{\mathrm{res}}\)</span> 를 함께 사용하면</p>
+<p><span id="eq-cs"><span class="math display">\[
+\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k}
+\;\le\;
+\|\bm{d}_{\mathrm{res},k}\|\,\|\bm{u}_{\mathrm{RL},k}\|
+\;\le\;
+\bar{d}_{\mathrm{res}}\,\|\bm{u}_{\mathrm{RL},k}\|
+\tag{18}\]</span></span></p>
+<p>이 얻어진다.</p>
+<p><strong>단계 3 — <span class="math inline">\(\|\bm{u}_{\mathrm{RL},k}\|\)</span> 에 대한 해.</strong> <a href="#eq-cs" class="quarto-xref">식 18</a> 를 <a href="#eq-squared" class="quarto-xref">식 17</a> 에 대입하면</p>
+<p><span class="math display">\[
+\|\bm{u}_{\mathrm{RL},k}\|^2
+\;\le\;
+2\,\bar{d}_{\mathrm{res}}\,\|\bm{u}_{\mathrm{RL},k}\|
+\]</span></p>
+<p>이며, 양변을 <span class="math inline">\(\|\bm{u}_{\mathrm{RL},k}\| &gt; 0\)</span> (영벡터인 경우는 자명히 성립) 으로 나누면 최종 상한이 나온다.</p>
+<div id="thm-ceiling" class="theorem">
+<p><span class="theorem-title"><strong>정리 2</strong></span> <strong>정리 2 (ISS 행동 크기 상한).</strong> <strong>?@asm-lyap</strong> 이 성립하고 기저 시스템이 <a href="#thm-baseline-iss" class="quarto-xref">Theorem 1</a> 을 만족한다고 하자. 단계 <span class="math inline">\(k\)</span> 에서 보존 기준 <a href="#eq-criterion" class="quarto-xref">식 16</a> 을 요구할 때, RL action의 크기는 다음 부등식을 만족해야 한다. <span id="eq-ceiling"><span class="math display">\[
+\|\bm{u}_{\mathrm{RL},k}\|
+\;\le\;
+2\,\bar{d}_{\mathrm{res}}
+\;=\;
+\frac{2\,c_x\,r^2}{\gamma_0}.
+\tag{19}\]</span></span></p>
+</div>
+</section>
+<section id="sec-cliplaw" class="level2" data-number="5.4">
+<h2 data-number="5.4"><span class="header-section-number">5.4</span> Action Clipping</h2>
+<p>상한 <a href="#eq-ceiling" class="quarto-xref">식 19</a> 은 actor 신경망과 관절 명령 사이에 강제된다.</p>
+<div id="def-clip" class="theorem definition">
+<p><span class="theorem-title"><strong>정의 2</strong></span> <strong>정의 2 (ISS 클리핑 법칙).</strong> 전체 시스템에 적용되는 클리핑된 RL 토크는 다음과 같이 정의된다. <span id="eq-clip"><span class="math display">\[
+\boxed{\quad
+\bm{u}_{\mathrm{RL},k}^{\mathrm{clip}}
+\;=\;
+\bm{u}_{\mathrm{RL},k}\cdot
+\min\!\Bigl[\,1,\;
+\frac{2\,c_x\,r^2}{\gamma_0\,\|\bm{u}_{\mathrm{RL},k}\|}
+\Bigr].
+\quad}
+\tag{20}\]</span></span></p>
+</div>
+<p>상수 <span class="math inline">\(c_x, \gamma_0, r\)</span> (한 번 결정 후 고정) 과 현재의 <span class="math inline">\(\bm{u}_{\mathrm{RL},k}\)</span> 에만 의존한다. 상태 <span class="math inline">\(\bm{x}_k\)</span> 나 잔차 <span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span> 와 무관하다.</p>
+<p>Action Clipping이 보장하는 것은, RL action이 잔차와 <strong>최악으로 반대 방향</strong> 일 때조차 삼각 부등식으로부터</p>
+<p><span class="math display">\[
+\|\bm{d}_{\mathrm{eff},k}\|
+\;\le\;
+\|\bm{d}_{\mathrm{res},k}\| + \|\bm{u}_{\mathrm{RL},k}^{\mathrm{clip}}\|
+\;\le\;
+\bar{d}_{\mathrm{res}} + 2\,\bar{d}_{\mathrm{res}}
+\;=\;
+3\,\bar{d}_{\mathrm{res}}
+\]</span></p>
+<p>가 성립한다는 점이다. 이를 <a href="#eq-iss" class="quarto-xref">식 12</a> 의 <span class="math inline">\(\|\bm{d}_{\mathrm{res}}\|\)</span> 자리에 대입하면 폐루프는 여전히 ISS 이며, <em>확대되었지만 유한한</em> 최종 반경 <span class="math inline">\(\sqrt{3}\,r\)</span> 안에 머문다. <strong>안전 범위는 초과하지 않는다.</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>클립이 보장하는 것 (한 문장)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>RL 정책이 잔차와 정렬되도록 학습된 정상 작동 시에는 오차가 목표 반경 <span class="math inline">\(r\)</span> 안에서 정착하며, 정책이 임의로 실패하더라도 오차는 <span class="math inline">\(\sqrt{3}\,r\)</span> 안에 갇힌다.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-estim" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> ISS 상수의 실용적 추정</h1>
+<p>클리핑 법칙 <a href="#eq-clip" class="quarto-xref">식 20</a> 은 세 상수 <span class="math inline">\(c_x, \gamma_0, r\)</span> 을 포함한다. 본 절은 이들 각각을 어떻게 얻는지 절차를 제시한다.</p>
+<section id="sec-estim-cx" class="level2" data-number="6.1">
+<h2 data-number="6.1"><span class="header-section-number">6.1</span> 수렴 계수 <span class="math inline">\(c_x\)</span></h2>
+<p>가정 (A2) 에 따르면 <span class="math inline">\(c_x\)</span> 는 <span class="math inline">\(\ell(\bm{x},\kappa_N(\bm{x})) \ge c_x \|\bm{x}\|^2\)</span> 을 만족하는 가장 큰 양수이다. 등가적으로, <a href="#lem-descent" class="quarto-xref">Lemma 1</a> 로부터 <span class="math inline">\(c_x\)</span></p>
+<p><span id="eq-cx-defn"><span class="math display">\[
+\frac{V_N^*(\bm{x}_k) - V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})}
+     {\|\bm{x}_k\|^2}
+\;\ge\; c_x
+\quad\text{임의의 공칭 } \bm{x}_k\in\mathcal{X}\text{ 에 대해}
+\tag{21}\]</span></span></p>
+<p>을 만족하는 가장 큰 양수이다. 실제 하드웨어에서 <em>quiet</em> 조건 (인위적 외란 없음, 외부 외란 없음)환경을 만든 후 다양한 궤적명령을 내리고 아래 식을 이용해 추정한다.</p>
+<div id="def-cx-emp" class="theorem definition">
+<p><span class="theorem-title"><strong>정의 3</strong></span> <strong>정의 3 (경험적 수렴 계수).</strong> <span class="math inline">\(\{(\bm{x}_k, V_N^*(\bm{x}_k))\}_{k=1}^{K}\)</span> 은 quiet 운영 상황에서 기록된 상태-cost 쌍. <span id="eq-cx-emp"><span class="math display">\[
+\hat{c}_x \;=\;
+\mathrm{percentile}_{5}\!\Biggl\{\;
+\frac{V_N^*(\bm{x}_k) - V_N^*(\bm{x}_{k+1})}
+     {\|\bm{x}_k\|^2}
+\;:\;
+\|\bm{x}_k\| &gt; \epsilon,\;\;
+V_N^*(\bm{x}_k) &gt; V_N^*(\bm{x}_{k+1})
+\;\Biggr\}.
+\tag{22}\]</span></span> 여기서 <span class="math inline">\(\epsilon\)</span> 은 원점 근처에서 비율이 발산하지 않도록 두는 작은 하한 (예: <span class="math inline">\(10^{-3}\,\)</span>m) 이다.</p>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>실제 로봇에서 얻어야되는게 맞나?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>실제 로봇에서 이 값을 얻으면 모델링오차로 인한 외란이 포함되니까 quiet가 아닐수도있겠다. 시뮬레이션에서 얻는게 더 나을수도 있겠다.</p>
+</div>
+</div>
+</section>
+<section id="sec-estim-gamma" class="level2" data-number="6.2">
+<h2 data-number="6.2"><span class="header-section-number">6.2</span> 외란 이득 <span class="math inline">\(\gamma_0\)</span></h2>
+<p>가정 (A3) 와 <a href="#eq-lip" class="quarto-xref">식 11</a> 의 구성에 따르면, <span class="math inline">\(\gamma_0\)</span> 은 <span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span> 크기의 상태 변위가 유발하는 비용 변화의 상한을 주는 가장 작은 양수이다. ISS 부등식 <a href="#eq-iss" class="quarto-xref">식 12</a> 를 정리하면</p>
+<p><span id="eq-gamma-defn"><span class="math display">\[
+\gamma_0 \;\ge\;
+\frac{-\bigl[V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)\bigr]
+       \;+\; c_x\,\|\bm{x}_k\|^2}
+     {\|\bm{d}_{\mathrm{res},k}\|}
+\quad (\|\bm{d}_{\mathrm{res},k}\| &gt; 0)
+\tag{23}\]</span></span></p>
+<p>가 얻어진다. 분자는 기록된 <span class="math inline">\(V_N^*\)</span> 와 <span class="math inline">\(\|\bm{x}_k\|\)</span> 만으로 계산되지만, 분모는 <em>깨끗한 참값 잔차 (clean ground-truth residual)</em> 를 요구한다.</p>
+<ul>
+<li><strong>시뮬레이션</strong> 에서 <span class="math inline">\(\bm{d}_{\mathrm{res},k} = \bm{d}_{\mathrm{true},k}^{\mathrm{sim}}
+- \bm{d}_{\mathrm{filter},k}\)</span> 으로 정확히 계산된다. 여기서 “참값” 외란은 물리 엔진이 제공하는 참값 관절 가속도를 사용한 역동역학 (inverse dynamics) 으로 얻어진다.</li>
+</ul>
+<div id="def-gamma-emp" class="theorem definition">
+<p><span class="theorem-title"><strong>정의 4</strong></span> <strong>정의 4 (경험적 외란 이득).</strong> 전체 외란이 활성화된 시뮬레이션에서 기록된 <span class="math inline">\(\{(\bm{x}_k, V_N^*(\bm{x}_k), \bm{d}_{\mathrm{res},k}^{\mathrm{sim}})\}_{k=1}^{K}\)</span> 에 대해, 경험적 외란 이득은 95% 신뢰구간에서 정의된다. <span class="math display">\[
+\hat{\gamma}_0 \;=\;
+\mathrm{percentile}_{95}\!\Biggl\{\;
+\frac{-\Delta V_k + \hat{c}_x\,\|\bm{x}_k\|^2}
+     {\|\bm{d}_{\mathrm{res},k}^{\mathrm{sim}}\|}
+\;:\;
+\|\bm{d}_{\mathrm{res},k}^{\mathrm{sim}}\| &gt; \delta,
+\;\;\text{(비율)} &gt; 0
+\;\Biggr\},
+\]</span> 여기서 <span class="math inline">\(\Delta V_k = V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)\)</span> 이고 <span class="math inline">\(\delta\)</span> 는 분모가 0 에 가까워지지 않도록 두는 작은 하한이다.</p>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>따러서 <span class="math inline">\(\gamma_0\)</span> 은 시뮬레이션에서만 추정하고 실측에 그대로 전이한다. <span class="math inline">\(\gamma_0\)</span> 은 <span class="math inline">\(V_N^*\)</span> 의 성질이며, <span class="math inline">\(V_N^*\)</span> 이 시뮬레이션과 실측에서 수학적으로 동일한 함수 (동일한 NMPC 가중치, 동일한 URDF, 동일한 지평과 샘플 시간) 이기 때문에 시뮬레이션에서 추정해도 괜찮을것 같다.</p>
+</div>
+</div>
+</section>
+<section id="sec-estim-r" class="level2" data-number="6.3">
+<h2 data-number="6.3"><span class="header-section-number">6.3</span> 목표 반경 <span class="math inline">\(r\)</span></h2>
+<p>반경 <span class="math inline">\(r\)</span> 은 클리핑 법칙에서 <em>유일한 설계 변수</em> 이다. 측정되는 양이 아니라 <em>사용자가 선택하는</em> 양이며, 인증하고자 하는 실용적 추적 정확도를 나타낸다. 선택 시 다음 세 가지를 고려한다.</p>
+<ol type="1">
+<li><p><strong>클립 상한은 <span class="math inline">\(r^2\)</span> 으로 스케일링된다.</strong> <span class="math inline">\(r\)</span> 을 절반으로 줄이면 상한이 4 배로 좁아지고, 2 배로 늘리면 16 배로 넓어진다. 공격적인 (작은) <span class="math inline">\(r\)</span> 은 더 빡빡한 보장을 주지만 RL 의 기여 여지를 거의 남기지 않으며, 관대한 (큰) <span class="math inline">\(r\)</span> 은 보장 영역을 넓혀 정책이 더 활발히 기여할 수 있게 해 준다.</p></li>
+<li><p><strong><span class="math inline">\(r\)</span> 은 기저 시스템이 도달 가능한 정확도와 정합되어야 한다.</strong> NMPC–DOB 단독 추적 오차가 정상상태에서 <span class="math inline">\(\|\bm{x}_k\| \approx r_{\mathrm{base}}\)</span> 정도라면, <span class="math inline">\(r \ll r_{\mathrm{base}}\)</span> 으로 잡는 것은 클립을 무의미하게 빡빡하게 만든다. 실용적인 선택은 <span class="math inline">\(r \approx r_{\mathrm{base}}\)</span>, 또는 RL 이 좁힐 것으로 기대되는 정도만 더 작게 잡는 것이다.</p></li>
+</ol>
+</section>
+<section id="시뮬레이션-측정" class="level2" data-number="6.4">
+<h2 data-number="6.4"><span class="header-section-number">6.4</span> 시뮬레이션 측정</h2>
+<p>세 추정량을 종합하면 다음과 같다.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 26%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>상수</th>
+<th>측정 장소</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(c_x\)</span></td>
+<td>양쪽 측정 가능</td>
+<td>NMPC + 플랜트 동역학의 성질; 실측이 마찰로 작을 수 있음</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\gamma_0\)</span></td>
+<td>시뮬레이션 전용</td>
+<td><span class="math inline">\(V_N^*\)</span> 만의 성질; 실측에 정확히 전이됨</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(r\)</span></td>
+<td>설계 선택</td>
+<td>측정 대상이 아님</td>
+</tr>
+</tbody>
+</table>
+<p>런타임에 사용하는 최종 클립 상한은</p>
+<p><span id="eq-final-clip"><span class="math display">\[
+\|\bm{u}_{\mathrm{RL}}\|
+\;\le\;
+\frac{2\,\hat{c}_x\,r^2}{\hat{\gamma}_0},
+\qquad
+\hat{c}_x = \hat{c}_x^{\mathrm{real}},
+\quad
+\hat{\gamma}_0 = \hat{\gamma}_0^{\mathrm{sim}}
+\tag{24}\]</span></span></p>
+<p>이다.</p>
+<div id="quarto-book-math" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWVuYWJsZS1tYXRoLWlubGluZQ=="><span class="math inline">\(e = mC^2\)</span></span></p>
+</div>
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl">evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXItdGl0bGU=">evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6QWJvdXQ=">About</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L2Fib3V0Lmh0bWw=">/about.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6aHR0cHM6Ly9naXRodWIuY29tLw==">https://github.com/</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6aHR0cHM6Ly90d2l0dGVyLmNvbQ==">https://twitter.com</span></p>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGF0aXRsZQ==">Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller – evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU=">Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller – evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZHRpdGxl">Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller – evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGFzaXRlbmFtZQ==">evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw=="></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZGRkZXNj"></span></p>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id = "quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+</body>
+
+</html>

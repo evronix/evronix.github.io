@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.9.38" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+<meta name="author" content="Piper Manipulator Project" />
+<meta name="dcterms.date" content="2026-05-29" />
+
+<title>Stability-Aware Residual Reinforcement Learning – evronix.github.io</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<!-- htmldependencies:E3FAD763 -->
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3HR0GH2ZQ"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q3HR0GH2ZQ', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="/index.html">
+    <span class="navbar-title">evronix.github.io</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+  aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation"
+  onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="/about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i 
+  class="bi bi-github" 
+  role="img" 
+>
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i 
+  class="bi bi-twitter" 
+  role="img" 
+>
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div id="quarto-toc-target"></div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" ></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default toc-left">
+  <div class="quarto-title-banner">
+    <div class="quarto-title column-body">
+      <h1 class="title">Stability-Aware Residual Reinforcement Learning</h1>
+            <p class="subtitle lead">Input-to-State Stability Analysis and Action-Clipping Law<br />
+for a Cascade NMPC–DOB–RL Controller on a 6-DOF Manipulator</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Piper Manipulator Project </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 29, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-intro" id="toc-sec-intro"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#sec-setup" id="toc-sec-setup"><span class="header-section-number">2</span> Setup and Notation</a>
+  <ul>
+  <li><a href="#tracking-error-state-and-the-cascade-control-law" id="toc-tracking-error-state-and-the-cascade-control-law"><span class="header-section-number">2.1</span> Tracking-error state and the cascade control law</a></li>
+  <li><a href="#plant-dynamics-under-the-residual-disturbance" id="toc-plant-dynamics-under-the-residual-disturbance"><span class="header-section-number">2.2</span> Plant dynamics under the residual disturbance</a></li>
+  </ul></li>
+  <li><a href="#sec-cascade" id="toc-sec-cascade"><span class="header-section-number">3</span> The Cascade Architecture</a>
+  <ul>
+  <li><a href="#sec-nmpc" id="toc-sec-nmpc"><span class="header-section-number">3.1</span> Layer 1 — Nominal NMPC</a></li>
+  <li><a href="#sec-dob" id="toc-sec-dob"><span class="header-section-number">3.2</span> Layer 2 — Model-based DOB</a></li>
+  <li><a href="#sec-rl" id="toc-sec-rl"><span class="header-section-number">3.3</span> Layer 3 — Residual RL</a></li>
+  </ul></li>
+  <li><a href="#sec-lyap" id="toc-sec-lyap"><span class="header-section-number">4</span> Lyapunov Candidate: The Optimal NMPC Cost</a>
+  <ul>
+  <li><a href="#standing-assumptions" id="toc-standing-assumptions"><span class="header-section-number">4.1</span> Standing assumptions</a></li>
+  <li><a href="#sec-vfdescent" id="toc-sec-vfdescent"><span class="header-section-number">4.2</span> Value-function descent (nominal stability)</a></li>
+  </ul></li>
+  <li><a href="#sec-iss" id="toc-sec-iss"><span class="header-section-number">5</span> Input-to-State Stability of the Baseline</a>
+  <ul>
+  <li><a href="#cost-propagation-under-the-residual-disturbance" id="toc-cost-propagation-under-the-residual-disturbance"><span class="header-section-number">5.1</span> Cost propagation under the residual disturbance</a></li>
+  <li><a href="#lipschitz-bound-on-the-perturbation-term" id="toc-lipschitz-bound-on-the-perturbation-term"><span class="header-section-number">5.2</span> Lipschitz bound on the perturbation term</a></li>
+  <li><a href="#the-baseline-iss-inequality" id="toc-the-baseline-iss-inequality"><span class="header-section-number">5.3</span> The baseline ISS inequality</a></li>
+  </ul></li>
+  <li><a href="#sec-clip" id="toc-sec-clip"><span class="header-section-number">6</span> ISS-Based Action Clipping</a>
+  <ul>
+  <li><a href="#sec-budget" id="toc-sec-budget"><span class="header-section-number">6.1</span> The admissible residual budget</a></li>
+  <li><a href="#iss-inequality-with-the-rl-layer-active" id="toc-iss-inequality-with-the-rl-layer-active"><span class="header-section-number">6.2</span> ISS inequality with the RL layer active</a></li>
+  <li><a href="#the-stability-preservation-criterion" id="toc-the-stability-preservation-criterion"><span class="header-section-number">6.3</span> The stability-preservation criterion</a></li>
+  <li><a href="#sec-magbound" id="toc-sec-magbound"><span class="header-section-number">6.4</span> From the preservation criterion to a magnitude bound</a></li>
+  <li><a href="#sec-cliplaw" id="toc-sec-cliplaw"><span class="header-section-number">6.5</span> The clipping law</a></li>
+  <li><a href="#sec-geom" id="toc-sec-geom"><span class="header-section-number">6.6</span> Geometric interpretation and honest caveat</a></li>
+  </ul></li>
+  <li><a href="#sec-estim" id="toc-sec-estim"><span class="header-section-number">7</span> Practical Estimation of the ISS Constants</a>
+  <ul>
+  <li><a href="#sec-estim-cx" id="toc-sec-estim-cx"><span class="header-section-number">7.1</span> Convergence coefficient <span class="math inline">\(c_x\)</span></a></li>
+  <li><a href="#sec-estim-gamma" id="toc-sec-estim-gamma"><span class="header-section-number">7.2</span> Disturbance gain <span class="math inline">\(\gamma_0\)</span></a></li>
+  <li><a href="#sec-estim-r" id="toc-sec-estim-r"><span class="header-section-number">7.3</span> Target radius <span class="math inline">\(r\)</span></a></li>
+  <li><a href="#sec-estim-flow" id="toc-sec-estim-flow"><span class="header-section-number">7.4</span> Hybrid sim–real workflow</a></li>
+  </ul></li>
+  <li><a href="#sec-summary" id="toc-sec-summary"><span class="header-section-number">8</span> Summary</a></li>
+  <li><a href="#symbol-reference" id="toc-symbol-reference"><span class="header-section-number">9</span> Symbol Reference</a></li>
+  <li><a href="#references" id="toc-references">References</a></li>
+  </ul>
+</nav>
+<p><span class="math display">\[
+\newcommand{\bm}[1]{\boldsymbol{#1}}
+\]</span></p>
+<section id="sec-intro" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>This report establishes a deterministic stability guarantee for a residual reinforcement-learning (RL) controller deployed on top of a nominal nonlinear model-predictive controller (NMPC) and a model-based disturbance observer (DOB). The combined NMPC–DOB layer is mature and admits a classical stability certificate; the RL layer, by contrast, is a neural-network policy and resists direct stability analysis.</p>
+<p>Our strategy is to <em>borrow</em> the stability certificate of the baseline. We first show that the NMPC–DOB cascade is <em>Input-to-State Stable</em> (ISS) with respect to the uncompensated residual disturbance that escapes the observer’s passband. From the ISS inequality we extract a quantitative budget on the admissible residual, then <em>map this budget back onto the RL action space</em> as a hard, state-aware magnitude ceiling. Any RL torque within the ceiling is admissible by construction; any torque exceeding the ceiling is radially scaled back. The cage is built entirely from quantities of the certified baseline, so the learning agent inherits a provable stability margin without itself being verified.</p>
+<p>The remainder of the document is organised as follows. <a href="#sec-setup" class="quarto-xref">Section 2</a> fixes notation and the cascade control law. <a href="#sec-cascade" class="quarto-xref">Section 3</a> introduces the three layers. <a href="#sec-lyap" class="quarto-xref">Section 4</a> states the standing assumptions that make the NMPC optimal cost a valid Lyapunov candidate. <a href="#sec-iss" class="quarto-xref">Section 5</a> derives the baseline ISS inequality. <a href="#sec-clip" class="quarto-xref">Section 6</a> is the core contribution: the ISS-based action-clipping law and its derivation via the Cauchy–Schwarz inequality. <a href="#sec-estim" class="quarto-xref">Section 7</a> describes how the three constants <span class="math inline">\(c_x\)</span>, <span class="math inline">\(\gamma_0\)</span>, and <span class="math inline">\(r\)</span> are obtained from simulation and hardware experiments.</p>
+</section>
+<section id="sec-setup" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Setup and Notation</h1>
+<section id="tracking-error-state-and-the-cascade-control-law" class="level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Tracking-error state and the cascade control law</h2>
+<p>We work in the discrete-time tracking-error coordinates of the 6-DOF manipulator. Let <span class="math inline">\(\bm{q}_k,\bm{v}_k \in \mathbb{R}^6\)</span> denote the measured joint position and velocity at sample <span class="math inline">\(k\)</span>, and let <span class="math inline">\(\bm{q}^{\mathrm{ref}}_k,\bm{v}^{\mathrm{ref}}_k\)</span> be the time-varying joint-space reference obtained by inverse kinematics of the Cartesian end-effector target. The tracking-error state is</p>
+<p><span id="eq-state"><span class="math display">\[
+\bm{x}_k \;\triangleq\;
+\begin{bmatrix}
+\bm{q}_k - \bm{q}^{\mathrm{ref}}_k \\[2pt]
+\bm{v}_k - \bm{v}^{\mathrm{ref}}_k
+\end{bmatrix}
+\;\in\; \mathbb{R}^{12}.
+\tag{1}\]</span></span></p>
+<p>The origin <span class="math inline">\(\bm{x}_k = \bm{0}\)</span> denotes perfect tracking. Throughout this document, <span class="math inline">\(\|\,\cdot\,\|\)</span> denotes the Euclidean norm.</p>
+<p>The cascade control law executed by our implementation is</p>
+<p><span id="eq-cmd"><span class="math display">\[
+\bm{u}_{\mathrm{cmd},k}
+\;=\;
+\underbrace{\bm{u}_{\mathrm{MPC},k}}_{\text{nominal NMPC}}
+\;-\;
+\underbrace{\bm{d}_{\mathrm{filter},k}}_{\text{DOB estimate}}
+\;-\;
+\underbrace{\bm{u}_{\mathrm{RL},k}}_{\text{residual RL}},
+\tag{2}\]</span></span></p>
+<p>where all three components live in the same physical joint-torque space <span class="math inline">\(\mathbb{R}^6\)</span>. The minus sign on the RL term reflects that the policy is trained to <em>cancel</em> the residual disturbance, mirroring the DOB.</p>
+</section>
+<section id="plant-dynamics-under-the-residual-disturbance" class="level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Plant dynamics under the residual disturbance</h2>
+<p>Let <span class="math inline">\(\bm{f}(\bm{x},\bm{u})\)</span> denote the nominal (URDF-modelled) closed-loop dynamics. The true plant, on real hardware or in simulation with friction and base excitation, evolves as</p>
+<p><span id="eq-plant"><span class="math display">\[
+\bm{x}_{k+1} \;=\; \bm{f}\bigl(\bm{x}_k,\bm{u}_{\mathrm{cmd},k}\bigr)
+\;+\; \bm{w}_k,
+\tag{3}\]</span></span></p>
+<p>where <span class="math inline">\(\bm{w}_k\)</span> collects all sources of model mismatch (un-modelled friction, base excitation, payload variation, parameter drift). The DOB estimates the in-band component of <span class="math inline">\(\bm{w}_k\)</span> and subtracts it as <span class="math inline">\(\bm{d}_{\mathrm{filter},k}\)</span>; what the observer cannot capture remains as the <em>residual disturbance</em></p>
+<p><span id="eq-dres-def"><span class="math display">\[
+\bm{d}_{\mathrm{res},k} \;\triangleq\;
+\bm{w}_k \;-\; \bm{d}_{\mathrm{filter},k}
+\;\in\;\mathbb{R}^6.
+\tag{4}\]</span></span></p>
+<p>The residual is the <em>only</em> exogenous input that appears in the forthcoming ISS analysis. We will frequently abuse notation and write <span class="math inline">\(\bm{x}_{k+1} = \bm{x}_{k+1}^{\mathrm{nom}} + \bm{d}_{\mathrm{res},k}\)</span>, where <span class="math inline">\(\bm{x}_{k+1}^{\mathrm{nom}}\)</span> is the disturbance-free successor state under the nominal closed loop; this is the standard state-displacement embedding of an input disturbance and is sufficient for the Lyapunov analysis that follows.</p>
+</section>
+</section>
+<section id="sec-cascade" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> The Cascade Architecture</h1>
+<section id="sec-nmpc" class="level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Layer 1 — Nominal NMPC</h2>
+<p>The NMPC solves, at each sample <span class="math inline">\(k\)</span>, a finite-horizon optimal-control problem</p>
+<p><span id="eq-vstar"><span class="math display">\[
+V_N^*(\bm{x}_k)
+\;=\;
+\min_{\bm{u}_{0:N-1}}
+\sum_{j=0}^{N-1} \ell\bigl(\bm{x}_{k+j},\bm{u}_{k+j}\bigr)
+\;+\; V_f\bigl(\bm{x}_{k+N}\bigr)
+\tag{5}\]</span></span></p>
+<p>subject to the nominal dynamics <span class="math inline">\(\bm{x}_{j+1}=\bm{f}(\bm{x}_j,\bm{u}_j)\)</span>, input bounds, and (implicitly) a terminal set. The NMPC feedback law is the first element of the minimising sequence, <span class="math inline">\(\bm{u}_{\mathrm{MPC},k} = \kappa_N(\bm{x}_k) \triangleq
+\bm{u}^*_{0}(\bm{x}_k)\)</span>. In our implementation the stage cost is <span id="eq-stage"><span class="math display">\[
+\ell(\bm{x},\bm{u}) \;=\;
+Q_{\mathrm{pos}}\,\bigl\|\bm{p}(\bm{x})-\bm{p}^{\star}\bigr\|^2
++ Q_{\mathrm{vel}}\,\bigl\|\bm{v}(\bm{x})\bigr\|^2
++ R_{\tau}\,\|\bm{u}\|^2,
+\tag{6}\]</span></span> with <span class="math inline">\(Q_{\mathrm{pos}}=5000\)</span>, <span class="math inline">\(Q_{\mathrm{vel}}=10\)</span>, <span class="math inline">\(R_{\tau}=0.1\)</span>, horizon <span class="math inline">\(N=8\)</span>, and sample time <span class="math inline">\(\Delta t = 0.02\)</span>~s; <span class="math inline">\(\bm{p}(\bm{x})\)</span> denotes the forward-kinematics end-effector position.</p>
+<p>The optimal cost <span class="math inline">\(V_N^*\)</span> defined in <a href="#eq-vstar" class="quarto-xref">Eq. 5</a> will serve as our Lyapunov candidate.</p>
+</section>
+<section id="sec-dob" class="level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Layer 2 — Model-based DOB</h2>
+<p>The DOB estimates the disturbance from the dynamics residual: <span class="math inline">\(\bm{d}_{\mathrm{raw},k} = \mathrm{RNEA}\bigl(\bm{q}_k,\bm{v}_k,
+\hat{\bm{a}}_k\bigr) - \bm{u}_{\mathrm{cmd},k-1}\)</span>, where <span class="math inline">\(\hat{\bm{a}}_k\)</span> is an acceleration estimate (in simulation this is the ground-truth physical acceleration; on hardware it is the finite difference of <span class="math inline">\(\bm{v}_k\)</span>). The raw estimate is passed through a first-order low-pass filter with smoothing factor <span class="math inline">\(\alpha \in (0,1)\)</span>:</p>
+<p><span id="eq-dob-lpf"><span class="math display">\[
+\bm{d}_{\mathrm{filter},k}
+\;=\; (1-\alpha)\,\bm{d}_{\mathrm{filter},k-1}
+\;+\; \alpha\,\bm{d}_{\mathrm{raw},k}.
+\tag{7}\]</span></span></p>
+<p>The filter shapes which disturbances are cancelled and which fall through to the residual <a href="#eq-dres-def" class="quarto-xref">Eq. 4</a>. Reducing <span class="math inline">\(\alpha\)</span> tightens the passband, which <em>enlarges</em> the residual that the RL layer must handle.</p>
+</section>
+<section id="sec-rl" class="level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Layer 3 — Residual RL</h2>
+<p>The RL policy <span class="math inline">\(\bm{u}_{\mathrm{RL},k} = \pi(\bm{o}_k)\)</span> is a neural network that observes the same signals available to the DOB plus the DOB’s output, and emits an additive joint torque whose ideal target is the residual itself, i.e. <span class="math inline">\(\bm{u}_{\mathrm{RL},k} \to \bm{d}_{\mathrm{res},k}\)</span>. The policy is trained against a reward that penalises the residual <span class="math inline">\(\bm{d}_{\mathrm{eff},k} \triangleq \bm{d}_{\mathrm{res},k} -
+\bm{u}_{\mathrm{RL},k}\)</span> and tracking error. Because <span class="math inline">\(\pi\)</span> is a learned, possibly stochastic, function, no closed-form stability statement is available for the closed loop that includes it. The role of <a href="#sec-clip" class="quarto-xref">Section 6</a> is to provide one.</p>
+</section>
+</section>
+<section id="sec-lyap" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Lyapunov Candidate: The Optimal NMPC Cost</h1>
+<p>We adopt the NMPC value function <span class="math inline">\(V_N^*\)</span> from <a href="#eq-vstar" class="quarto-xref">Eq. 5</a> as the composite Lyapunov candidate for the cascade. This choice is standard in the predictive-control literature and avoids the need to design a Lyapunov function by hand.</p>
+<section id="standing-assumptions" class="level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> Standing assumptions</h2>
+<p>We collect the three structural assumptions used throughout the rest of the document. They are the standard hypotheses behind the quasi-infinite horizon NMPC stability theorem <span class="citation" data-cites="mayne2000 rawlings2017">[@mayne2000; @rawlings2017]</span>, adapted to our cascade setting.</p>
+<div id="asm-lyap" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-asm">
+<div aria-describedby="asm-lyap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p><strong>Standing assumptions on the operating domain and the NMPC value function.</strong></p>
+<p>There exists a compact operating domain <span class="math inline">\(\mathcal{X} \subset
+\mathbb{R}^{12}\)</span> containing the origin in its interior, such that on <span class="math inline">\(\mathcal{X}\)</span> the following hold:</p>
+<ul>
+<li><p><strong>(A1) Lyapunov sandwich.</strong> There exist <span class="math inline">\(\alpha_1,\alpha_2 \in
+\mathcal{K}_\infty\)</span> such that <span class="math inline">\(\alpha_1(\|\bm{x}\|) \le V_N^*(\bm{x}) \le \alpha_2(\|\bm{x}\|)\)</span> for all <span class="math inline">\(\bm{x}\in\mathcal{X}\)</span>.</p></li>
+<li><p><strong>(A2) Quadratic stage-cost lower bound.</strong> There exists <span class="math inline">\(c_x&gt;0\)</span> with <span class="math inline">\(\ell\bigl(\bm{x},\kappa_N(\bm{x})\bigr) \;\ge\; c_x\,\|\bm{x}\|^2\)</span> for all <span class="math inline">\(\bm{x}\in\mathcal{X}\)</span>.</p></li>
+<li><p><strong>(A3) Local Lipschitz continuity of <span class="math inline">\(V_N^*\)</span>.</strong> There exists <span class="math inline">\(\gamma_0&gt;0\)</span> such that, for every <span class="math inline">\(\bm{x}\in\mathcal{X}\)</span> and every perturbation <span class="math inline">\(\bm{\delta}\in\mathbb{R}^{12}\)</span> with <span class="math inline">\(\bm{x}+\bm{\delta}\in\mathcal{X}\)</span>, <span class="math inline">\(\bigl|V_N^*(\bm{x}+\bm{\delta}) - V_N^*(\bm{x})\bigr|
+\;\le\; \gamma_0\,\|\bm{\delta}\|\)</span>.</p></li>
+</ul>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-asm quarto-uncaptioned" id="asm-lyap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Assumption 1
+</figcaption>
+</figure>
+</div>
+<p>(A1)–(A3) are mild: (A1) follows from positive-definiteness and radial unboundedness of the cost; (A2) is design-driven and is automatically satisfied by the quadratic stage cost <a href="#eq-stage" class="quarto-xref">Eq. 6</a>; (A3) holds locally because <span class="math inline">\(V_N^*\)</span> is the value of a smooth, finite-horizon quadratic program on a compact set.</p>
+<p>The constants <span class="math inline">\(c_x\)</span> and <span class="math inline">\(\gamma_0\)</span> that appear in (A2)–(A3) are <em>exactly</em> the two constants we will need to size the action-clipping law. How to obtain them in practice is the subject of <a href="#sec-estim" class="quarto-xref">Section 7</a>.</p>
+</section>
+<section id="sec-vfdescent" class="level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> Value-function descent (nominal stability)</h2>
+<p>Under (A1)–(A2) and the standard NMPC terminal ingredients (a control-invariant terminal set <span class="math inline">\(\mathcal{X}_f \subset \mathcal{X}\)</span> with a local control-Lyapunov terminal cost <span class="math inline">\(V_f\)</span>), the NMPC value function satisfies the well-known <em>descent property</em> along the nominal closed loop.</p>
+<div id="lem-descent" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 1</strong></span> <strong>Lemma 1 (Value-function descent).</strong> Under <a href="#asm-lyap" class="quarto-xref">Assumption 1</a> and the standard NMPC terminal assumptions, the optimal cost <span class="math inline">\(V_N^*\)</span> satisfies <span id="eq-descent"><span class="math display">\[
+V_N^*\bigl(\bm{x}_{k+1}^{\mathrm{nom}}\bigr) - V_N^*(\bm{x}_k)
+\;\le\;
+-\ell\bigl(\bm{x}_k,\kappa_N(\bm{x}_k)\bigr)
+\;\le\;
+-c_x\,\|\bm{x}_k\|^2
+\tag{8}\]</span></span> for every <span class="math inline">\(\bm{x}_k \in \mathcal{X}\)</span>, where <span class="math inline">\(\bm{x}_{k+1}^{\mathrm{nom}} = \bm{f}\bigl(\bm{x}_k,\kappa_N(\bm{x}_k)\bigr)\)</span> is the disturbance-free successor.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof sketch (standard)
+</div>
+<div class='callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end'><i class='callout-toggle'></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The argument is the canonical “tail-shift” of NMPC stability theory <span class="citation" data-cites="mayne2000 rawlings2017">[@mayne2000, Thm. 1; @rawlings2017, §2.4]</span>. From <span class="math inline">\(\bm{x}_k\)</span> the optimal plan costs <span class="math inline">\(V_N^*(\bm{x}_k)\)</span> over <span class="math inline">\(N\)</span> steps. After applying its first input the system reaches <span class="math inline">\(\bm{x}_{k+1}^{\mathrm{nom}}\)</span>; <em>re-using the tail</em> of the previous plan and appending the terminal controller yields a <em>feasible</em> (not necessarily optimal) plan from <span class="math inline">\(\bm{x}_{k+1}^{\mathrm{nom}}\)</span> whose cost is at most <span class="math inline">\(V_N^*(\bm{x}_k) - \ell(\bm{x}_k,\kappa_N(\bm{x}_k))\)</span>. The re-optimised value <span class="math inline">\(V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})\)</span> cannot exceed this feasible cost, which proves the first inequality. Applying (A2) proves the second.</p>
+</div>
+</div>
+</div>
+<p><a href="#lem-descent" class="quarto-xref">Lemma 1</a> isolates the <em>intrinsic convergence strength</em> of the controller: every disturbance-free step strips at least <span class="math inline">\(c_x\|\bm{x}_k\|^2\)</span> units of cost. The constant <span class="math inline">\(c_x\)</span> is the <strong>convergence coefficient</strong> of the nominal loop and is the first ingredient of the action-clipping law.</p>
+</section>
+</section>
+<section id="sec-iss" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Input-to-State Stability of the Baseline</h1>
+<p>We now activate the residual disturbance and the DOB, keeping <span class="math inline">\(\bm{u}_{\mathrm{RL},k} = \bm{0}\)</span> (i.e., the <em>baseline</em> is the NMPC–DOB cascade alone). The goal is to certify ISS of the baseline with respect to <span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span>.</p>
+<section id="cost-propagation-under-the-residual-disturbance" class="level2" data-number="5.1">
+<h2 data-number="5.1"><span class="header-section-number">5.1</span> Cost propagation under the residual disturbance</h2>
+<p>The true successor state under the residual disturbance is <span id="eq-disturbed-succ"><span class="math display">\[
+\bm{x}_{k+1} \;=\; \bm{x}_{k+1}^{\mathrm{nom}}
+\;+\; \bm{d}_{\mathrm{res},k}.
+\tag{9}\]</span></span></p>
+<p>The one-step change of the Lyapunov candidate decomposes by adding and subtracting <span class="math inline">\(V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})\)</span>:</p>
+<p><span id="eq-split"><span class="math display">\[
+\begin{aligned}
+V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)
+&amp;= \underbrace{\bigl[V_N^*(\bm{x}_{k+1}^{\mathrm{nom}}
+                 + \bm{d}_{\mathrm{res},k})
+        - V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})\bigr]}_{\text{perturbation term}}
+\\[4pt]
+&amp;\quad+ \underbrace{\bigl[V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})
+        - V_N^*(\bm{x}_k)\bigr]}_{\text{nominal descent term}}.
+\end{aligned}
+\tag{10}\]</span></span></p>
+<p>This decomposition is an identity: nothing has been bounded yet. Its purpose is to <em>isolate the only place the disturbance enters</em>—the first bracket—from the part already controlled by <a href="#lem-descent" class="quarto-xref">Lemma 1</a>.</p>
+</section>
+<section id="lipschitz-bound-on-the-perturbation-term" class="level2" data-number="5.2">
+<h2 data-number="5.2"><span class="header-section-number">5.2</span> Lipschitz bound on the perturbation term</h2>
+<p>The first bracket of <a href="#eq-split" class="quarto-xref">Eq. 10</a> is bounded directly by Assumption (A3): <span id="eq-lip"><span class="math display">\[
+V_N^*\bigl(\bm{x}_{k+1}^{\mathrm{nom}} + \bm{d}_{\mathrm{res},k}\bigr)
+- V_N^*\bigl(\bm{x}_{k+1}^{\mathrm{nom}}\bigr)
+\;\le\; \gamma_0\,\bigl\|\bm{d}_{\mathrm{res},k}\bigr\|.
+\tag{11}\]</span></span></p>
+<p>The constant <span class="math inline">\(\gamma_0\)</span> is the <strong>disturbance gain</strong> of the cascade. It plays the role of an “exchange rate” from units of state displacement (metres of error) to units of cost. A large <span class="math inline">\(\gamma_0\)</span> means the cost landscape is steep near the operating trajectory and the system is sensitive to small disturbances; a small <span class="math inline">\(\gamma_0\)</span> means the cost surface is flat and the system is tolerant.</p>
+</section>
+<section id="the-baseline-iss-inequality" class="level2" data-number="5.3">
+<h2 data-number="5.3"><span class="header-section-number">5.3</span> The baseline ISS inequality</h2>
+<p>Combining <a href="#lem-descent" class="quarto-xref">Lemma 1</a> and <a href="#eq-lip" class="quarto-xref">Eq. 11</a> yields the central result of this section.</p>
+<div id="thm-baseline-iss" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> <strong>Theorem 1 (Baseline ISS).</strong> Under <a href="#asm-lyap" class="quarto-xref">Assumption 1</a> and the standard NMPC terminal assumptions, the NMPC–DOB baseline cascade (i.e., <a href="#eq-cmd" class="quarto-xref">Eq. 2</a> with <span class="math inline">\(\bm{u}_{\mathrm{RL}}=\bm{0}\)</span>) satisfies, on the operating domain <span class="math inline">\(\mathcal{X}\)</span>, <span id="eq-iss"><span class="math display">\[
+V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)
+\;\le\;
+-c_x\,\|\bm{x}_k\|^2
+\;+\; \gamma_0\,\|\bm{d}_{\mathrm{res},k}\|.
+\tag{12}\]</span></span> Equivalently, the baseline is <em>Input-to-State Stable</em> with respect to the residual disturbance <span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span>, with ISS-Lyapunov function <span class="math inline">\(V_N^*\)</span>, dissipation rate <span class="math inline">\(\alpha_3(s)=c_x s^2\)</span>, and disturbance gain <span class="math inline">\(\sigma(s)=\gamma_0 s\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class='callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end'><i class='callout-toggle'></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The decomposition <a href="#eq-split" class="quarto-xref">Eq. 10</a> is an identity. Bound its first bracket using <a href="#eq-lip" class="quarto-xref">Eq. 11</a> and its second using <a href="#eq-descent" class="quarto-xref">Eq. 8</a>; sum the two bounds. The resulting inequality <a href="#eq-iss" class="quarto-xref">Eq. 12</a> matches the ISS-Lyapunov template of Jiang &amp; Wang <span class="citation" data-cites="jiang2001">[@jiang2001, Thm. 1]</span>, so ISS follows immediately. <span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+</div>
+<p><a href="#eq-iss" class="quarto-xref">Eq. 12</a> is the <em>quantitative</em> statement of stability. The first term on the right is the energy <em>drain</em> due to the controller; it scales like <span class="math inline">\(\|\bm{x}_k\|^2\)</span> and dominates far from the origin. The second term is the energy <em>refill</em> due to the disturbance; it scales linearly with <span class="math inline">\(\|\bm{d}_{\mathrm{res},k}\|\)</span>. Equilibrium between drain and refill sets the steady-state radius of the tracking error.</p>
+</section>
+</section>
+<section id="sec-clip" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> ISS-Based Action Clipping</h1>
+<p>We now use the budget hidden inside <a href="#eq-iss" class="quarto-xref">Eq. 12</a> to constrain the RL action. The argument proceeds in four steps: (i) extract the admissible residual budget from the ISS inequality; (ii) write the ISS inequality for the closed loop <em>with</em> the RL layer; (iii) impose a <em>preservation criterion</em> that the RL action must not enlarge the residual it is meant to shrink; (iv) reduce that criterion, via the Cauchy–Schwarz inequality, to a hard magnitude ceiling on <span class="math inline">\(\bm{u}_{\mathrm{RL},k}\)</span>.</p>
+<section id="sec-budget" class="level2" data-number="6.1">
+<h2 data-number="6.1"><span class="header-section-number">6.1</span> The admissible residual budget</h2>
+<p>Fix a desired <em>practical convergence radius</em> <span class="math inline">\(r &gt; 0\)</span>: we want the tracking error to settle inside <span class="math inline">\(\|\bm{x}_k\| \le r\)</span>. From <a href="#eq-iss" class="quarto-xref">Eq. 12</a>, the cost stops contracting precisely when the drain no longer dominates the refill, i.e. when <span class="math inline">\(c_x\,\|\bm{x}_k\|^2 \le \gamma_0\,\|\bm{d}_{\mathrm{res},k}\|\)</span>. To force this balance to occur <em>at</em> or <em>inside</em> the target radius, the refill at <span class="math inline">\(\|\bm{x}_k\|=r\)</span> must not exceed the drain there: <span id="eq-budget"><span class="math display">\[
+\gamma_0\,\|\bm{d}_{\mathrm{res},k}\| \;\le\; c_x\,r^2
+\quad\Longleftrightarrow\quad
+\|\bm{d}_{\mathrm{res},k}\| \;\le\; \bar{d}_{\mathrm{res}}
+\;\triangleq\; \frac{c_x\,r^2}{\gamma_0}.
+\tag{13}\]</span></span></p>
+<div id="def-budget" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> <strong>Definition 1 (Admissible residual budget).</strong> The scalar <span class="math inline">\(\bar{d}_{\mathrm{res}} \triangleq c_x r^2 / \gamma_0\)</span> is the <strong>admissible residual budget</strong>: the largest residual norm that the baseline NMPC–DOB cascade can absorb while keeping the tracking-error state within radius <span class="math inline">\(r\)</span>.</p>
+</div>
+<p>The three quantities entering <a href="#eq-budget" class="quarto-xref">Eq. 13</a> have crisp roles: <span class="math inline">\(c_x\)</span> rewards strong convergence (larger <span class="math inline">\(c_x\)</span> enlarges the budget), <span class="math inline">\(r\)</span> rewards looser performance targets (the budget grows like <span class="math inline">\(r^2\)</span>), and <span class="math inline">\(\gamma_0\)</span> punishes sensitivity to disturbance (a steeper cost surface shrinks the budget).</p>
+</section>
+<section id="iss-inequality-with-the-rl-layer-active" class="level2" data-number="6.2">
+<h2 data-number="6.2"><span class="header-section-number">6.2</span> ISS inequality with the RL layer active</h2>
+<p>With <span class="math inline">\(\bm{u}_{\mathrm{RL},k} \ne \bm{0}\)</span>, the effective disturbance seen by the baseline is shifted: <span id="eq-deff"><span class="math display">\[
+\bm{d}_{\mathrm{eff},k}
+\;\triangleq\;
+\bm{d}_{\mathrm{res},k} - \bm{u}_{\mathrm{RL},k},
+\tag{14}\]</span></span> and the ISS inequality <a href="#eq-iss" class="quarto-xref">Eq. 12</a> becomes <span id="eq-iss-with-rl"><span class="math display">\[
+V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)
+\;\le\;
+-c_x\,\|\bm{x}_k\|^2
+\;+\; \gamma_0\,\|\bm{d}_{\mathrm{res},k} - \bm{u}_{\mathrm{RL},k}\|.
+\tag{15}\]</span></span></p>
+</section>
+<section id="the-stability-preservation-criterion" class="level2" data-number="6.3">
+<h2 data-number="6.3"><span class="header-section-number">6.3</span> The stability-preservation criterion</h2>
+<p>We declare that the RL layer is <em>admissible at step <span class="math inline">\(k\)</span></em> whenever it does not enlarge the residual it is intended to cancel: <span id="eq-criterion"><span class="math display">\[
+\boxed{\quad
+\|\bm{d}_{\mathrm{res},k} - \bm{u}_{\mathrm{RL},k}\|
+\;\le\; \|\bm{d}_{\mathrm{res},k}\|.
+\quad}
+\tag{16}\]</span></span></p>
+<p>If <a href="#eq-criterion" class="quarto-xref">Eq. 16</a> holds, then <a href="#eq-iss-with-rl" class="quarto-xref">Eq. 15</a> is <em>no worse</em> than <a href="#eq-iss" class="quarto-xref">Eq. 12</a>, so the baseline ISS certificate carries over verbatim and the closed loop remains ISS with the same constants.</p>
+</section>
+<section id="sec-magbound" class="level2" data-number="6.4">
+<h2 data-number="6.4"><span class="header-section-number">6.4</span> From the preservation criterion to a magnitude bound</h2>
+<p><a href="#eq-criterion" class="quarto-xref">Eq. 16</a> is geometric and depends on the unmeasurable internal quantity <span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span>. We now reduce it to a <em>measurable</em> condition on <span class="math inline">\(\|\bm{u}_{\mathrm{RL},k}\|\)</span> alone, in three algebraic steps.</p>
+<p><strong>Step 1 — Square both sides.</strong> Squaring <a href="#eq-criterion" class="quarto-xref">Eq. 16</a> and expanding the inner product on the left: <span class="math display">\[
+\|\bm{d}_{\mathrm{res},k}\|^2
+- 2\,\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k}
++ \|\bm{u}_{\mathrm{RL},k}\|^2
+\;\le\;
+\|\bm{d}_{\mathrm{res},k}\|^2,
+\]</span> which simplifies to <span id="eq-squared"><span class="math display">\[
+\|\bm{u}_{\mathrm{RL},k}\|^2
+\;\le\;
+2\,\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k}.
+\tag{17}\]</span></span></p>
+<p><strong>Step 2 — Cauchy–Schwarz, with the known bound.</strong> The inner product on the right of <a href="#eq-squared" class="quarto-xref">Eq. 17</a> depends on the unmeasurable <span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span>. Writing <span class="math inline">\(\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k} =
+\|\bm{d}_{\mathrm{res},k}\|\,\|\bm{u}_{\mathrm{RL},k}\|\cos\theta\)</span> with <span class="math inline">\(\theta \in [0,\pi]\)</span> the angle between the two vectors, the Cauchy–Schwarz inequality gives <span class="math inline">\(\cos\theta \le 1\)</span>, and the residual budget <a href="#eq-budget" class="quarto-xref">Eq. 13</a> gives <span class="math inline">\(\|\bm{d}_{\mathrm{res},k}\| \le \bar{d}_{\mathrm{res}}\)</span>. Together, <span id="eq-cs"><span class="math display">\[
+\bm{d}_{\mathrm{res},k}^{\!\top}\bm{u}_{\mathrm{RL},k}
+\;\le\;
+\|\bm{d}_{\mathrm{res},k}\|\,\|\bm{u}_{\mathrm{RL},k}\|
+\;\le\;
+\bar{d}_{\mathrm{res}}\,\|\bm{u}_{\mathrm{RL},k}\|.
+\tag{18}\]</span></span></p>
+<p><strong>Step 3 — Solve for <span class="math inline">\(\|\bm{u}_{\mathrm{RL},k}\|\)</span>.</strong> Substituting <a href="#eq-cs" class="quarto-xref">Eq. 18</a> into <a href="#eq-squared" class="quarto-xref">Eq. 17</a>, <span class="math display">\[
+\|\bm{u}_{\mathrm{RL},k}\|^2
+\;\le\;
+2\,\bar{d}_{\mathrm{res}}\,\|\bm{u}_{\mathrm{RL},k}\|.
+\]</span> Dividing both sides by <span class="math inline">\(\|\bm{u}_{\mathrm{RL},k}\| &gt; 0\)</span> (the case <span class="math inline">\(\bm{u}_{\mathrm{RL},k}=\bm{0}\)</span> is trivial) yields the ceiling.</p>
+<div id="thm-ceiling" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2</strong></span> <strong>Theorem 2 (ISS action-magnitude ceiling).</strong> Suppose <a href="#asm-lyap" class="quarto-xref">Assumption 1</a> holds and the baseline satisfies <a href="#thm-baseline-iss" class="quarto-xref">Theorem 1</a>. For any step <span class="math inline">\(k\)</span> at which the preservation criterion <a href="#eq-criterion" class="quarto-xref">Eq. 16</a> is demanded, the RL action magnitude must satisfy <span id="eq-ceiling"><span class="math display">\[
+\|\bm{u}_{\mathrm{RL},k}\|
+\;\le\;
+2\,\bar{d}_{\mathrm{res}}
+\;=\;
+\frac{2\,c_x\,r^2}{\gamma_0}.
+\tag{19}\]</span></span></p>
+</div>
+</section>
+<section id="sec-cliplaw" class="level2" data-number="6.5">
+<h2 data-number="6.5"><span class="header-section-number">6.5</span> The clipping law</h2>
+<p>The ceiling <a href="#eq-ceiling" class="quarto-xref">Eq. 19</a> is enforced as a <em>stateless, radial</em> saturation layer interposed between the actor network and the joint command. If the raw output already satisfies the ceiling, it passes through unchanged; otherwise it is scaled radially back onto the boundary of the admissible ball:</p>
+<div id="def-clip" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> <strong>Definition 2 (ISS clipping law).</strong> The clipped RL torque applied to the cascade is <span id="eq-clip"><span class="math display">\[
+\boxed{\quad
+\bm{u}_{\mathrm{RL},k}^{\mathrm{clip}}
+\;=\;
+\bm{u}_{\mathrm{RL},k}\cdot
+\min\!\Bigl[\,1,\;
+\frac{2\,c_x\,r^2}{\gamma_0\,\|\bm{u}_{\mathrm{RL},k}\|}
+\Bigr].
+\quad}
+\tag{20}\]</span></span></p>
+</div>
+<p>Two properties of <a href="#eq-clip" class="quarto-xref">Eq. 20</a> deserve emphasis:</p>
+<ol type="1">
+<li><p><strong>Direction-preserving.</strong> The scaling is radial, so a well-aimed but over-strong correction is <em>softened</em>, never <em>redirected</em>. This is important because the policy’s reward function rewards alignment of <span class="math inline">\(\bm{u}_{\mathrm{RL}}\)</span> with <span class="math inline">\(\bm{d}_{\mathrm{res}}\)</span>; per-component clamping would destroy that alignment.</p></li>
+<li><p><strong>Stateless.</strong> The clip depends only on the constants <span class="math inline">\(c_x,\gamma_0,r\)</span> (fixed once and for all) and on the current <span class="math inline">\(\bm{u}_{\mathrm{RL},k}\)</span>. It does not depend on the state <span class="math inline">\(\bm{x}_k\)</span> or on the residual <span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span>. This makes the clip cheap on hardware and trivial to implement.</p></li>
+</ol>
+</section>
+<section id="sec-geom" class="level2" data-number="6.6">
+<h2 data-number="6.6"><span class="header-section-number">6.6</span> Geometric interpretation and honest caveat</h2>
+<p><a href="#eq-ceiling" class="quarto-xref">Eq. 19</a> is a <em>necessary</em> condition for <a href="#eq-criterion" class="quarto-xref">Eq. 16</a> to be satisfiable; it is <strong>not</strong> a blanket <em>sufficient</em> condition. Reading <a href="#eq-squared" class="quarto-xref">Eq. 17</a> exactly, the preservation criterion holds if and only if <span class="math inline">\(\|\bm{u}_{\mathrm{RL},k}\| \le 2\,\|\bm{d}_{\mathrm{res},k}\|\,\cos\theta\)</span>. The largest value the right-hand side can take, over all admissible residuals and all angles, is <span class="math inline">\(2\,\bar{d}_{\mathrm{res}}\)</span>, attained only when the action is <em>perfectly aligned</em> with the residual at the worst-case magnitude. Thus <span class="math inline">\(2\,\bar{d}_{\mathrm{res}}\)</span> is the <strong>outer envelope</strong>: any action exceeding it cannot satisfy <a href="#eq-criterion" class="quarto-xref">Eq. 16</a> under <em>any</em> alignment, and is therefore provably unsafe; the clip removes exactly these actions.</p>
+<p>Inside the envelope, alignment is the policy’s job, not the clip’s. What the clip guarantees, even in the adversarial worst case where the clipped action is <em>anti-aligned</em> with the residual, is a hard upper bound on the effective residual via the triangle inequality: <span class="math display">\[
+\|\bm{d}_{\mathrm{eff},k}\|
+\;\le\;
+\|\bm{d}_{\mathrm{res},k}\| + \|\bm{u}_{\mathrm{RL},k}^{\mathrm{clip}}\|
+\;\le\;
+\bar{d}_{\mathrm{res}} + 2\,\bar{d}_{\mathrm{res}}
+\;=\;
+3\,\bar{d}_{\mathrm{res}}.
+\]</span> Plugging <span class="math inline">\(3\,\bar{d}_{\mathrm{res}}\)</span> back into the ISS inequality <a href="#eq-iss" class="quarto-xref">Eq. 12</a> in place of <span class="math inline">\(\|\bm{d}_{\mathrm{res}}\|\)</span> shows that the closed loop remains ISS with an enlarged—but still finite—ultimate radius <span class="math inline">\(\sqrt{3}\,r\)</span>. <strong>The cage never opens.</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>What the clip guarantees, in one sentence
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the RL policy aligns with the residual (its trained behaviour), the error settles inside the target radius <span class="math inline">\(r\)</span>; if the policy fails arbitrarily, the error stays inside <span class="math inline">\(\sqrt{3}\,r\)</span>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-estim" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Practical Estimation of the ISS Constants</h1>
+<p>The clipping law <a href="#eq-clip" class="quarto-xref">Eq. 20</a> contains three constants: <span class="math inline">\(c_x\)</span>, <span class="math inline">\(\gamma_0\)</span>, and <span class="math inline">\(r\)</span>. This section explains how each is obtained.</p>
+<section id="sec-estim-cx" class="level2" data-number="7.1">
+<h2 data-number="7.1"><span class="header-section-number">7.1</span> Convergence coefficient <span class="math inline">\(c_x\)</span></h2>
+<p>By Assumption (A2), <span class="math inline">\(c_x\)</span> is the largest scalar satisfying <span class="math inline">\(\ell(\bm{x},\kappa_N(\bm{x})) \ge c_x \|\bm{x}\|^2\)</span>. Equivalently, by <a href="#lem-descent" class="quarto-xref">Lemma 1</a>, <span class="math inline">\(c_x\)</span> is the largest scalar consistent with the descent property <span id="eq-cx-defn"><span class="math display">\[
+\frac{V_N^*(\bm{x}_k) - V_N^*(\bm{x}_{k+1}^{\mathrm{nom}})}
+     {\|\bm{x}_k\|^2}
+\;\ge\; c_x
+\quad\text{for all nominal } \bm{x}_k\in\mathcal{X}.
+\tag{21}\]</span></span></p>
+<p>A nominal trajectory is one in which the disturbance is small or absent; on real hardware we approximate “nominal” by <em>quiet</em> operating conditions (no intentional disturbance, no external excitation, no payload changes). The empirical estimator is then</p>
+<div id="def-cx-emp" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3</strong></span> <strong>Definition 3 (Empirical convergence coefficient).</strong> Let <span class="math inline">\(\{(\bm{x}_k, V_N^*(\bm{x}_k))\}_{k=1}^{K}\)</span> be a sequence of state–cost pairs logged from quiet closed-loop operation. The empirical convergence coefficient is the lower 5th percentile, <span id="eq-cx-emp"><span class="math display">\[
+\hat{c}_x \;=\;
+\mathrm{percentile}_{5}\!\Biggl\{\;
+\frac{V_N^*(\bm{x}_k) - V_N^*(\bm{x}_{k+1})}
+     {\|\bm{x}_k\|^2}
+\;:\;
+\|\bm{x}_k\| &gt; \epsilon,\;\;
+V_N^*(\bm{x}_k) &gt; V_N^*(\bm{x}_{k+1})
+\;\Biggr\},
+\tag{22}\]</span></span> where <span class="math inline">\(\epsilon\)</span> is a small floor (e.g. <span class="math inline">\(10^{-3}\,\)</span>m) preventing the ratio from exploding near the origin.</p>
+</div>
+<p>The use of the 5th percentile rather than the strict minimum trades off two competing concerns: the strict minimum is contaminated by isolated numerical outliers (e.g. MPC solves that hit the iteration cap), while the median over-estimates the descent and would violate the lower-bound interpretation for a non-trivial fraction of samples. The 5th percentile gives a <em>robust lower envelope</em> that is safe in the ISS sense (i.e. a valid lower bound for <span class="math inline">\(\ge 95\%\)</span> of samples).</p>
+<p>This procedure can be applied identically in simulation and on real hardware. We recommend taking <span class="math inline">\(\hat{c}_x = \min(\hat{c}_x^{\mathrm{sim}},\hat{c}_x^{\mathrm{real}})\)</span> to absorb the discrepancy caused by unmodelled friction on the physical plant.</p>
+</section>
+<section id="sec-estim-gamma" class="level2" data-number="7.2">
+<h2 data-number="7.2"><span class="header-section-number">7.2</span> Disturbance gain <span class="math inline">\(\gamma_0\)</span></h2>
+<p>By Assumption (A3) and the construction of <a href="#eq-lip" class="quarto-xref">Eq. 11</a>, <span class="math inline">\(\gamma_0\)</span> is the smallest scalar that upper-bounds the cost change induced by a state displacement of the magnitude of <span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span>. Re-arranging the ISS inequality <a href="#eq-iss" class="quarto-xref">Eq. 12</a>, <span id="eq-gamma-defn"><span class="math display">\[
+\gamma_0 \;\ge\;
+\frac{-\bigl[V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)\bigr]
+       \;+\; c_x\,\|\bm{x}_k\|^2}
+     {\|\bm{d}_{\mathrm{res},k}\|}
+\quad\text{whenever } \|\bm{d}_{\mathrm{res},k}\| &gt; 0.
+\tag{23}\]</span></span></p>
+<p>The numerator is computable from logged <span class="math inline">\(V_N^*\)</span> and <span class="math inline">\(\|\bm{x}_k\|\)</span>; the denominator requires the <em>clean ground-truth residual</em>. This is the critical practical asymmetry:</p>
+<ul>
+<li><strong>In simulation</strong>, <span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span> is computable exactly from <span class="math inline">\(\bm{d}_{\mathrm{true},k}^{\mathrm{sim}} -
+\bm{d}_{\mathrm{filter},k}\)</span>, where the “true” disturbance is obtained by inverse dynamics with the ground-truth joint acceleration provided by the physics engine.</li>
+<li><strong>On real hardware</strong>, the joint acceleration is reconstructed by finite differences, which injects numerical noise into the residual estimate. The empirical fit <a href="#eq-gamma-defn" class="quarto-xref">Eq. 23</a> would <em>under-estimate</em> <span class="math inline">\(\gamma_0\)</span> (because the noisy denominator is inflated), which is the unsafe direction.</li>
+</ul>
+<p>The remedy is to estimate <span class="math inline">\(\gamma_0\)</span> <em>in simulation only</em>, then transfer the value to real hardware. The transfer is exact because <span class="math inline">\(\gamma_0\)</span> is a property of the cost function <span class="math inline">\(V_N^*\)</span>, and <span class="math inline">\(V_N^*\)</span> is the <em>same mathematical function</em> in sim and real (same NMPC weights, same URDF, same horizon, same sample time).</p>
+<div id="def-gamma-emp" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4</strong></span> <strong>Definition 4 (Empirical disturbance gain).</strong> Let <span class="math inline">\(\{(\bm{x}_k, V_N^*(\bm{x}_k), \bm{d}_{\mathrm{res},k}^{\mathrm{sim}})\}_{k=1}^{K}\)</span> be logged from a baseline simulation run with the full disturbance curriculum active. The empirical disturbance gain is the 95th percentile, <span class="math display">\[
+\hat{\gamma}_0 \;=\;
+\mathrm{percentile}_{95}\!\Biggl\{\;
+\frac{-\Delta V_k + \hat{c}_x\,\|\bm{x}_k\|^2}
+     {\|\bm{d}_{\mathrm{res},k}^{\mathrm{sim}}\|}
+\;:\;
+\|\bm{d}_{\mathrm{res},k}^{\mathrm{sim}}\| &gt; \delta,
+\;\;\text{(ratio)} &gt; 0
+\;\Biggr\},
+\]</span> where <span class="math inline">\(\Delta V_k = V_N^*(\bm{x}_{k+1}) - V_N^*(\bm{x}_k)\)</span> and <span class="math inline">\(\delta\)</span> is a small floor preventing division by near-zero residuals.</p>
+</div>
+<p>The 95th percentile—rather than the strict maximum—gives a <em>robust upper envelope</em> in the same way the 5th percentile gave a robust lower envelope for <span class="math inline">\(\hat{c}_x\)</span>.</p>
+</section>
+<section id="sec-estim-r" class="level2" data-number="7.3">
+<h2 data-number="7.3"><span class="header-section-number">7.3</span> Target radius <span class="math inline">\(r\)</span></h2>
+<p>The radius <span class="math inline">\(r\)</span> is the <em>only</em> design quantity in the clipping law; it is not measured but <em>selected</em>. It encodes the practical tracking accuracy the user is willing to certify. Three observations guide the choice:</p>
+<ol type="1">
+<li><p><strong>The clip ceiling scales as <span class="math inline">\(r^2\)</span>.</strong> Halving <span class="math inline">\(r\)</span> shrinks the ceiling by a factor of four; doubling <span class="math inline">\(r\)</span> enlarges it sixteen-fold. Aggressive (small) <span class="math inline">\(r\)</span> yields a tighter guarantee but allows the RL layer almost no contribution; permissive (large) <span class="math inline">\(r\)</span> enlarges the guarantee region but lets the policy be more active.</p></li>
+<li><p><strong><span class="math inline">\(r\)</span> should be consistent with what the baseline can already achieve.</strong> If the baseline NMPC–DOB tracking error is observed to settle around <span class="math inline">\(\|\bm{x}_k\| \approx r_{\mathrm{base}}\)</span> in steady state, then choosing <span class="math inline">\(r \ll r_{\mathrm{base}}\)</span> certifies an unattainable guarantee and forces the clip to be uselessly tight. A pragmatic choice is <span class="math inline">\(r \approx r_{\mathrm{base}}\)</span>, or slightly smaller if the RL layer is expected to close the gap.</p></li>
+<li><p><strong><span class="math inline">\(r\)</span> does not appear in the ISS certificate of <a href="#thm-baseline-iss" class="quarto-xref">Theorem 1</a> itself.</strong> It only appears in the <em>budget</em> <a href="#eq-budget" class="quarto-xref">Eq. 13</a> and the <em>ceiling</em> <a href="#eq-ceiling" class="quarto-xref">Eq. 19</a>. ISS holds independently of <span class="math inline">\(r\)</span>; the choice of <span class="math inline">\(r\)</span> only specifies <em>which</em> radius the budget targets.</p></li>
+</ol>
+</section>
+<section id="sec-estim-flow" class="level2" data-number="7.4">
+<h2 data-number="7.4"><span class="header-section-number">7.4</span> Hybrid sim–real workflow</h2>
+<p>Putting the three estimators together:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 32%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Where measured</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(c_x\)</span></td>
+<td>both, take <span class="math inline">\(\min\)</span></td>
+<td>property of NMPC + plant; real may be smaller due to friction</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\gamma_0\)</span></td>
+<td>simulation only</td>
+<td>property of <span class="math inline">\(V_N^*\)</span> alone; transfers exactly to real</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(r\)</span></td>
+<td>design choice</td>
+<td>not measured</td>
+</tr>
+</tbody>
+</table>
+<p>The final clip ceiling used at run-time is <span id="eq-final-clip"><span class="math display">\[
+\|\bm{u}_{\mathrm{RL}}\|
+\;\le\;
+\frac{2\,\hat{c}_x\,r^2}{\hat{\gamma}_0},
+\qquad
+\hat{c}_x = \min(\hat{c}_x^{\mathrm{sim}}, \hat{c}_x^{\mathrm{real}}),
+\quad
+\hat{\gamma}_0 = \hat{\gamma}_0^{\mathrm{sim}}.
+\tag{24}\]</span></span></p>
+<p>Because the strict minimum of <span class="math inline">\(c_x\)</span> and the strict maximum form of <span class="math inline">\(\gamma_0\)</span> are <em>both</em> taken in the conservative direction, all estimation error is absorbed by a small reduction in the clip ceiling. Stability is therefore preserved under estimation error; only the RL layer’s freedom is reduced. This is the desired robustness property of the proposed certificate.</p>
+</section>
+</section>
+<section id="sec-summary" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Summary</h1>
+<p>Under the standing assumptions <a href="#asm-lyap" class="quarto-xref">Assumption 1</a>, the NMPC–DOB cascade is ISS with respect to the residual disturbance (<a href="#thm-baseline-iss" class="quarto-xref">Theorem 1</a>), with quadratic dissipation rate <span class="math inline">\(c_x\)</span> and linear disturbance gain <span class="math inline">\(\gamma_0\)</span>. For any target radius <span class="math inline">\(r &gt; 0\)</span>, the admissible residual budget <span class="math inline">\(\bar{d}_{\mathrm{res}} = c_x r^2/\gamma_0\)</span> specifies the largest residual the baseline can absorb while keeping the tracking error inside <span class="math inline">\(r\)</span>. The residual RL layer is admissible at step <span class="math inline">\(k\)</span> if it does not enlarge the residual it is meant to cancel; this preservation criterion reduces, via the Cauchy–Schwarz inequality, to the magnitude ceiling <span class="math inline">\(\|\bm{u}_{\mathrm{RL},k}\| \le 2 c_x r^2/\gamma_0\)</span> (<a href="#thm-ceiling" class="quarto-xref">Theorem 2</a>) and the radial clipping law <a href="#eq-clip" class="quarto-xref">Eq. 20</a>. Provably-unsafe actions—those whose magnitude exceeds <span class="math inline">\(2\bar{d}_{\mathrm{res}}\)</span> and cannot satisfy the preservation criterion under any alignment—are removed by construction. Inside the envelope, even adversarial misalignment of the clipped action leaves the closed loop ISS with enlarged ultimate radius <span class="math inline">\(\sqrt{3}\,r\)</span>; the cage never opens. The three constants <span class="math inline">\(c_x,
+\gamma_0, r\)</span> are obtained via <a href="#def-cx-emp" class="quarto-xref">Definition 3</a>, <a href="#def-gamma-emp" class="quarto-xref">Definition 4</a>, and the design rule of <a href="#sec-estim-r" class="quarto-xref">Section 7.3</a>; the resulting hybrid sim–real workflow <a href="#eq-final-clip" class="quarto-xref">Eq. 24</a> is robust to estimation error in the conservative direction.</p>
+</section>
+<section id="symbol-reference" class="level1 appendix" data-number="9">
+<h1 class="appendix" data-number="9"><span class="header-section-number">9</span> Symbol Reference</h1>
+<table class="caption-top">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 61%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\bm{x}_k \in \mathbb{R}^{12}\)</span></td>
+<td>Tracking-error state (6 position errors + 6 velocity errors)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bm{u}_{\mathrm{MPC},k}\)</span></td>
+<td>Nominal NMPC torque, <span class="math inline">\(\kappa_N(\bm{x}_k)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\bm{d}_{\mathrm{filter},k}\)</span></td>
+<td>DOB low-pass-filtered disturbance estimate</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bm{u}_{\mathrm{RL},k}\)</span></td>
+<td>Residual RL torque (pre-clip)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\bm{u}_{\mathrm{RL},k}^{\mathrm{clip}}\)</span></td>
+<td>RL torque after ISS clipping <a href="#eq-clip" class="quarto-xref">Eq. 20</a></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bm{d}_{\mathrm{res},k}\)</span></td>
+<td>Residual disturbance (DOB out-of-band leftover)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\bm{d}_{\mathrm{eff},k}\)</span></td>
+<td>Effective residual under RL, <span class="math inline">\(\bm{d}_{\mathrm{res}}-\bm{u}_{\mathrm{RL}}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(V_N^*(\bm{x})\)</span></td>
+<td>NMPC optimal cost (Lyapunov candidate)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\kappa_N(\bm{x})\)</span></td>
+<td>NMPC feedback law (first element of optimal sequence)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\ell(\bm{x},\bm{u})\)</span></td>
+<td>NMPC per-step stage cost</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(c_x &gt; 0\)</span></td>
+<td>Convergence coefficient, stage-cost lower bound (A2)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\gamma_0 &gt; 0\)</span></td>
+<td>Disturbance gain, local Lipschitz constant of <span class="math inline">\(V_N^*\)</span> (A3)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(r &gt; 0\)</span></td>
+<td>Target practical convergence radius</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bar{d}_{\mathrm{res}} = c_x r^2/\gamma_0\)</span></td>
+<td>Admissible residual budget (<a href="#def-budget" class="quarto-xref">Definition 1</a>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(2\bar{d}_{\mathrm{res}} = 2c_x r^2/\gamma_0\)</span></td>
+<td>ISS action ceiling (<a href="#thm-ceiling" class="quarto-xref">Theorem 2</a>)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="references" class="level1 appendix unnumbered">
+<h1 class="appendix unnumbered">References</h1>
+<div id="refs" role="list">
+
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Suggested bibliography entries (<code>refs.bib</code>)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">mayne2000</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>  = {D. Q. Mayne and J. B. Rawlings and C. V. Rao and P. O. M. Scokaert},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>   = {Constrained model predictive control: stability and optimality},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Automatica},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span>  = {36},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span>  = {6},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span>   = {789--814},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>    = {2000}</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="va">@book</span>{<span class="ot">rawlings2017</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>    = {J. B. Rawlings and D. Q. Mayne and M. M. Diehl},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>     = {Model Predictive Control: Theory, Computation, and Design},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">edition</span>   = {2nd},</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">publisher</span> = {Nob Hill Publishing},</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>      = {2017}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">jiang2001</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>  = {Z.-P. Jiang and Y. Wang},</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>   = {Input-to-state stability for discrete-time nonlinear systems},</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Automatica},</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span>  = {37},</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span>  = {6},</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span>   = {857--869},</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>    = {2001}</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="va">@book</span>{<span class="ot">khalil2002</span>,</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>    = {H. K. Khalil},</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>     = {Nonlinear Systems},</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">edition</span>   = {3rd},</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">publisher</span> = {Prentice Hall},</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>      = {2002}</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">sontag1995</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>  = {E. D. Sontag and Y. Wang},</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>   = {On characterizations of the input-to-state stability property},</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Systems <span class="ch">\&amp;</span> Control Letters},</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span>  = {24},</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span>   = {351--359},</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>    = {1995}</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+</div>
+<div id="quarto-book-math" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWVuYWJsZS1tYXRoLWlubGluZQ=="><span class="math inline">\(e = mC^2\)</span></span></p>
+</div>
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl">evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXItdGl0bGU=">evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6QWJvdXQ=">About</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L2Fib3V0Lmh0bWw=">/about.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6aHR0cHM6Ly9naXRodWIuY29tLw==">https://github.com/</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6aHR0cHM6Ly90d2l0dGVyLmNvbQ==">https://twitter.com</span></p>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGF0aXRsZQ==">Stability-Aware Residual Reinforcement Learning – evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU=">Stability-Aware Residual Reinforcement Learning – evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZHRpdGxl">Stability-Aware Residual Reinforcement Learning – evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGFzaXRlbmFtZQ==">evronix.github.io</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw==">Input-to-State Stability Analysis and Action-Clipping Law<br />
+for a Cascade NMPC–DOB–RL Controller on a 6-DOF Manipulator</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZGRkZXNj">Input-to-State Stability Analysis and Action-Clipping Law<br />
+for a Cascade NMPC–DOB–RL Controller on a 6-DOF Manipulator</span></p>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id = "quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+</body>
+
+</html>

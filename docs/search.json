@@ -4,7 +4,7 @@
     "href": "posts/paper-review/COMPASS_Review.html",
     "title": "COMPASS 리뷰",
     "section": "",
-    "text": "🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code"
+    "text": "Note🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code"
   },
   {
     "objectID": "posts/paper-review/COMPASS_Review.html#background-and-motivation",
@@ -46,7 +46,7 @@
     "href": "posts/paper-review/COMPASS_Review.html#air-hockey-실험-환경",
     "title": "COMPASS 리뷰",
     "section": "6 Air Hockey 실험 환경",
-    "text": "6 Air Hockey 실험 환경\n\n\n\n\n\n\n \n\n\n\nFigure: Comparison between nominal (up) and COMPASS-adjusted environment (down).\n실험은 장애물이 포함된 미니 에어하키 환경에서 수행되었습니다. 에이전트의 목표는 다음과 같은 복합 조작 과제를 해결하는 것입니다:\n\n로봇 팔이 pusher를 이용해 첫 번째 puck을 타격\n첫 번째 puck이 두 번째 puck과 충돌\n두 번째 puck이 장애물을 피하며 벽을 맞고 목표 지점에 도달\n\n이 환경은 물체 간의 충돌, 하키 테이블의 마찰 특성, 표면 반응 등 다양한 역학적 상호작용을 포함합니다.\n저자들은 총 64개의 조절 가능한 환경 파라미터를 선언했습니다. 이 파라미터들은 다음과 같은 요소들과 관련되어 있습니다:\n\n각 물체(pusher, puck1, puck2, 벽, 장애물)의 동역학 속성: damping, friction coefficient 등\n센서 요소: 예를 들어 카메라 bias 등\n\n\n\n6.1 COMPASS의 인과 관계 정렬 결과\nCOMPASS는 초기에는 모든 파라미터가 연결된 밀집한 인과 그래프에서 시작하지만, 단 두 번의 반복만에 매우 희소한 구조의 causal graph로 정렬되었습니다.\n이는 COMPASS가 실제로 궤적 차이에 인과적 영향을 주는 파라미터만을 효과적으로 식별했다는 것을 의미합니다.\n이 결과는 COMPASS가:\n\n도메인 지식 없이도\n탐색 공간을 기존 방법 대비 수십 배 축소하면서도\n해석 가능성(interpretability)을 제공하는 강력한 도구임을 보여줍니다."
+    "text": "6 Air Hockey 실험 환경\n\n\n\n \n\n\n\nFigure: Comparison between nominal (up) and COMPASS-adjusted environment (down).\n실험은 장애물이 포함된 미니 에어하키 환경에서 수행되었습니다. 에이전트의 목표는 다음과 같은 복합 조작 과제를 해결하는 것입니다:\n\n로봇 팔이 pusher를 이용해 첫 번째 puck을 타격\n첫 번째 puck이 두 번째 puck과 충돌\n두 번째 puck이 장애물을 피하며 벽을 맞고 목표 지점에 도달\n\n이 환경은 물체 간의 충돌, 하키 테이블의 마찰 특성, 표면 반응 등 다양한 역학적 상호작용을 포함합니다.\n저자들은 총 64개의 조절 가능한 환경 파라미터를 선언했습니다. 이 파라미터들은 다음과 같은 요소들과 관련되어 있습니다:\n\n각 물체(pusher, puck1, puck2, 벽, 장애물)의 동역학 속성: damping, friction coefficient 등\n센서 요소: 예를 들어 카메라 bias 등\n\n\n\n6.1 COMPASS의 인과 관계 정렬 결과\nCOMPASS는 초기에는 모든 파라미터가 연결된 밀집한 인과 그래프에서 시작하지만, 단 두 번의 반복만에 매우 희소한 구조의 causal graph로 정렬되었습니다.\n이는 COMPASS가 실제로 궤적 차이에 인과적 영향을 주는 파라미터만을 효과적으로 식별했다는 것을 의미합니다.\n이 결과는 COMPASS가:\n\n도메인 지식 없이도\n탐색 공간을 기존 방법 대비 수십 배 축소하면서도\n해석 가능성(interpretability)을 제공하는 강력한 도구임을 보여줍니다."
   },
   {
     "objectID": "posts/paper-review/COMPASS_Review.html#diarel-vs.-compass",
@@ -60,7 +60,7 @@
     "href": "posts/paper-review/DiaREL_Review.html",
     "title": "DiAReL 리뷰",
     "section": "",
-    "text": "🔗 Links\n\n\n\n\n📄 Paper (arXiv)"
+    "text": "Note🔗 Links\n\n\n\n\n📄 Paper (arXiv)"
   },
   {
     "objectID": "posts/paper-review/DiaREL_Review.html#overview",
@@ -102,7 +102,7 @@
     "href": "posts/paper-review/RL_based_compensation_Review.html",
     "title": "RL based compensation methods 리뷰",
     "section": "",
-    "text": "🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code"
+    "text": "Note🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code"
   },
   {
     "objectID": "posts/paper-review/RL_based_compensation_Review.html#contribution",
@@ -137,7 +137,7 @@
     "href": "posts/paper-review/FRNet_Review.html",
     "title": "FR-Net 리뷰",
     "section": "",
-    "text": "🔗 Links\n\n\n\n\n📄 Paper (IEEE RA-L)"
+    "text": "Note🔗 Links\n\n\n\n\n📄 Paper (IEEE RA-L)"
   },
   {
     "objectID": "posts/paper-review/FRNet_Review.html#model-based-접근의-한계",
@@ -186,7 +186,7 @@
     "href": "index.html",
     "title": "WorkSpace",
     "section": "",
-    "text": "RL based compensation methods 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nmanipulator\n\n\n\n\n\n\n\n\n\nMar 11, 2026\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nPACE: System-ID for Sim-to-Real 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nlocomotion\n\n\nsim2real\n\n\n\n\n\n\n\n\n\nDec 4, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nHybrid Internal Model (HIM) 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nlocomotion\n\n\ncontrastive-learning\n\n\n\n\n\n\n\n\n\nNov 20, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nFR-Net 리뷰\n\n\n\n\n\n\npaper\n\n\nquadruped\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 10, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nUnified Force and Position Control 리뷰\n\n\n\n\n\n\npaper\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 1, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nCOMPASS 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 21, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nDiAReL 리뷰\n\n\n\n\n\n\npaper\n\n\nDOB\n\n\nRL\n\n\nanalysis\n\n\nsim2real\n\n\n\n\n\n\n\n\n\nJul 17, 2025\n\n\nJihong Kim\n\n\n\n\n\n\nNo matching items"
+    "text": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStability-Aware Residual Reinforcement Learning\n\n\nInput-to-State Stability Analysis and Action-Clipping Law\nfor a Cascade NMPC–DOB–RL Controller on a 6-DOF Manipulator \n\n\n\n\n\n\n\n\nMay 29, 2026\n\n\nPiper Manipulator Project\n\n\n\n\n\n\n\n\n\n\n\n\nRL based compensation methods 리뷰\n\n\n\n\n\n\npaper\n\nRL\n\nmanipulator\n\n\n\n\n\n\n\n\n\nMar 11, 2026\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nPACE: System-ID for Sim-to-Real 리뷰\n\n\n\n\n\n\npaper\n\nRL\n\nlocomotion\n\nsim2real\n\n\n\n\n\n\n\n\n\nDec 4, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nHybrid Internal Model (HIM) 리뷰\n\n\n\n\n\n\npaper\n\nRL\n\nlocomotion\n\ncontrastive-learning\n\n\n\n\n\n\n\n\n\nNov 20, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nFR-Net 리뷰\n\n\n\n\n\n\npaper\n\nquadruped\n\nRL\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 10, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nUnified Force and Position Control 리뷰\n\n\n\n\n\n\npaper\n\nRL\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 1, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nCOMPASS 리뷰\n\n\n\n\n\n\npaper\n\nDOB\n\nRL\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 21, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nDiAReL 리뷰\n\n\n\n\n\n\npaper\n\nDOB\n\nRL\n\nanalysis\n\nsim2real\n\n\n\n\n\n\n\n\n\nJul 17, 2025\n\n\nJihong Kim\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -200,7 +200,7 @@
     "href": "posts/paper-review/Unified_Force_Review.html",
     "title": "Unified Force and Position Control 리뷰",
     "section": "",
-    "text": "🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code"
+    "text": "Note🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code"
   },
   {
     "objectID": "posts/paper-review/Unified_Force_Review.html#unified-formulation-for-forceposition-control",
@@ -249,7 +249,7 @@
     "href": "posts/paper-review/PACE_Review.html",
     "title": "PACE: System-ID for Sim-to-Real 리뷰",
     "section": "",
-    "text": "🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code"
+    "text": "Note🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code"
   },
   {
     "objectID": "posts/paper-review/PACE_Review.html#data-collection-현실의-데이터-확보",
@@ -305,7 +305,7 @@
     "href": "posts/paper-review/HIMLoco_Review.html",
     "title": "Hybrid Internal Model (HIM) 리뷰",
     "section": "",
-    "text": "🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code\n본 포스트는 HIMLoco 논문 중 Estimator Network의 구조와 학습 방법론(HIO)을 중점적으로 분석합니다."
+    "text": "Note🔗 Links\n\n\n\n\n🌐 Project Page\n📄 Paper (arXiv)\n📦 Code\n본 포스트는 HIMLoco 논문 중 Estimator Network의 구조와 학습 방법론(HIO)을 중점적으로 분석합니다."
   },
   {
     "objectID": "posts/paper-review/HIMLoco_Review.html#source-encoder",
@@ -333,41 +333,384 @@
     "href": "posts/paper-review/HIMLoco_Review.html#step-1-정규화-normalization",
     "title": "Hybrid Internal Model (HIM) 리뷰",
     "section": "4.1 [Step 1] 정규화 (Normalization)",
-    "text": "4.1 [Step 1] 정규화 (Normalization)\n\n\n\n\n\n\n핵심 직관\n\n\n\n“모든 선수의 키를 1로 맞춰서, 오직 플레이 스타일(방향)만 비교하겠다.”\n\n\n\n4.1.1 입력 변수 및 차원\n\nz_student: (\\(B\\), \\(D\\)) = (128, 16)\nz_teacher: (\\(B\\), \\(D\\)) = (128, 16)\nprototypes: (\\(K\\), \\(D\\)) = (32, 16)\n\n\n\n4.1.2 연산: L2 Normalization\n벡터 \\(v\\)에 대하여 다음 연산을 수행합니다.\n\\[\nv_{norm} = \\frac{v}{||v||_2}\n\\]\n\n\n4.1.3 분석\n\n결과: 모든 벡터(\\(z\\), prototypes)가 원점으로부터 반지름이 1인 초구(Hypersphere) 표면 위에 위치하게 됩니다.\n목적: 내적(Dot Product) 연산 시 벡터의 크기(Magnitude)가 결과에 영향을 주지 않도록 통제합니다. 오직 벡터 간의 각도(Angle)만을 기준으로 유사도를 판단하기 위함입니다.\n\n정규화 후 내적: \\(A \\cdot B = 1 \\times 1 \\times \\cos\\theta = \\cos\\theta\\) (코사인 유사도와 동일)"
+    "text": "4.1 [Step 1] 정규화 (Normalization)\n\n\n\n\n\n\nNote핵심 직관\n\n\n\n“모든 선수의 키를 1로 맞춰서, 오직 플레이 스타일(방향)만 비교하겠다.”\n\n\n\n4.1.1 입력 변수 및 차원\n\nz_student: (\\(B\\), \\(D\\)) = (128, 16)\nz_teacher: (\\(B\\), \\(D\\)) = (128, 16)\nprototypes: (\\(K\\), \\(D\\)) = (32, 16)\n\n\n\n4.1.2 연산: L2 Normalization\n벡터 \\(v\\)에 대하여 다음 연산을 수행합니다.\n\\[\nv_{norm} = \\frac{v}{||v||_2}\n\\]\n\n\n4.1.3 분석\n\n결과: 모든 벡터(\\(z\\), prototypes)가 원점으로부터 반지름이 1인 초구(Hypersphere) 표면 위에 위치하게 됩니다.\n목적: 내적(Dot Product) 연산 시 벡터의 크기(Magnitude)가 결과에 영향을 주지 않도록 통제합니다. 오직 벡터 간의 각도(Angle)만을 기준으로 유사도를 판단하기 위함입니다.\n\n정규화 후 내적: \\(A \\cdot B = 1 \\times 1 \\times \\cos\\theta = \\cos\\theta\\) (코사인 유사도와 동일)"
   },
   {
     "objectID": "posts/paper-review/HIMLoco_Review.html#step-2-scores-계산-similarity-matrix",
     "href": "posts/paper-review/HIMLoco_Review.html#step-2-scores-계산-similarity-matrix",
     "title": "Hybrid Internal Model (HIM) 리뷰",
     "section": "4.2 [Step 2] Scores 계산 (Similarity Matrix)",
-    "text": "4.2 [Step 2] Scores 계산 (Similarity Matrix)\n\n\n\n\n\n\n핵심 직관\n\n\n\n“학생(데이터)이 32개의 바구니(프로토타입)를 보고 각각 얼마나 마음에 드는지 점수 매기기.”\n\n\n\n4.2.1 연산: Matrix Multiplication\n정규화된 학생 latent 벡터와 프로토타입의 전치 행렬을 내적합니다.\n\\[\n\\text{Scores} = z_{\\text{student}} \\times \\text{prototypes}^T\n\\]\n\n\n4.2.2 차원 분석\n\\[\n(128, 16) \\times (16, 32) \\rightarrow \\mathbf{(128, 32)}\n\\]\n\n\n4.2.3 분석\n\n생성된 scores_s 행렬의 \\((i, j)\\)번째 값은 \\(i\\)번째 데이터 이미지와 \\(j\\)번째 프로토타입 간의 코사인 유사도입니다.\n값의 범위는 -1 (완전 반대) 에서 1 (완전 일치) 사이입니다.\n\n이 점수(Score)가 높다는 것은 입력된 데이터의 잠재 표현(Latent Representation)이 특정 프로토타입 군집의 중심과 매우 유사함을 의미합니다. 예를 들어, 특정 프로토타입이 ‘계단 지형에서의 동역학적 특징’을 학습했다고 가정해 봅시다. 로봇이 실제로 계단을 통과하며 얻은 관측 데이터(Observation)가 엔코더를 통과하면, 해당 프로토타입과의 내적값은 1.0에 가깝게 산출될 것입니다.\n학습의 핵심 목표는 로봇의 다양한 주행 상태가 \\(K\\)개의 프로토타입으로 명확하게 구분(Disentanglement)되도록 클러스터링하는 것입니다. 이상적으로 학습된 모델은 매 타임스텝마다 현재 상태와 일치하는 단 하나의 프로토타입에 대해서만 높은 Score를 부여하고, 나머지 31개는 억제합니다. 이러한 명확한 상태 구분 능력은, 로봇이 시각 정보가 차단된 Blind 상황에서도 자신의 현재 상태와 지형 정보를 암묵적으로 추정(Implicit System Identification)할 수 있게 만듭니다."
+    "text": "4.2 [Step 2] Scores 계산 (Similarity Matrix)\n\n\n\n\n\n\nNote핵심 직관\n\n\n\n“학생(데이터)이 32개의 바구니(프로토타입)를 보고 각각 얼마나 마음에 드는지 점수 매기기.”\n\n\n\n4.2.1 연산: Matrix Multiplication\n정규화된 학생 latent 벡터와 프로토타입의 전치 행렬을 내적합니다.\n\\[\n\\text{Scores} = z_{\\text{student}} \\times \\text{prototypes}^T\n\\]\n\n\n4.2.2 차원 분석\n\\[\n(128, 16) \\times (16, 32) \\rightarrow \\mathbf{(128, 32)}\n\\]\n\n\n4.2.3 분석\n\n생성된 scores_s 행렬의 \\((i, j)\\)번째 값은 \\(i\\)번째 데이터 이미지와 \\(j\\)번째 프로토타입 간의 코사인 유사도입니다.\n값의 범위는 -1 (완전 반대) 에서 1 (완전 일치) 사이입니다.\n\n이 점수(Score)가 높다는 것은 입력된 데이터의 잠재 표현(Latent Representation)이 특정 프로토타입 군집의 중심과 매우 유사함을 의미합니다. 예를 들어, 특정 프로토타입이 ‘계단 지형에서의 동역학적 특징’을 학습했다고 가정해 봅시다. 로봇이 실제로 계단을 통과하며 얻은 관측 데이터(Observation)가 엔코더를 통과하면, 해당 프로토타입과의 내적값은 1.0에 가깝게 산출될 것입니다."
   },
   {
     "objectID": "posts/paper-review/HIMLoco_Review.html#step-3-sinkhorn-알고리즘-q-matrix-생성",
     "href": "posts/paper-review/HIMLoco_Review.html#step-3-sinkhorn-알고리즘-q-matrix-생성",
     "title": "Hybrid Internal Model (HIM) 리뷰",
-    "section": "4.3 [Step 3] Sinkhorn 알고리즘 (\\(Q\\) Matrix 생성)",
-    "text": "4.3 [Step 3] Sinkhorn 알고리즘 (\\(Q\\) Matrix 생성)\n\n\n\n\n\n\n핵심 질문: 왜 단순히 Softmax를 쓰지 않고 복잡한 Sinkhorn을 쓰는가?\n\n\n\n만약 Scores를 그대로 Softmax에 넣어 정답지로 사용한다면, 모델은 학습 편의를 위해 가장 쉬운 하나의 프로토타입에 모든 데이터를 할당(Mode Collapse)해버리는 ’꼼수’를 부릴 수 있습니다. 이를 방지하기 위해 “강제 균등 배분”이 필요합니다.\n\n\nScores는 단순한 유사도 점수이고, \\(Q\\)는 제약 조건이 적용된 확률 분포(Soft Assignment) 형태를 띱니다. 제약 조건을 부여해야 하는 이유는 위에서 설명한 강제 균등 배분 때문이고, 확률분포로 만들어야 하는 이유는 손실 함수인 Cross Entropy를 계산하기 위해, 학생의 예측값(\\(P_s\\))과 동일한 수학적 형태(합이 1인 확률)를 갖춰야 하기 때문입니다.\n\n4.3.1 입력 및 목표\n\n입력: scores (128, 32)\n목표: Target Assignment Matrix \\(Q\\) (128, 32) 생성\n\n\n\n4.3.2 Sinkhorn의 핵심 제약 조건 (Equipartition)\nSinkhorn-Knopp 알고리즘은 다음 두 가지 조건을 만족하는 행렬 \\(Q\\)를 찾습니다.\n\nRow Constraints: 각 데이터(행)의 확률 합은 1이어야 한다. (데이터는 어딘가에 속해야 함)\nColumn Constraints: 각 프로토타입(열)에 할당된 데이터 양의 합은 \\(B/K\\) (128/32 = 4)로 동일해야 한다.\n\n이 제약 조건이 균등 분배(Equipartition)를 보장합니다. 즉, 한 배치 내에서 모든 프로토타입이 평균적으로 4번씩은 선택되도록 강제하여, 죽은 뉴런(Dead Prototypes)이 생기는 것을 방지합니다.\n\n\n\n\n4.3.3 알고리즘 과정 (Iterative Normalization)\n\\[\nQ = \\exp(\\text{scores} / \\epsilon)\n\\] 위 \\(Q\\) 행렬에 대해 다음을 반복합니다 (약 3회): 1. Row Norm: \\(Q\\)를 행의 합으로 나눔 (\\(\\sum_{col} Q_{ij} = 1\\)) 2. Column Norm: \\(Q\\)를 열의 합으로 나눈 뒤 \\(B/K\\)를 곱함 (\\(\\sum_{row} Q_{ij} = B/K\\))\n\n\n4.3.4 결과 (\\(Q_t\\))\n\n차원: (128, 32)\n\\(Q_t\\)는 “인기도(Score)는 반영하되, 특정 반에만 데이터가 몰리지 않도록 조정한 정답지”입니다."
+    "section": "4.4 [Step 3] Sinkhorn 알고리즘 (\\(Q\\) Matrix 생성)",
+    "text": "4.4 [Step 3] Sinkhorn 알고리즘 (\\(Q\\) Matrix 생성)\n\n\n\n\n\n\nImportant핵심 질문: 왜 단순히 Softmax를 쓰지 않고 복잡한 Sinkhorn을 쓰는가?\n\n\n\n만약 Scores를 그대로 Softmax에 넣어 정답지로 사용한다면, 모델은 학습 편의를 위해 가장 쉬운 하나의 프로토타입에 모든 데이터를 할당(Mode Collapse)해버리는 ’꼼수’를 부릴 수 있습니다. 이를 방지하기 위해 “강제 균등 배분”이 필요합니다.\n\n\nScores는 단순한 유사도 점수이고, \\(Q\\)는 제약 조건이 적용된 확률 분포(Soft Assignment) 형태를 띱니다. 제약 조건을 부여해야 하는 이유는 위에서 설명한 강제 균등 배분 때문이고, 확률분포로 만들어야 하는 이유는 손실 함수인 Cross Entropy를 계산하기 위해, 학생의 예측값(\\(P_s\\))과 동일한 수학적 형태(합이 1인 확률)를 갖춰야 하기 때문입니다.\n\n4.4.1 입력 및 목표\n\n입력: scores (128, 32)\n목표: Target Assignment Matrix \\(Q\\) (128, 32) 생성\n\n\n\n4.4.2 Sinkhorn의 핵심 제약 조건 (Equipartition)\nSinkhorn-Knopp 알고리즘은 다음 두 가지 조건을 만족하는 행렬 \\(Q\\)를 찾습니다.\n\nRow Constraints: 각 데이터(행)의 확률 합은 1이어야 한다. (데이터는 어딘가에 속해야 함)\nColumn Constraints: 각 프로토타입(열)에 할당된 데이터 양의 합은 \\(B/K\\) (128/32 = 4)로 동일해야 한다.\n\n이 제약 조건이 균등 분배(Equipartition)를 보장합니다. 즉, 한 배치 내에서 모든 프로토타입이 평균적으로 4번씩은 선택되도록 강제하여, 죽은 뉴런(Dead Prototypes)이 생기는 것을 방지합니다.\n\n\n\n\n4.4.3 알고리즘 과정 (Iterative Normalization)\n\\[\nQ = \\exp(\\text{scores} / \\epsilon)\n\\] 위 \\(Q\\) 행렬에 대해 다음을 반복합니다 (약 3회): 1. Row Norm: \\(Q\\)를 행의 합으로 나눔 (\\(\\sum_{col} Q_{ij} = 1\\)) 2. Column Norm: \\(Q\\)를 열의 합으로 나눈 뒤 \\(B/K\\)를 곱함 (\\(\\sum_{row} Q_{ij} = B/K\\))\n\n\n4.4.4 결과 (\\(Q_t\\))\n\n차원: (128, 32)\n\\(Q_t\\)는 “인기도(Score)는 반영하되, 특정 반에만 데이터가 몰리지 않도록 조정한 정답지”입니다."
   },
   {
     "objectID": "posts/paper-review/HIMLoco_Review.html#step-4-prediction-증폭-log-softmax-temperature",
     "href": "posts/paper-review/HIMLoco_Review.html#step-4-prediction-증폭-log-softmax-temperature",
     "title": "Hybrid Internal Model (HIM) 리뷰",
-    "section": "4.4 [Step 4] Prediction 증폭 (Log Softmax & Temperature)",
-    "text": "4.4 [Step 4] Prediction 증폭 (Log Softmax & Temperature)\n\n\n\n\n\n\n핵심 직관\n\n\n\n“불확실성을 최대한 낮추자”\n\n\n\n4.4.1 입력 및 연산\n\n입력: scores_s (128, 32)\n연산: \\[\n  p_s = \\text{softmax}\\left(\\frac{\\text{scores}_s}{\\tau}\\right)\n  \\]\n\n\n\n4.4.2 Temperature (\\(\\tau\\))의 역할\n\n보통 \\(\\tau = 0.1\\) 과 같이 1보다 작은 값을 사용합니다.\n증폭 효과:\n\n원래 Score: [0.9, 0.8] \\(\\rightarrow\\) 큰 차이 없음.\n\\(\\tau=0.1\\) 적용: [9.0, 8.0] \\(\\rightarrow\\) \\(e^9\\) vs \\(e^8\\) (약 2.7배 차이 발생).\n\n이 과정은 분포를 뾰족하게(Sharp) 만들어서, 모델이 High Entropy(긴가민가한 상태)를 피하고 Low Entropy(확실한 결정)를 내리도록 유도합니다.\n\n\n\n4.4.3 결과 (\\(p_s\\))\n\n차원: (128, 32)\n제약 조건(Sinkhorn)이 없는, 학생 엔코더의 순수한 예측값입니다."
+    "section": "4.5 [Step 4] Prediction 증폭 (Log Softmax & Temperature)",
+    "text": "4.5 [Step 4] Prediction 증폭 (Log Softmax & Temperature)\n\n\n\n\n\n\nNote핵심 직관\n\n\n\n“불확실성을 최대한 낮추자”\n\n\n\n4.5.1 입력 및 연산\n\n입력: scores_s (128, 32)\n연산: \\[\n  p_s = \\text{softmax}\\left(\\frac{\\text{scores}_s}{\\tau}\\right)\n  \\]\n\n\n\n4.5.2 Temperature (\\(\\tau\\))의 역할\n\n보통 \\(\\tau = 0.1\\) 과 같이 1보다 작은 값을 사용합니다.\n증폭 효과:\n\n원래 Score: [0.9, 0.8] \\(\\rightarrow\\) 큰 차이 없음.\n\\(\\tau=0.1\\) 적용: [9.0, 8.0] \\(\\rightarrow\\) \\(e^9\\) vs \\(e^8\\) (약 2.7배 차이 발생).\n\n이 과정은 분포를 뾰족하게(Sharp) 만들어서, 모델이 High Entropy(긴가민가한 상태)를 피하고 Low Entropy(확실한 결정)를 내리도록 유도합니다.\n\n\n\n4.5.3 결과 (\\(p_s\\))\n\n차원: (128, 32)\n제약 조건(Sinkhorn)이 없는, 학생 엔코더의 순수한 예측값입니다."
   },
   {
     "objectID": "posts/paper-review/HIMLoco_Review.html#step-5-swav-loss-swapped-prediction-loss",
     "href": "posts/paper-review/HIMLoco_Review.html#step-5-swav-loss-swapped-prediction-loss",
     "title": "Hybrid Internal Model (HIM) 리뷰",
-    "section": "4.5 [Step 5] SwAV Loss (Swapped Prediction Loss)",
-    "text": "4.5 [Step 5] SwAV Loss (Swapped Prediction Loss)\n\n\n\n\n\n\n핵심 직관\n\n\n\n“크로스 체크: View 1을 보고 만든 너의 예측이, View 2를 보고 만든 나의 정답(Sinkhorn)과 일치하니?”\n\n\n\n4.5.1 입력 변수\n\n\\(Q_t\\): 선생님 뷰(\\(z_t\\))기반의 Sinkhorn 정답지 (Target, Gradient X)\n\\(P_s\\): 학생 뷰(\\(z_s\\))기반의 예측 확률 (Prediction, Gradient O)\n\n\n\n4.5.2 수식 (Cross Entropy)\n\\[\nL(z_t, z_s) = - \\sum_{k} Q_t^{(k)} \\log P_s^{(k)}\n\\]\n\n\n4.5.3 구체적 분석과 Symmetric Loss의 이유\n\nSwapped Prediction:\n\n같은 이미지에서 유래한 View 1과 View 2는 픽셀 값은 다르지만 의미(Semantic)는 같습니다.\n따라서 View 2를 보고 만든 군집 할당(\\(Q_t\\))을, View 1만 보고도 예측(\\(P_s\\))할 수 있어야 합니다.\n\n왜 양방향(Symmetric)인가? ## 1. Symmetric Loss의 이론적 배경\n\n\n\n\n\n\n\n핵심 이론: Mutual Information Maximization\n\n\n\n양방향(Symmetric) 학습은 단순한 ’정확도 향상’을 넘어, 서로 다른 뷰(View) 사이의 정보 일관성(Information Consistency)을 강제하는 과정입니다.\n\n\n\n4.5.3.1 Loss Function 재정의\nSwAV의 전체 손실 함수는 두 개의 항(Term)으로 구성됩니다.\n\\[\nL_{total} = \\frac{1}{2} (\\underbrace{L(z_t, z_s)}_{\\text{Term 1}} + \\underbrace{L(z_s, z_t)}_{\\text{Term 2}})\n\\]\n\nTerm 1: \\(Q_t \\cdot \\log P_s\\) (Teacher가 정답, Student가 예측)\nTerm 2: \\(Q_s \\cdot \\log P_t\\) (Student가 정답, Teacher가 예측)\n\n\n\n4.5.3.2 왜 양방향인가? (Consistency Regularization)\n\nPredictive Coding (예측 부호화):\n\nStudent (\\(z_s\\)): 과거의 기록(History, \\(o_{0:t}\\))을 보고\nTeacher (\\(z_t\\)): 미래의 관측(Next Obs, \\(o_{t+1}\\))을 봅니다.\n양방향 학습은 “과거 정보로 미래를 예측하고(\\(S \\to T\\)), 미래 정보로 과거를 유추(\\(T \\to S\\))”하게 만듭니다.\n\nHub-and-Spoke Learning:\n\n어느 한쪽이 절대적 정답(Ground Truth)이 아닙니다.\nStudent와 Teacher는 서로가 서로의 임시 정답(Soft Label)이 되어주며, 노이즈가 제거된 공통된 잠재 공간(Common Latent Space)으로 함께 이동합니다.\n\n\n\n\n\n4.5.3.3 Gradient Flow 시각화\n두 개의 Loss 항이 각각 어떤 네트워크를 업데이트하는지 추적해 봅시다. (Stop Gradient 기호: \\(sg[\\cdot]\\))\n\n\n4.5.3.4 Term 1: \\(L(z_t, z_s) = - \\sum sg[Q_t] \\log P_s\\)\n\nTarget (\\(Q_t\\)): detach()됨. Gradient가 흐르지 않음.\nPrediction (\\(P_s\\)): Student Encoder (\\(z_s\\))로 Backprop 진행.\n해석: “Teacher가 만든 기준을 Student가 따라가라.”\n\n\n\n4.5.3.5 Term 2: \\(L(z_s, z_t) = - \\sum sg[Q_s] \\log P_t\\)\n\nTarget (\\(Q_s\\)): detach()됨. Gradient가 흐르지 않음.\nPrediction (\\(P_t\\)): Target Encoder (\\(z_t\\))로 Backprop 진행.\n해석: “Student가 만든 기준을 Teacher가 따라가라.”\n\n\n\n\n4.5.4 Target Encoder (\\(z_t\\))의 학습 원리\n결국 Term 2에 의해 Target Encoder에도 명확한 규제가 가해집니다.\n\nStudent Encoder가 History(\\(o_{0:t}\\))를 보고 “이건 3번 프로토타입이야”라고 판단(\\(Q_s\\))합니다.\nTarget Encoder는 Next Obs(\\(o_{t+1}\\))만 보고도 똑같이 “이건 3번 프로토타입이야”라고 예측(\\(P_t\\))해야 합니다.\n만약 예측이 빗나가면 \\(Loss\\)가 발생하고, Target Encoder의 가중치가 업데이트됩니다."
+    "section": "4.6 [Step 5] SwAV Loss (Swapped Prediction Loss)",
+    "text": "4.6 [Step 5] SwAV Loss (Swapped Prediction Loss)\n\n\n\n\n\n\nNote핵심 직관\n\n\n\n“크로스 체크: View 1을 보고 만든 너의 예측이, View 2를 보고 만든 나의 정답(Sinkhorn)과 일치하니?”\n\n\n\n4.6.1 입력 변수\n\n\\(Q_t\\): 선생님 뷰(\\(z_t\\))기반의 Sinkhorn 정답지 (Target, Gradient X)\n\\(P_s\\): 학생 뷰(\\(z_s\\))기반의 예측 확률 (Prediction, Gradient O)\n\n\n\n4.6.2 수식 (Cross Entropy)\n\\[\nL(z_t, z_s) = - \\sum_{k} Q_t^{(k)} \\log P_s^{(k)}\n\\]\n\n\n4.6.3 구체적 분석과 Symmetric Loss의 이유\n\nSwapped Prediction:\n\n같은 이미지에서 유래한 View 1과 View 2는 픽셀 값은 다르지만 의미(Semantic)는 같습니다.\n따라서 View 2를 보고 만든 군집 할당(\\(Q_t\\))을, View 1만 보고도 예측(\\(P_s\\))할 수 있어야 합니다.\n\n왜 양방향(Symmetric)인가? ## 1. Symmetric Loss의 이론적 배경\n\n\n\n\n\n\n\nNote핵심 이론: Mutual Information Maximization\n\n\n\n양방향(Symmetric) 학습은 단순한 ’정확도 향상’을 넘어, 서로 다른 뷰(View) 사이의 정보 일관성(Information Consistency)을 강제하는 과정입니다.\n\n\n\n4.6.3.1 Loss Function 재정의\nSwAV의 전체 손실 함수는 두 개의 항(Term)으로 구성됩니다.\n\\[\nL_{total} = \\frac{1}{2} (\\underbrace{L(z_t, z_s)}_{\\text{Term 1}} + \\underbrace{L(z_s, z_t)}_{\\text{Term 2}})\n\\]\n\nTerm 1: \\(Q_t \\cdot \\log P_s\\) (Teacher가 정답, Student가 예측)\nTerm 2: \\(Q_s \\cdot \\log P_t\\) (Student가 정답, Teacher가 예측)\n\n\n\n4.6.3.2 왜 양방향인가? (Consistency Regularization)\n\nPredictive Coding (예측 부호화):\n\nStudent (\\(z_s\\)): 과거의 기록(History, \\(o_{0:t}\\))을 보고\nTeacher (\\(z_t\\)): 미래의 관측(Next Obs, \\(o_{t+1}\\))을 봅니다.\n양방향 학습은 “과거 정보로 미래를 예측하고(\\(S \\to T\\)), 미래 정보로 과거를 유추(\\(T \\to S\\))”하게 만듭니다.\n\nHub-and-Spoke Learning:\n\n어느 한쪽이 절대적 정답(Ground Truth)이 아닙니다.\nStudent와 Teacher는 서로가 서로의 임시 정답(Soft Label)이 되어주며, 노이즈가 제거된 공통된 잠재 공간(Common Latent Space)으로 함께 이동합니다.\n\n\n\n\n\n4.6.3.3 Gradient Flow 시각화\n두 개의 Loss 항이 각각 어떤 네트워크를 업데이트하는지 추적해 봅시다. (Stop Gradient 기호: \\(sg[\\cdot]\\))\n\n\n4.6.3.4 Term 1: \\(L(z_t, z_s) = - \\sum sg[Q_t] \\log P_s\\)\n\nTarget (\\(Q_t\\)): detach()됨. Gradient가 흐르지 않음.\nPrediction (\\(P_s\\)): Student Encoder (\\(z_s\\))로 Backprop 진행.\n해석: “Teacher가 만든 기준을 Student가 따라가라.”\n\n\n\n4.6.3.5 Term 2: \\(L(z_s, z_t) = - \\sum sg[Q_s] \\log P_t\\)\n\nTarget (\\(Q_s\\)): detach()됨. Gradient가 흐르지 않음.\nPrediction (\\(P_t\\)): Target Encoder (\\(z_t\\))로 Backprop 진행.\n해석: “Student가 만든 기준을 Teacher가 따라가라.”\n\n\n\n\n4.6.4 Target Encoder (\\(z_t\\))의 학습 원리\n결국 Term 2에 의해 Target Encoder에도 명확한 규제가 가해집니다.\n\nStudent Encoder가 History(\\(o_{0:t}\\))를 보고 “이건 3번 프로토타입이야”라고 판단(\\(Q_s\\))합니다.\nTarget Encoder는 Next Obs(\\(o_{t+1}\\))만 보고도 똑같이 “이건 3번 프로토타입이야”라고 예측(\\(P_t\\))해야 합니다.\n만약 예측이 빗나가면 \\(Loss\\)가 발생하고, Target Encoder의 가중치가 업데이트됩니다."
   },
   {
     "objectID": "posts/paper-review/HIMLoco_Review.html#요약-및-결론",
     "href": "posts/paper-review/HIMLoco_Review.html#요약-및-결론",
     "title": "Hybrid Internal Model (HIM) 리뷰",
-    "section": "4.6 요약 및 결론",
-    "text": "4.6 요약 및 결론\n\n\n\n\n\n\n\n\n\n구분\n역할\nGradient Flow (규제 출처)\n학습 목표\n\n\n\n\nTerm 1\n\\(Q_t \\xrightarrow{\\text{teach}} P_s\\)\n\\(Loss \\to P_s \\to \\mathbf{z_s \\text{ (Student)}}\\)\n“미래(\\(z_t\\))의 정보를 바탕으로 과거(\\(z_s\\))를 정리해라.”\n\n\nTerm 2\n\\(Q_s \\xrightarrow{\\text{teach}} P_t\\)\n\\(Loss \\to P_t \\to \\mathbf{z_t \\text{ (Target)}}\\)\n“과거(\\(z_s\\))의 판단과 일치하도록 미래(\\(z_t\\)) 표현을 수정해라.”\n\n\n\n결론: Target Encoder는 방치되는 것이 아니라, “History(Student)가 판단한 것과 동일한 결론을 내리도록” 강력하게 규제받습니다. 이 상호 작용(Interplay)이 바로 HIM 알고리즘이 강건한 표현(Robust Representation)을 학습하는 핵심 원리입니다."
+    "section": "4.7 요약 및 결론",
+    "text": "4.7 요약 및 결론\n\n\n\n\n\n\n\n\n\n구분\n역할\nGradient Flow (규제 출처)\n학습 목표\n\n\n\n\nTerm 1\n\\(Q_t \\xrightarrow{\\text{teach}} P_s\\)\n\\(Loss \\to P_s \\to \\mathbf{z_s \\text{ (Student)}}\\)\n“미래(\\(z_t\\))의 정보를 바탕으로 과거(\\(z_s\\))를 정리해라.”\n\n\nTerm 2\n\\(Q_s \\xrightarrow{\\text{teach}} P_t\\)\n\\(Loss \\to P_t \\to \\mathbf{z_t \\text{ (Target)}}\\)\n“과거(\\(z_s\\))의 판단과 일치하도록 미래(\\(z_t\\)) 표현을 수정해라.”\n\n\n\n결론: Target Encoder는 방치되는 것이 아니라, “History(Student)가 판단한 것과 동일한 결론을 내리도록” 강력하게 규제받습니다. 이 상호 작용(Interplay)이 바로 HIM 알고리즘이 강건한 표현(Robust Representation)을 학습하는 핵심 원리입니다."
+  },
+  {
+    "objectID": "posts/paper-review/HIMLoco_Review.html#학습의-핵심-목표는-로봇의-다양한-주행-상태가-k개의-프로토타입으로-명확하게-구분disentanglement되도록-클러스터링하는-것입니다.-이상적으로-학습된-모델은-매-타임스텝마다-현재-상태와-일치하는-단-하나의-프로토타입에-대해서만-높은-score를-부여하고-나머지-31개는-억제합니다.-이러한-명확한-상태-구분-능력은-로봇이-시각-정보가-차단된-blind-상황에서도-자신의-현재-상태와-지형-정보를-암묵적으로-추정implicit-system-identification할-수-있게-만듭니다.",
+    "href": "posts/paper-review/HIMLoco_Review.html#학습의-핵심-목표는-로봇의-다양한-주행-상태가-k개의-프로토타입으로-명확하게-구분disentanglement되도록-클러스터링하는-것입니다.-이상적으로-학습된-모델은-매-타임스텝마다-현재-상태와-일치하는-단-하나의-프로토타입에-대해서만-높은-score를-부여하고-나머지-31개는-억제합니다.-이러한-명확한-상태-구분-능력은-로봇이-시각-정보가-차단된-blind-상황에서도-자신의-현재-상태와-지형-정보를-암묵적으로-추정implicit-system-identification할-수-있게-만듭니다.",
+    "title": "Hybrid Internal Model (HIM) 리뷰",
+    "section": "4.3 학습의 핵심 목표는 로봇의 다양한 주행 상태가 \\(K\\)개의 프로토타입으로 명확하게 구분(Disentanglement)되도록 클러스터링하는 것입니다. 이상적으로 학습된 모델은 매 타임스텝마다 현재 상태와 일치하는 단 하나의 프로토타입에 대해서만 높은 Score를 부여하고, 나머지 31개는 억제합니다. 이러한 명확한 상태 구분 능력은, 로봇이 시각 정보가 차단된 Blind 상황에서도 자신의 현재 상태와 지형 정보를 암묵적으로 추정(Implicit System Identification)할 수 있게 만듭니다.",
+    "text": "4.3 학습의 핵심 목표는 로봇의 다양한 주행 상태가 \\(K\\)개의 프로토타입으로 명확하게 구분(Disentanglement)되도록 클러스터링하는 것입니다. 이상적으로 학습된 모델은 매 타임스텝마다 현재 상태와 일치하는 단 하나의 프로토타입에 대해서만 높은 Score를 부여하고, 나머지 31개는 억제합니다. 이러한 명확한 상태 구분 능력은, 로봇이 시각 정보가 차단된 Blind 상황에서도 자신의 현재 상태와 지형 정보를 암묵적으로 추정(Implicit System Identification)할 수 있게 만듭니다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html",
+    "href": "posts/paper-review/Residual_RL_ISS.html",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "",
+    "text": "\\[\n\\newcommand{\\bm}[1]{\\boldsymbol{#1}}\n\\]"
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#tracking-error-state-and-the-cascade-control-law",
+    "href": "posts/paper-review/Residual_RL_ISS.html#tracking-error-state-and-the-cascade-control-law",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "2.1 Tracking-error state and the cascade control law",
+    "text": "2.1 Tracking-error state and the cascade control law\nWe work in the discrete-time tracking-error coordinates of the 6-DOF manipulator. Let \\(\\bm{q}_k,\\bm{v}_k \\in \\mathbb{R}^6\\) denote the measured joint position and velocity at sample \\(k\\), and let \\(\\bm{q}^{\\mathrm{ref}}_k,\\bm{v}^{\\mathrm{ref}}_k\\) be the time-varying joint-space reference obtained by inverse kinematics of the Cartesian end-effector target. The tracking-error state is\n\\[\n\\bm{x}_k \\;\\triangleq\\;\n\\begin{bmatrix}\n\\bm{q}_k - \\bm{q}^{\\mathrm{ref}}_k \\\\[2pt]\n\\bm{v}_k - \\bm{v}^{\\mathrm{ref}}_k\n\\end{bmatrix}\n\\;\\in\\; \\mathbb{R}^{12}.\n\\tag{1}\\]\nThe origin \\(\\bm{x}_k = \\bm{0}\\) denotes perfect tracking. Throughout this document, \\(\\|\\,\\cdot\\,\\|\\) denotes the Euclidean norm.\nThe cascade control law executed by our implementation is\n\\[\n\\bm{u}_{\\mathrm{cmd},k}\n\\;=\\;\n\\underbrace{\\bm{u}_{\\mathrm{MPC},k}}_{\\text{nominal NMPC}}\n\\;-\\;\n\\underbrace{\\bm{d}_{\\mathrm{filter},k}}_{\\text{DOB estimate}}\n\\;-\\;\n\\underbrace{\\bm{u}_{\\mathrm{RL},k}}_{\\text{residual RL}},\n\\tag{2}\\]\nwhere all three components live in the same physical joint-torque space \\(\\mathbb{R}^6\\). The minus sign on the RL term reflects that the policy is trained to cancel the residual disturbance, mirroring the DOB."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#plant-dynamics-under-the-residual-disturbance",
+    "href": "posts/paper-review/Residual_RL_ISS.html#plant-dynamics-under-the-residual-disturbance",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "2.2 Plant dynamics under the residual disturbance",
+    "text": "2.2 Plant dynamics under the residual disturbance\nLet \\(\\bm{f}(\\bm{x},\\bm{u})\\) denote the nominal (URDF-modelled) closed-loop dynamics. The true plant, on real hardware or in simulation with friction and base excitation, evolves as\n\\[\n\\bm{x}_{k+1} \\;=\\; \\bm{f}\\bigl(\\bm{x}_k,\\bm{u}_{\\mathrm{cmd},k}\\bigr)\n\\;+\\; \\bm{w}_k,\n\\tag{3}\\]\nwhere \\(\\bm{w}_k\\) collects all sources of model mismatch (un-modelled friction, base excitation, payload variation, parameter drift). The DOB estimates the in-band component of \\(\\bm{w}_k\\) and subtracts it as \\(\\bm{d}_{\\mathrm{filter},k}\\); what the observer cannot capture remains as the residual disturbance\n\\[\n\\bm{d}_{\\mathrm{res},k} \\;\\triangleq\\;\n\\bm{w}_k \\;-\\; \\bm{d}_{\\mathrm{filter},k}\n\\;\\in\\;\\mathbb{R}^6.\n\\tag{4}\\]\nThe residual is the only exogenous input that appears in the forthcoming ISS analysis. We will frequently abuse notation and write \\(\\bm{x}_{k+1} = \\bm{x}_{k+1}^{\\mathrm{nom}} + \\bm{d}_{\\mathrm{res},k}\\), where \\(\\bm{x}_{k+1}^{\\mathrm{nom}}\\) is the disturbance-free successor state under the nominal closed loop; this is the standard state-displacement embedding of an input disturbance and is sufficient for the Lyapunov analysis that follows."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-nmpc",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-nmpc",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "3.1 Layer 1 — Nominal NMPC",
+    "text": "3.1 Layer 1 — Nominal NMPC\nThe NMPC solves, at each sample \\(k\\), a finite-horizon optimal-control problem\n\\[\nV_N^*(\\bm{x}_k)\n\\;=\\;\n\\min_{\\bm{u}_{0:N-1}}\n\\sum_{j=0}^{N-1} \\ell\\bigl(\\bm{x}_{k+j},\\bm{u}_{k+j}\\bigr)\n\\;+\\; V_f\\bigl(\\bm{x}_{k+N}\\bigr)\n\\tag{5}\\]\nsubject to the nominal dynamics \\(\\bm{x}_{j+1}=\\bm{f}(\\bm{x}_j,\\bm{u}_j)\\), input bounds, and (implicitly) a terminal set. The NMPC feedback law is the first element of the minimising sequence, \\(\\bm{u}_{\\mathrm{MPC},k} = \\kappa_N(\\bm{x}_k) \\triangleq\n\\bm{u}^*_{0}(\\bm{x}_k)\\). In our implementation the stage cost is \\[\n\\ell(\\bm{x},\\bm{u}) \\;=\\;\nQ_{\\mathrm{pos}}\\,\\bigl\\|\\bm{p}(\\bm{x})-\\bm{p}^{\\star}\\bigr\\|^2\n+ Q_{\\mathrm{vel}}\\,\\bigl\\|\\bm{v}(\\bm{x})\\bigr\\|^2\n+ R_{\\tau}\\,\\|\\bm{u}\\|^2,\n\\tag{6}\\] with \\(Q_{\\mathrm{pos}}=5000\\), \\(Q_{\\mathrm{vel}}=10\\), \\(R_{\\tau}=0.1\\), horizon \\(N=8\\), and sample time \\(\\Delta t = 0.02\\)~s; \\(\\bm{p}(\\bm{x})\\) denotes the forward-kinematics end-effector position.\nThe optimal cost \\(V_N^*\\) defined in Eq. 5 will serve as our Lyapunov candidate."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-dob",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-dob",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "3.2 Layer 2 — Model-based DOB",
+    "text": "3.2 Layer 2 — Model-based DOB\nThe DOB estimates the disturbance from the dynamics residual: \\(\\bm{d}_{\\mathrm{raw},k} = \\mathrm{RNEA}\\bigl(\\bm{q}_k,\\bm{v}_k,\n\\hat{\\bm{a}}_k\\bigr) - \\bm{u}_{\\mathrm{cmd},k-1}\\), where \\(\\hat{\\bm{a}}_k\\) is an acceleration estimate (in simulation this is the ground-truth physical acceleration; on hardware it is the finite difference of \\(\\bm{v}_k\\)). The raw estimate is passed through a first-order low-pass filter with smoothing factor \\(\\alpha \\in (0,1)\\):\n\\[\n\\bm{d}_{\\mathrm{filter},k}\n\\;=\\; (1-\\alpha)\\,\\bm{d}_{\\mathrm{filter},k-1}\n\\;+\\; \\alpha\\,\\bm{d}_{\\mathrm{raw},k}.\n\\tag{7}\\]\nThe filter shapes which disturbances are cancelled and which fall through to the residual Eq. 4. Reducing \\(\\alpha\\) tightens the passband, which enlarges the residual that the RL layer must handle."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-rl",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-rl",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "3.3 Layer 3 — Residual RL",
+    "text": "3.3 Layer 3 — Residual RL\nThe RL policy \\(\\bm{u}_{\\mathrm{RL},k} = \\pi(\\bm{o}_k)\\) is a neural network that observes the same signals available to the DOB plus the DOB’s output, and emits an additive joint torque whose ideal target is the residual itself, i.e. \\(\\bm{u}_{\\mathrm{RL},k} \\to \\bm{d}_{\\mathrm{res},k}\\). The policy is trained against a reward that penalises the residual \\(\\bm{d}_{\\mathrm{eff},k} \\triangleq \\bm{d}_{\\mathrm{res},k} -\n\\bm{u}_{\\mathrm{RL},k}\\) and tracking error. Because \\(\\pi\\) is a learned, possibly stochastic, function, no closed-form stability statement is available for the closed loop that includes it. The role of Section 6 is to provide one."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#standing-assumptions",
+    "href": "posts/paper-review/Residual_RL_ISS.html#standing-assumptions",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "4.1 Standing assumptions",
+    "text": "4.1 Standing assumptions\nWe collect the three structural assumptions used throughout the rest of the document. They are the standard hypotheses behind the quasi-infinite horizon NMPC stability theorem [@mayne2000; @rawlings2017], adapted to our cascade setting.\n\n\n\nStanding assumptions on the operating domain and the NMPC value function.\nThere exists a compact operating domain \\(\\mathcal{X} \\subset\n\\mathbb{R}^{12}\\) containing the origin in its interior, such that on \\(\\mathcal{X}\\) the following hold:\n\n(A1) Lyapunov sandwich. There exist \\(\\alpha_1,\\alpha_2 \\in\n\\mathcal{K}_\\infty\\) such that \\(\\alpha_1(\\|\\bm{x}\\|) \\le V_N^*(\\bm{x}) \\le \\alpha_2(\\|\\bm{x}\\|)\\) for all \\(\\bm{x}\\in\\mathcal{X}\\).\n(A2) Quadratic stage-cost lower bound. There exists \\(c_x&gt;0\\) with \\(\\ell\\bigl(\\bm{x},\\kappa_N(\\bm{x})\\bigr) \\;\\ge\\; c_x\\,\\|\\bm{x}\\|^2\\) for all \\(\\bm{x}\\in\\mathcal{X}\\).\n(A3) Local Lipschitz continuity of \\(V_N^*\\). There exists \\(\\gamma_0&gt;0\\) such that, for every \\(\\bm{x}\\in\\mathcal{X}\\) and every perturbation \\(\\bm{\\delta}\\in\\mathbb{R}^{12}\\) with \\(\\bm{x}+\\bm{\\delta}\\in\\mathcal{X}\\), \\(\\bigl|V_N^*(\\bm{x}+\\bm{\\delta}) - V_N^*(\\bm{x})\\bigr|\n\\;\\le\\; \\gamma_0\\,\\|\\bm{\\delta}\\|\\).\n\n\n\nAssumption 1\n\n\n\n(A1)–(A3) are mild: (A1) follows from positive-definiteness and radial unboundedness of the cost; (A2) is design-driven and is automatically satisfied by the quadratic stage cost Eq. 6; (A3) holds locally because \\(V_N^*\\) is the value of a smooth, finite-horizon quadratic program on a compact set.\nThe constants \\(c_x\\) and \\(\\gamma_0\\) that appear in (A2)–(A3) are exactly the two constants we will need to size the action-clipping law. How to obtain them in practice is the subject of Section 7."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-vfdescent",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-vfdescent",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "4.2 Value-function descent (nominal stability)",
+    "text": "4.2 Value-function descent (nominal stability)\nUnder (A1)–(A2) and the standard NMPC terminal ingredients (a control-invariant terminal set \\(\\mathcal{X}_f \\subset \\mathcal{X}\\) with a local control-Lyapunov terminal cost \\(V_f\\)), the NMPC value function satisfies the well-known descent property along the nominal closed loop.\n\nLemma 1 Lemma 1 (Value-function descent). Under Assumption 1 and the standard NMPC terminal assumptions, the optimal cost \\(V_N^*\\) satisfies \\[\nV_N^*\\bigl(\\bm{x}_{k+1}^{\\mathrm{nom}}\\bigr) - V_N^*(\\bm{x}_k)\n\\;\\le\\;\n-\\ell\\bigl(\\bm{x}_k,\\kappa_N(\\bm{x}_k)\\bigr)\n\\;\\le\\;\n-c_x\\,\\|\\bm{x}_k\\|^2\n\\tag{8}\\] for every \\(\\bm{x}_k \\in \\mathcal{X}\\), where \\(\\bm{x}_{k+1}^{\\mathrm{nom}} = \\bm{f}\\bigl(\\bm{x}_k,\\kappa_N(\\bm{x}_k)\\bigr)\\) is the disturbance-free successor.\n\n\n\n\n\n\n\nNoteProof sketch (standard)\n\n\n\n\n\nThe argument is the canonical “tail-shift” of NMPC stability theory [@mayne2000, Thm. 1; @rawlings2017, §2.4]. From \\(\\bm{x}_k\\) the optimal plan costs \\(V_N^*(\\bm{x}_k)\\) over \\(N\\) steps. After applying its first input the system reaches \\(\\bm{x}_{k+1}^{\\mathrm{nom}}\\); re-using the tail of the previous plan and appending the terminal controller yields a feasible (not necessarily optimal) plan from \\(\\bm{x}_{k+1}^{\\mathrm{nom}}\\) whose cost is at most \\(V_N^*(\\bm{x}_k) - \\ell(\\bm{x}_k,\\kappa_N(\\bm{x}_k))\\). The re-optimised value \\(V_N^*(\\bm{x}_{k+1}^{\\mathrm{nom}})\\) cannot exceed this feasible cost, which proves the first inequality. Applying (A2) proves the second.\n\n\n\nLemma 1 isolates the intrinsic convergence strength of the controller: every disturbance-free step strips at least \\(c_x\\|\\bm{x}_k\\|^2\\) units of cost. The constant \\(c_x\\) is the convergence coefficient of the nominal loop and is the first ingredient of the action-clipping law."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#cost-propagation-under-the-residual-disturbance",
+    "href": "posts/paper-review/Residual_RL_ISS.html#cost-propagation-under-the-residual-disturbance",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "5.1 Cost propagation under the residual disturbance",
+    "text": "5.1 Cost propagation under the residual disturbance\nThe true successor state under the residual disturbance is \\[\n\\bm{x}_{k+1} \\;=\\; \\bm{x}_{k+1}^{\\mathrm{nom}}\n\\;+\\; \\bm{d}_{\\mathrm{res},k}.\n\\tag{9}\\]\nThe one-step change of the Lyapunov candidate decomposes by adding and subtracting \\(V_N^*(\\bm{x}_{k+1}^{\\mathrm{nom}})\\):\n\\[\n\\begin{aligned}\nV_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\n&= \\underbrace{\\bigl[V_N^*(\\bm{x}_{k+1}^{\\mathrm{nom}}\n                 + \\bm{d}_{\\mathrm{res},k})\n        - V_N^*(\\bm{x}_{k+1}^{\\mathrm{nom}})\\bigr]}_{\\text{perturbation term}}\n\\\\[4pt]\n&\\quad+ \\underbrace{\\bigl[V_N^*(\\bm{x}_{k+1}^{\\mathrm{nom}})\n        - V_N^*(\\bm{x}_k)\\bigr]}_{\\text{nominal descent term}}.\n\\end{aligned}\n\\tag{10}\\]\nThis decomposition is an identity: nothing has been bounded yet. Its purpose is to isolate the only place the disturbance enters—the first bracket—from the part already controlled by Lemma 1."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#lipschitz-bound-on-the-perturbation-term",
+    "href": "posts/paper-review/Residual_RL_ISS.html#lipschitz-bound-on-the-perturbation-term",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "5.2 Lipschitz bound on the perturbation term",
+    "text": "5.2 Lipschitz bound on the perturbation term\nThe first bracket of Eq. 10 is bounded directly by Assumption (A3): \\[\nV_N^*\\bigl(\\bm{x}_{k+1}^{\\mathrm{nom}} + \\bm{d}_{\\mathrm{res},k}\\bigr)\n- V_N^*\\bigl(\\bm{x}_{k+1}^{\\mathrm{nom}}\\bigr)\n\\;\\le\\; \\gamma_0\\,\\bigl\\|\\bm{d}_{\\mathrm{res},k}\\bigr\\|.\n\\tag{11}\\]\nThe constant \\(\\gamma_0\\) is the disturbance gain of the cascade. It plays the role of an “exchange rate” from units of state displacement (metres of error) to units of cost. A large \\(\\gamma_0\\) means the cost landscape is steep near the operating trajectory and the system is sensitive to small disturbances; a small \\(\\gamma_0\\) means the cost surface is flat and the system is tolerant."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#the-baseline-iss-inequality",
+    "href": "posts/paper-review/Residual_RL_ISS.html#the-baseline-iss-inequality",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "5.3 The baseline ISS inequality",
+    "text": "5.3 The baseline ISS inequality\nCombining Lemma 1 and Eq. 11 yields the central result of this section.\n\nTheorem 1 Theorem 1 (Baseline ISS). Under Assumption 1 and the standard NMPC terminal assumptions, the NMPC–DOB baseline cascade (i.e., Eq. 2 with \\(\\bm{u}_{\\mathrm{RL}}=\\bm{0}\\)) satisfies, on the operating domain \\(\\mathcal{X}\\), \\[\nV_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\n\\;\\le\\;\n-c_x\\,\\|\\bm{x}_k\\|^2\n\\;+\\; \\gamma_0\\,\\|\\bm{d}_{\\mathrm{res},k}\\|.\n\\tag{12}\\] Equivalently, the baseline is Input-to-State Stable with respect to the residual disturbance \\(\\bm{d}_{\\mathrm{res},k}\\), with ISS-Lyapunov function \\(V_N^*\\), dissipation rate \\(\\alpha_3(s)=c_x s^2\\), and disturbance gain \\(\\sigma(s)=\\gamma_0 s\\).\n\n\n\n\n\n\n\nNoteProof\n\n\n\n\n\nThe decomposition Eq. 10 is an identity. Bound its first bracket using Eq. 11 and its second using Eq. 8; sum the two bounds. The resulting inequality Eq. 12 matches the ISS-Lyapunov template of Jiang & Wang [@jiang2001, Thm. 1], so ISS follows immediately. \\(\\square\\)\n\n\n\nEq. 12 is the quantitative statement of stability. The first term on the right is the energy drain due to the controller; it scales like \\(\\|\\bm{x}_k\\|^2\\) and dominates far from the origin. The second term is the energy refill due to the disturbance; it scales linearly with \\(\\|\\bm{d}_{\\mathrm{res},k}\\|\\). Equilibrium between drain and refill sets the steady-state radius of the tracking error."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-budget",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-budget",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "6.1 The admissible residual budget",
+    "text": "6.1 The admissible residual budget\nFix a desired practical convergence radius \\(r &gt; 0\\): we want the tracking error to settle inside \\(\\|\\bm{x}_k\\| \\le r\\). From Eq. 12, the cost stops contracting precisely when the drain no longer dominates the refill, i.e. when \\(c_x\\,\\|\\bm{x}_k\\|^2 \\le \\gamma_0\\,\\|\\bm{d}_{\\mathrm{res},k}\\|\\). To force this balance to occur at or inside the target radius, the refill at \\(\\|\\bm{x}_k\\|=r\\) must not exceed the drain there: \\[\n\\gamma_0\\,\\|\\bm{d}_{\\mathrm{res},k}\\| \\;\\le\\; c_x\\,r^2\n\\quad\\Longleftrightarrow\\quad\n\\|\\bm{d}_{\\mathrm{res},k}\\| \\;\\le\\; \\bar{d}_{\\mathrm{res}}\n\\;\\triangleq\\; \\frac{c_x\\,r^2}{\\gamma_0}.\n\\tag{13}\\]\n\nDefinition 1 Definition 1 (Admissible residual budget). The scalar \\(\\bar{d}_{\\mathrm{res}} \\triangleq c_x r^2 / \\gamma_0\\) is the admissible residual budget: the largest residual norm that the baseline NMPC–DOB cascade can absorb while keeping the tracking-error state within radius \\(r\\).\n\nThe three quantities entering Eq. 13 have crisp roles: \\(c_x\\) rewards strong convergence (larger \\(c_x\\) enlarges the budget), \\(r\\) rewards looser performance targets (the budget grows like \\(r^2\\)), and \\(\\gamma_0\\) punishes sensitivity to disturbance (a steeper cost surface shrinks the budget)."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#iss-inequality-with-the-rl-layer-active",
+    "href": "posts/paper-review/Residual_RL_ISS.html#iss-inequality-with-the-rl-layer-active",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "6.2 ISS inequality with the RL layer active",
+    "text": "6.2 ISS inequality with the RL layer active\nWith \\(\\bm{u}_{\\mathrm{RL},k} \\ne \\bm{0}\\), the effective disturbance seen by the baseline is shifted: \\[\n\\bm{d}_{\\mathrm{eff},k}\n\\;\\triangleq\\;\n\\bm{d}_{\\mathrm{res},k} - \\bm{u}_{\\mathrm{RL},k},\n\\tag{14}\\] and the ISS inequality Eq. 12 becomes \\[\nV_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\n\\;\\le\\;\n-c_x\\,\\|\\bm{x}_k\\|^2\n\\;+\\; \\gamma_0\\,\\|\\bm{d}_{\\mathrm{res},k} - \\bm{u}_{\\mathrm{RL},k}\\|.\n\\tag{15}\\]"
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#the-stability-preservation-criterion",
+    "href": "posts/paper-review/Residual_RL_ISS.html#the-stability-preservation-criterion",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "6.3 The stability-preservation criterion",
+    "text": "6.3 The stability-preservation criterion\nWe declare that the RL layer is admissible at step \\(k\\) whenever it does not enlarge the residual it is intended to cancel: \\[\n\\boxed{\\quad\n\\|\\bm{d}_{\\mathrm{res},k} - \\bm{u}_{\\mathrm{RL},k}\\|\n\\;\\le\\; \\|\\bm{d}_{\\mathrm{res},k}\\|.\n\\quad}\n\\tag{16}\\]\nIf Eq. 16 holds, then Eq. 15 is no worse than Eq. 12, so the baseline ISS certificate carries over verbatim and the closed loop remains ISS with the same constants."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-magbound",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-magbound",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "6.4 From the preservation criterion to a magnitude bound",
+    "text": "6.4 From the preservation criterion to a magnitude bound\nEq. 16 is geometric and depends on the unmeasurable internal quantity \\(\\bm{d}_{\\mathrm{res},k}\\). We now reduce it to a measurable condition on \\(\\|\\bm{u}_{\\mathrm{RL},k}\\|\\) alone, in three algebraic steps.\nStep 1 — Square both sides. Squaring Eq. 16 and expanding the inner product on the left: \\[\n\\|\\bm{d}_{\\mathrm{res},k}\\|^2\n- 2\\,\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k}\n+ \\|\\bm{u}_{\\mathrm{RL},k}\\|^2\n\\;\\le\\;\n\\|\\bm{d}_{\\mathrm{res},k}\\|^2,\n\\] which simplifies to \\[\n\\|\\bm{u}_{\\mathrm{RL},k}\\|^2\n\\;\\le\\;\n2\\,\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k}.\n\\tag{17}\\]\nStep 2 — Cauchy–Schwarz, with the known bound. The inner product on the right of Eq. 17 depends on the unmeasurable \\(\\bm{d}_{\\mathrm{res},k}\\). Writing \\(\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k} =\n\\|\\bm{d}_{\\mathrm{res},k}\\|\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|\\cos\\theta\\) with \\(\\theta \\in [0,\\pi]\\) the angle between the two vectors, the Cauchy–Schwarz inequality gives \\(\\cos\\theta \\le 1\\), and the residual budget Eq. 13 gives \\(\\|\\bm{d}_{\\mathrm{res},k}\\| \\le \\bar{d}_{\\mathrm{res}}\\). Together, \\[\n\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k}\n\\;\\le\\;\n\\|\\bm{d}_{\\mathrm{res},k}\\|\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|\n\\;\\le\\;\n\\bar{d}_{\\mathrm{res}}\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|.\n\\tag{18}\\]\nStep 3 — Solve for \\(\\|\\bm{u}_{\\mathrm{RL},k}\\|\\). Substituting Eq. 18 into Eq. 17, \\[\n\\|\\bm{u}_{\\mathrm{RL},k}\\|^2\n\\;\\le\\;\n2\\,\\bar{d}_{\\mathrm{res}}\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|.\n\\] Dividing both sides by \\(\\|\\bm{u}_{\\mathrm{RL},k}\\| &gt; 0\\) (the case \\(\\bm{u}_{\\mathrm{RL},k}=\\bm{0}\\) is trivial) yields the ceiling.\n\nTheorem 2 Theorem 2 (ISS action-magnitude ceiling). Suppose Assumption 1 holds and the baseline satisfies Theorem 1. For any step \\(k\\) at which the preservation criterion Eq. 16 is demanded, the RL action magnitude must satisfy \\[\n\\|\\bm{u}_{\\mathrm{RL},k}\\|\n\\;\\le\\;\n2\\,\\bar{d}_{\\mathrm{res}}\n\\;=\\;\n\\frac{2\\,c_x\\,r^2}{\\gamma_0}.\n\\tag{19}\\]"
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-cliplaw",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-cliplaw",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "6.5 The clipping law",
+    "text": "6.5 The clipping law\nThe ceiling Eq. 19 is enforced as a stateless, radial saturation layer interposed between the actor network and the joint command. If the raw output already satisfies the ceiling, it passes through unchanged; otherwise it is scaled radially back onto the boundary of the admissible ball:\n\nDefinition 2 Definition 2 (ISS clipping law). The clipped RL torque applied to the cascade is \\[\n\\boxed{\\quad\n\\bm{u}_{\\mathrm{RL},k}^{\\mathrm{clip}}\n\\;=\\;\n\\bm{u}_{\\mathrm{RL},k}\\cdot\n\\min\\!\\Bigl[\\,1,\\;\n\\frac{2\\,c_x\\,r^2}{\\gamma_0\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|}\n\\Bigr].\n\\quad}\n\\tag{20}\\]\n\nTwo properties of Eq. 20 deserve emphasis:\n\nDirection-preserving. The scaling is radial, so a well-aimed but over-strong correction is softened, never redirected. This is important because the policy’s reward function rewards alignment of \\(\\bm{u}_{\\mathrm{RL}}\\) with \\(\\bm{d}_{\\mathrm{res}}\\); per-component clamping would destroy that alignment.\nStateless. The clip depends only on the constants \\(c_x,\\gamma_0,r\\) (fixed once and for all) and on the current \\(\\bm{u}_{\\mathrm{RL},k}\\). It does not depend on the state \\(\\bm{x}_k\\) or on the residual \\(\\bm{d}_{\\mathrm{res},k}\\). This makes the clip cheap on hardware and trivial to implement."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-geom",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-geom",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "6.6 Geometric interpretation and honest caveat",
+    "text": "6.6 Geometric interpretation and honest caveat\nEq. 19 is a necessary condition for Eq. 16 to be satisfiable; it is not a blanket sufficient condition. Reading Eq. 17 exactly, the preservation criterion holds if and only if \\(\\|\\bm{u}_{\\mathrm{RL},k}\\| \\le 2\\,\\|\\bm{d}_{\\mathrm{res},k}\\|\\,\\cos\\theta\\). The largest value the right-hand side can take, over all admissible residuals and all angles, is \\(2\\,\\bar{d}_{\\mathrm{res}}\\), attained only when the action is perfectly aligned with the residual at the worst-case magnitude. Thus \\(2\\,\\bar{d}_{\\mathrm{res}}\\) is the outer envelope: any action exceeding it cannot satisfy Eq. 16 under any alignment, and is therefore provably unsafe; the clip removes exactly these actions.\nInside the envelope, alignment is the policy’s job, not the clip’s. What the clip guarantees, even in the adversarial worst case where the clipped action is anti-aligned with the residual, is a hard upper bound on the effective residual via the triangle inequality: \\[\n\\|\\bm{d}_{\\mathrm{eff},k}\\|\n\\;\\le\\;\n\\|\\bm{d}_{\\mathrm{res},k}\\| + \\|\\bm{u}_{\\mathrm{RL},k}^{\\mathrm{clip}}\\|\n\\;\\le\\;\n\\bar{d}_{\\mathrm{res}} + 2\\,\\bar{d}_{\\mathrm{res}}\n\\;=\\;\n3\\,\\bar{d}_{\\mathrm{res}}.\n\\] Plugging \\(3\\,\\bar{d}_{\\mathrm{res}}\\) back into the ISS inequality Eq. 12 in place of \\(\\|\\bm{d}_{\\mathrm{res}}\\|\\) shows that the closed loop remains ISS with an enlarged—but still finite—ultimate radius \\(\\sqrt{3}\\,r\\). The cage never opens.\n\n\n\n\n\n\nTipWhat the clip guarantees, in one sentence\n\n\n\nIf the RL policy aligns with the residual (its trained behaviour), the error settles inside the target radius \\(r\\); if the policy fails arbitrarily, the error stays inside \\(\\sqrt{3}\\,r\\)."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-estim-cx",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-estim-cx",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "7.1 Convergence coefficient \\(c_x\\)",
+    "text": "7.1 Convergence coefficient \\(c_x\\)\nBy Assumption (A2), \\(c_x\\) is the largest scalar satisfying \\(\\ell(\\bm{x},\\kappa_N(\\bm{x})) \\ge c_x \\|\\bm{x}\\|^2\\). Equivalently, by Lemma 1, \\(c_x\\) is the largest scalar consistent with the descent property \\[\n\\frac{V_N^*(\\bm{x}_k) - V_N^*(\\bm{x}_{k+1}^{\\mathrm{nom}})}\n     {\\|\\bm{x}_k\\|^2}\n\\;\\ge\\; c_x\n\\quad\\text{for all nominal } \\bm{x}_k\\in\\mathcal{X}.\n\\tag{21}\\]\nA nominal trajectory is one in which the disturbance is small or absent; on real hardware we approximate “nominal” by quiet operating conditions (no intentional disturbance, no external excitation, no payload changes). The empirical estimator is then\n\nDefinition 3 Definition 3 (Empirical convergence coefficient). Let \\(\\{(\\bm{x}_k, V_N^*(\\bm{x}_k))\\}_{k=1}^{K}\\) be a sequence of state–cost pairs logged from quiet closed-loop operation. The empirical convergence coefficient is the lower 5th percentile, \\[\n\\hat{c}_x \\;=\\;\n\\mathrm{percentile}_{5}\\!\\Biggl\\{\\;\n\\frac{V_N^*(\\bm{x}_k) - V_N^*(\\bm{x}_{k+1})}\n     {\\|\\bm{x}_k\\|^2}\n\\;:\\;\n\\|\\bm{x}_k\\| &gt; \\epsilon,\\;\\;\nV_N^*(\\bm{x}_k) &gt; V_N^*(\\bm{x}_{k+1})\n\\;\\Biggr\\},\n\\tag{22}\\] where \\(\\epsilon\\) is a small floor (e.g. \\(10^{-3}\\,\\)m) preventing the ratio from exploding near the origin.\n\nThe use of the 5th percentile rather than the strict minimum trades off two competing concerns: the strict minimum is contaminated by isolated numerical outliers (e.g. MPC solves that hit the iteration cap), while the median over-estimates the descent and would violate the lower-bound interpretation for a non-trivial fraction of samples. The 5th percentile gives a robust lower envelope that is safe in the ISS sense (i.e. a valid lower bound for \\(\\ge 95\\%\\) of samples).\nThis procedure can be applied identically in simulation and on real hardware. We recommend taking \\(\\hat{c}_x = \\min(\\hat{c}_x^{\\mathrm{sim}},\\hat{c}_x^{\\mathrm{real}})\\) to absorb the discrepancy caused by unmodelled friction on the physical plant."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-estim-gamma",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-estim-gamma",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "7.2 Disturbance gain \\(\\gamma_0\\)",
+    "text": "7.2 Disturbance gain \\(\\gamma_0\\)\nBy Assumption (A3) and the construction of Eq. 11, \\(\\gamma_0\\) is the smallest scalar that upper-bounds the cost change induced by a state displacement of the magnitude of \\(\\bm{d}_{\\mathrm{res},k}\\). Re-arranging the ISS inequality Eq. 12, \\[\n\\gamma_0 \\;\\ge\\;\n\\frac{-\\bigl[V_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\\bigr]\n       \\;+\\; c_x\\,\\|\\bm{x}_k\\|^2}\n     {\\|\\bm{d}_{\\mathrm{res},k}\\|}\n\\quad\\text{whenever } \\|\\bm{d}_{\\mathrm{res},k}\\| &gt; 0.\n\\tag{23}\\]\nThe numerator is computable from logged \\(V_N^*\\) and \\(\\|\\bm{x}_k\\|\\); the denominator requires the clean ground-truth residual. This is the critical practical asymmetry:\n\nIn simulation, \\(\\bm{d}_{\\mathrm{res},k}\\) is computable exactly from \\(\\bm{d}_{\\mathrm{true},k}^{\\mathrm{sim}} -\n\\bm{d}_{\\mathrm{filter},k}\\), where the “true” disturbance is obtained by inverse dynamics with the ground-truth joint acceleration provided by the physics engine.\nOn real hardware, the joint acceleration is reconstructed by finite differences, which injects numerical noise into the residual estimate. The empirical fit Eq. 23 would under-estimate \\(\\gamma_0\\) (because the noisy denominator is inflated), which is the unsafe direction.\n\nThe remedy is to estimate \\(\\gamma_0\\) in simulation only, then transfer the value to real hardware. The transfer is exact because \\(\\gamma_0\\) is a property of the cost function \\(V_N^*\\), and \\(V_N^*\\) is the same mathematical function in sim and real (same NMPC weights, same URDF, same horizon, same sample time).\n\nDefinition 4 Definition 4 (Empirical disturbance gain). Let \\(\\{(\\bm{x}_k, V_N^*(\\bm{x}_k), \\bm{d}_{\\mathrm{res},k}^{\\mathrm{sim}})\\}_{k=1}^{K}\\) be logged from a baseline simulation run with the full disturbance curriculum active. The empirical disturbance gain is the 95th percentile, \\[\n\\hat{\\gamma}_0 \\;=\\;\n\\mathrm{percentile}_{95}\\!\\Biggl\\{\\;\n\\frac{-\\Delta V_k + \\hat{c}_x\\,\\|\\bm{x}_k\\|^2}\n     {\\|\\bm{d}_{\\mathrm{res},k}^{\\mathrm{sim}}\\|}\n\\;:\\;\n\\|\\bm{d}_{\\mathrm{res},k}^{\\mathrm{sim}}\\| &gt; \\delta,\n\\;\\;\\text{(ratio)} &gt; 0\n\\;\\Biggr\\},\n\\] where \\(\\Delta V_k = V_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\\) and \\(\\delta\\) is a small floor preventing division by near-zero residuals.\n\nThe 95th percentile—rather than the strict maximum—gives a robust upper envelope in the same way the 5th percentile gave a robust lower envelope for \\(\\hat{c}_x\\)."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-estim-r",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-estim-r",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "7.3 Target radius \\(r\\)",
+    "text": "7.3 Target radius \\(r\\)\nThe radius \\(r\\) is the only design quantity in the clipping law; it is not measured but selected. It encodes the practical tracking accuracy the user is willing to certify. Three observations guide the choice:\n\nThe clip ceiling scales as \\(r^2\\). Halving \\(r\\) shrinks the ceiling by a factor of four; doubling \\(r\\) enlarges it sixteen-fold. Aggressive (small) \\(r\\) yields a tighter guarantee but allows the RL layer almost no contribution; permissive (large) \\(r\\) enlarges the guarantee region but lets the policy be more active.\n\\(r\\) should be consistent with what the baseline can already achieve. If the baseline NMPC–DOB tracking error is observed to settle around \\(\\|\\bm{x}_k\\| \\approx r_{\\mathrm{base}}\\) in steady state, then choosing \\(r \\ll r_{\\mathrm{base}}\\) certifies an unattainable guarantee and forces the clip to be uselessly tight. A pragmatic choice is \\(r \\approx r_{\\mathrm{base}}\\), or slightly smaller if the RL layer is expected to close the gap.\n\\(r\\) does not appear in the ISS certificate of Theorem 1 itself. It only appears in the budget Eq. 13 and the ceiling Eq. 19. ISS holds independently of \\(r\\); the choice of \\(r\\) only specifies which radius the budget targets."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS.html#sec-estim-flow",
+    "href": "posts/paper-review/Residual_RL_ISS.html#sec-estim-flow",
+    "title": "Stability-Aware Residual Reinforcement Learning",
+    "section": "7.4 Hybrid sim–real workflow",
+    "text": "7.4 Hybrid sim–real workflow\nPutting the three estimators together:\n\n\n\n\n\n\n\n\nConstant\nWhere measured\nWhy\n\n\n\n\n\\(c_x\\)\nboth, take \\(\\min\\)\nproperty of NMPC + plant; real may be smaller due to friction\n\n\n\\(\\gamma_0\\)\nsimulation only\nproperty of \\(V_N^*\\) alone; transfers exactly to real\n\n\n\\(r\\)\ndesign choice\nnot measured\n\n\n\nThe final clip ceiling used at run-time is \\[\n\\|\\bm{u}_{\\mathrm{RL}}\\|\n\\;\\le\\;\n\\frac{2\\,\\hat{c}_x\\,r^2}{\\hat{\\gamma}_0},\n\\qquad\n\\hat{c}_x = \\min(\\hat{c}_x^{\\mathrm{sim}}, \\hat{c}_x^{\\mathrm{real}}),\n\\quad\n\\hat{\\gamma}_0 = \\hat{\\gamma}_0^{\\mathrm{sim}}.\n\\tag{24}\\]\nBecause the strict minimum of \\(c_x\\) and the strict maximum form of \\(\\gamma_0\\) are both taken in the conservative direction, all estimation error is absorbed by a small reduction in the clip ceiling. Stability is therefore preserved under estimation error; only the RL layer’s freedom is reduced. This is the desired robustness property of the proposed certificate."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "",
+    "text": "\\[\n\\newcommand{\\bm}[1]{\\boldsymbol{#1}}\n\\]"
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#추적-오차-상태와-캐스케이드-제어-법칙",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#추적-오차-상태와-캐스케이드-제어-법칙",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "2.1 추적 오차 상태와 캐스케이드 제어 법칙",
+    "text": "2.1 추적 오차 상태와 캐스케이드 제어 법칙\n6자유도 매니퓰레이터의 이산시간 추적 오차 좌표계에서 분석을 진행한다. \\(k\\)번째 샘플에서 측정된 관절 위치를 \\(\\bm{q}_k \\in \\mathbb{R}^6\\), 관절 속도를 \\(\\bm{v}_k \\in \\mathbb{R}^6\\), 그리고 직교 좌표계 (Cartesian) 말단 위치 목표로부터 역기구학으로 얻은 시간 가변 관절 공간 기준 궤적을 \\(\\bm{q}^{\\mathrm{ref}}_k, \\bm{v}^{\\mathrm{ref}}_k\\) 로 표기한다. 추적 오차 상태는 다음과 같이 정의된다.\n\\[\n\\bm{x}_k \\;\\triangleq\\;\n\\begin{bmatrix}\n\\bm{q}_k - \\bm{q}^{\\mathrm{ref}}_k \\\\[2pt]\n\\bm{v}_k - \\bm{v}^{\\mathrm{ref}}_k\n\\end{bmatrix}\n\\;\\in\\; \\mathbb{R}^{12}.\n\\tag{1}\\]\n원점 \\(\\bm{x}_k = \\bm{0}\\) 은 완벽한 추적을 의미한다. 본 보고서 전체에서 \\(\\|\\,\\cdot\\,\\|\\) 은 유클리드 노름을 나타낸다.\n본 시스템에서 실행되는 캐스케이드 제어 법칙은 다음과 같다.\n\\[\n\\bm{u}_{\\mathrm{cmd},k}\n\\;=\\;\n\\underbrace{\\bm{u}_{\\mathrm{MPC},k}}_{\\text{공칭 NMPC}}\n\\;-\\;\n\\underbrace{\\bm{d}_{\\mathrm{filter},k}}_{\\text{DOB 추정값}}\n\\;-\\;\n\\underbrace{\\bm{u}_{\\mathrm{RL},k}}_{\\text{잔차 RL}}.\n\\tag{2}\\]\n세 구성 요소 모두 동일한 물리적 관절 토크 공간 \\(\\mathbb{R}^6\\) 에 속한다. RL 항에 음수 부호가 붙은 것은 정책이 DOB 와 마찬가지로 잔차 외란을 상쇄하도록 학습됨을 반영한다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#잔차-외란-하에서의-플랜트-동역학",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#잔차-외란-하에서의-플랜트-동역학",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "2.2 잔차 외란 하에서의 플랜트 동역학",
+    "text": "2.2 잔차 외란 하에서의 플랜트 동역학\nURDF 모델로 기술된 공칭 폐루프 동역학을 \\(\\bm{f}(\\bm{x},\\bm{u})\\) 라 하자. 마찰, 베이스 가진, 적재량 변화, 파라미터 표류 등 모든 모델 불일치를 집약한 외란을 \\(\\bm{w}_k\\) 라 할 때, 실제 시스템 (실험 하드웨어 또는 물리 시뮬레이션) 의 동역학은 다음과 같이 표현된다.\n\\[\n\\bm{x}_{k+1} \\;=\\; \\bm{f}\\bigl(\\bm{x}_k,\\bm{u}_{\\mathrm{cmd},k}\\bigr)\n\\;+\\; \\bm{w}_k.\n\\tag{3}\\]\nDOB 는 \\(\\bm{w}_k\\) 의 통과 대역 (in-band) 성분 을 추정하여 \\(\\bm{d}_{\\mathrm{filter},k}\\) 로 차감하고, 관측기가 잡지 못한 잔여 성분이 잔차 외란\n\\[\n\\bm{d}_{\\mathrm{res},k} \\;\\triangleq\\;\n\\bm{w}_k \\;-\\; \\bm{d}_{\\mathrm{filter},k}\n\\;\\in\\;\\mathbb{R}^6\n\\tag{4}\\]\n으로 남는다. 이후 전개되는 ISS 해석에서 외부 입력으로 등장하는 유일한 양은 이 잔차 외란이다. 표기의 편의를 위해 흔히 \\(\\bm{x}_{k+1} = \\bm{x}_{k+1}^{\\mathrm{nom}} + \\bm{d}_{\\mathrm{res},k}\\) 로 쓰는데, 여기서 \\(\\bm{x}_{k+1}^{\\mathrm{nom}}\\) 은 외란이 없을 때 공칭 폐루프에서의 다음 상태를 의미한다. 이는 입력 외란을 상태 변위 (state displacement) 로 임베딩하는 표준적인 표현이며, 본 보고서에서 진행할 Lyapunov 해석에 충분하다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-nmpc",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-nmpc",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "2.3 계층 1 - Nominal NMPC",
+    "text": "2.3 계층 1 - Nominal NMPC\nNMPC 는 매 샘플 \\(k\\) 마다 유한 구간 최적 제어 문제\n\\[\nV_N^*(\\bm{x}_k)\n\\;=\\;\n\\min_{\\bm{u}_{0:N-1}}\n\\sum_{j=0}^{N-1} \\ell\\bigl(\\bm{x}_{k+j},\\bm{u}_{k+j}\\bigr)\n\\;+\\; V_f\\bigl(\\bm{x}_{k+N}\\bigr)\n\\tag{5}\\]\n를 푼다. piper manipulator에서 사용한 stage cost는\n\\[\n\\ell(\\bm{x},\\bm{u}) \\;=\\;\nQ_{\\mathrm{pos}}\\,\\bigl\\|\\bm{p}(\\bm{x})-\\bm{p}^{\\star}\\bigr\\|^2\n+ Q_{\\mathrm{vel}}\\,\\bigl\\|\\bm{v}(\\bm{x})\\bigr\\|^2\n+ R_{\\tau}\\,\\|\\bm{u}\\|^2\n\\tag{6}\\]\n이며, 가중치는 \\(Q_{\\mathrm{pos}}=5000\\), \\(Q_{\\mathrm{vel}}=10\\), \\(R_{\\tau}=0.1\\), 지평 (horizon) \\(N=8\\), 샘플 시간 \\(\\Delta t = 0.02\\,\\text{s}\\) 이다. \\(\\bm{p}(\\bm{x})\\) 는 순기구학 (forward kinematics) 으로 계산되는 말단 위치를 의미한다.\n식 5 에서 정의된 최적 비용 \\(V_N^*\\) 은 본 보고서의 Lyapunov 후보 함수로 사용된다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-dob",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-dob",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "2.4 계층 2 - 모델 기반 DOB",
+    "text": "2.4 계층 2 - 모델 기반 DOB\nDOB 는 동역학 잔차로부터 외란을 추정한다. 즉, \\(\\bm{d}_{\\mathrm{raw},k} = \\mathrm{RNEA}\\bigl(\\bm{q}_k,\\bm{v}_k,\n\\hat{\\bm{a}}_k\\bigr) - \\bm{u}_{\\mathrm{cmd},k-1}\\) 이며, \\(\\hat{\\bm{a}}_k\\) 는 가속도 추정값이다 (RNEA는 역동역학을 푸는 recursive newton-euler algorithm). 원시 추정값은 \\(\\alpha = 0.2\\) 의 1차 LPF를 거친다.\n\\[\n\\bm{d}_{\\mathrm{filter},k}\n\\;=\\; (1-\\alpha)\\,\\bm{d}_{\\mathrm{filter},k-1}\n\\;+\\; \\alpha\\,\\bm{d}_{\\mathrm{raw},k}.\n\\tag{7}\\]"
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-rl",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-rl",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "2.5 계층 3 - Residual RL",
+    "text": "2.5 계층 3 - Residual RL\nRL 정책 \\(\\bm{u}_{\\mathrm{RL},k} = \\pi(\\bm{o}_k)\\) 는 DOB 와 동일한 관측 신호 및 DOB 출력을 입력으로 받아 추가 관절 토크를 출력하는 신경망이다. 이상적인 목표는 \\(\\bm{u}_{\\mathrm{RL},k} \\to \\bm{d}_{\\mathrm{res},k}\\), 즉 잔차를 정확히 상쇄하는 것이다. 학습 목표 (reward) 는 유효 잔차\n\\[\n\\bm{d}_{\\mathrm{eff},k} \\;\\triangleq\\;\n\\bm{d}_{\\mathrm{res},k} - \\bm{u}_{\\mathrm{RL},k}\n\\]\n의 크기와 추적 오차를 함께 페널티로 부과한다. \\(\\pi\\) 는 확률적 함수이므로 RL 을 포함한 폐루프에 대해서는 closed-form 안정성 증명방법이 존재하지 않는다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#기본-가정",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#기본-가정",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "3.1 기본 가정",
+    "text": "3.1 기본 가정\n이 연구에서는 세 가지 가정을 설정한다. ::: {#asm-lyap} 원점을 내부에 포함하는 어떤 local 영역 \\(\\mathcal{X} \\subset \\mathbb{R}^{12}\\) 이 존재하여, \\(\\mathcal{X}\\) 위에서 다음이 성립한다.\n\n(A1) 어떤 클래스 \\(\\mathcal{K}_\\infty\\) 함수 \\(\\alpha_1, \\alpha_2\\) 가 존재하여, 임의의 \\(\\bm{x}\\in\\mathcal{X}\\) 에 대해 \\(\\alpha_1(\\|\\bm{x}\\|) \\le V_N^*(\\bm{x}) \\le \\alpha_2(\\|\\bm{x}\\|)\\) 이 성립한다.\n(A2) 어떤 양수 \\(c_x&gt;0\\) 이 존재하여, 임의의 \\(\\bm{x}\\in\\mathcal{X}\\) 에 대해 \\(\\ell\\bigl(\\bm{x},\\kappa_N(\\bm{x})\\bigr) \\;\\ge\\; c_x\\,\\|\\bm{x}\\|^2\\) 이 성립한다.\n(A3) 어떤 양수 \\(\\gamma_0&gt;0\\) 이 존재하여, 임의의 \\(\\bm{x}\\in\\mathcal{X}\\) 와 \\(\\bm{x}+\\bm{\\delta}\\in\\mathcal{X}\\) 를 만족하는 임의의 외란 \\(\\bm{\\delta}\\in\\mathbb{R}^{12}\\) 에 대해 \\(\\bigl|V_N^*(\\bm{x}+\\bm{\\delta}) - V_N^*(\\bm{x})\\bigr|\n\\;\\le\\; \\gamma_0\\,\\|\\bm{\\delta}\\|\\) 이 성립한다.\n\n:::\n위 세 조건은 모두 합리적이다. (A1) 은 cost function의 positive definite과 radial unboundedness 로부터 자동으로 따라온다. (A2) 는 설계자가 선택하는 조건이며, 식 6 의 quadratic cost에 의해 자명히 만족된다. 가정 (A2)–(A3) 에 등장하는 두 상수 \\(c_x\\) 와 \\(\\gamma_0\\) 은 *이후 행동 클리핑 법칙의 크기를 결정한다. 이들을 실제로 어떻게 추정하는지는 Section 6 에서 다룬다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-vfdescent",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-vfdescent",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "3.2 가치 함수의 감소성 (공칭 안정성)",
+    "text": "3.2 가치 함수의 감소성 (공칭 안정성)\n가정 (A1)–(A2) 하에서, NMPC 가치 함수는 nominal 폐루프를 따라 잘 알려진 감소성을 만족한다.\n\n보조정리 1 보조정리 1 (가치 함수의 감소성). 위 가정과 NMPC 종단 조건이 성립할 때, 임의의 \\(\\bm{x}_k \\in \\mathcal{X}\\) 에 대해 최적 비용 \\(V_N^*\\) 은 다음을 만족한다. \\[\nV_N^*\\bigl(\\bm{x}_{k+1}^{\\mathrm{nom}}\\bigr) - V_N^*(\\bm{x}_k)\n\\;\\le\\;\n-\\ell\\bigl(\\bm{x}_k,\\kappa_N(\\bm{x}_k)\\bigr)\n\\;\\le\\;\n-c_x\\,\\|\\bm{x}_k\\|^2.\n\\tag{8}\\] 여기서 \\(\\bm{x}_{k+1}^{\\mathrm{nom}} = \\bm{f}\\bigl(\\bm{x}_k,\\kappa_N(\\bm{x}_k)\\bigr)\\) 은 외란이 없는 경우의 다음 상태이다.\n\nLemma 1 는 제어기 자체의 수렴 강도 를 분리해 보여 준다. 외란이 없는 한 스텝마다 비용은 최소 \\(c_x\\|\\bm{x}_k\\|^2\\) 만큼 줄어든다. 상수 \\(c_x\\) 는 공칭 폐루프의 수렴 계수 (convergence coefficient) 이며, 이후 행동 클리핑 법칙을 구성하는 첫 번째 재료이다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#잔차-외란-하에서의-비용-전파",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#잔차-외란-하에서의-비용-전파",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "4.1 잔차 외란 하에서의 비용 전파",
+    "text": "4.1 잔차 외란 하에서의 비용 전파\n잔차 외란이 있을 때의 실제 다음 상태는\n\\[\n\\bm{x}_{k+1} \\;=\\; \\bm{x}_{k+1}^{\\mathrm{nom}}\n\\;+\\; \\bm{d}_{\\mathrm{res},k}\n\\tag{9}\\]\n이다. Lyapunov 후보 함수의 한 스텝 변화는 \\(V_N^*(\\bm{x}_{k+1}^{\\mathrm{nom}})\\) 을 더하고 빼는 항등식 변형으로 다음과 같이 분해된다.\n\\[\n\\begin{aligned}\nV_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\n&= \\underbrace{\\bigl[V_N^*(\\bm{x}_{k+1}^{\\mathrm{nom}}\n                 + \\bm{d}_{\\mathrm{res},k})\n        - V_N^*(\\bm{x}_{k+1}^{\\mathrm{nom}})\\bigr]}_{\\text{perturbation}}\n\\\\[4pt]\n&\\quad+ \\underbrace{\\bigl[V_N^*(\\bm{x}_{k+1}^{\\mathrm{nom}})\n        - V_N^*(\\bm{x}_k)\\bigr]}_{\\text{nominal descent}}.\n\\end{aligned}\n\\tag{10}\\]"
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#섭동-항에-대한-lipschitz-상한",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#섭동-항에-대한-lipschitz-상한",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "5.2 섭동 항에 대한 Lipschitz 상한",
+    "text": "5.2 섭동 항에 대한 Lipschitz 상한\n식 10 의 첫 번째 대괄호 항은 가정 (A3) 으로 직접 상한이 잡힌다.\n\\[\nV_N^*\\bigl(\\bm{x}_{k+1}^{\\mathrm{nom}} + \\bm{d}_{\\mathrm{res},k}\\bigr)\n- V_N^*\\bigl(\\bm{x}_{k+1}^{\\mathrm{nom}}\\bigr)\n\\;\\le\\; \\gamma_0\\,\\bigl\\|\\bm{d}_{\\mathrm{res},k}\\bigr\\|.\n\\tag{11}\\]\n상수 \\(\\gamma_0\\) 은 캐스케이드의 외란 이득 (disturbance gain) 이다. 물리적으로는 상태 변위 (미터 단위) 를 비용 단위로 환산하는 “환율”의 역할을 한다. \\(\\gamma_0\\) 이 크면 작동점 근방에서 비용 곡면이 가파르다는 뜻이므로 작은 외란에도 시스템이 민감해진다. 반대로 \\(\\gamma_0\\) 이 작으면 비용 곡면이 평탄해 시스템이 외란에 관대해진다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#기저-시스템의-iss-부등식",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#기저-시스템의-iss-부등식",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "5.3 기저 시스템의 ISS 부등식",
+    "text": "5.3 기저 시스템의 ISS 부등식\nLemma 1 와 식 11 을 식 10 에 대입하면 본 절의 핵심 결과인 ISS 부등식이 얻어진다.\n\n정리 1 정리 1 (기저 시스템의 ISS). 가정 1 과 표준 NMPC 종단 조건이 성립할 때, NMPC–DOB 기저 캐스케이드 (\\(\\bm{u}_{\\mathrm{RL}}=\\bm{0}\\) 인 식 2) 는 작동 영역 \\(\\mathcal{X}\\) 위에서 다음을 만족한다. \\[\nV_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\n\\;\\le\\;\n-c_x\\,\\|\\bm{x}_k\\|^2\n\\;+\\; \\gamma_0\\,\\|\\bm{d}_{\\mathrm{res},k}\\|.\n\\tag{12}\\] 즉, 기저 시스템은 잔차 외란 \\(\\bm{d}_{\\mathrm{res},k}\\) 에 대해 ISS 이며, ISS-Lyapunov 함수 \\(V_N^*\\), 소산율 (dissipation rate) \\(\\alpha_3(s)=c_x s^2\\), 외란 이득 함수 \\(\\sigma(s)=\\gamma_0 s\\) 을 갖는다.\n\n\n\n\n\n\n\nNote증명\n\n\n\n\n\n분해 식 10 은 항등식이다. 첫 번째 대괄호는 식 11 으로, 두 번째 대괄호는 식 8 로 상한을 잡고 두 부등식을 더하면 식 12 가 직접 얻어진다. 이 부등식은 Jiang–Wang 의 ISS-Lyapunov 형태 [@jiang2001, Thm. 1] 와 정확히 일치하므로 ISS 가 따른다. \\(\\square\\)\n\n\n\n부등식 식 12 는 안정성의 정량적 진술이다. 우변의 첫 항은 제어기에 의한 비용의 소산 (drain) 으로 \\(\\|\\bm{x}_k\\|^2\\) 에 비례하여 원점에서 멀어질수록 강해진다. 두 번째 항은 외란에 의한 비용의 주입 (refill) 으로 \\(\\|\\bm{d}_{\\mathrm{res},k}\\|\\) 에 선형이다. 소산과 주입이 균형을 이루는 지점이 추적 오차의 정상상태 (steady-state) 반경을 결정한다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-budget",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-budget",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "5.1 허용 잔차",
+    "text": "5.1 허용 잔차\n원하는 수렴 반경 \\(r &gt; 0\\) 을 하나 고정한다. 즉, 추적 오차가 \\(\\|\\bm{x}_k\\| \\le r\\) 안에 머물도록 하고자 한다. 식 12 로부터 cost가 더 이상 감소하지 않는 (소산이 주입을 넘지 못하는) 조건은 \\(c_x\\,\\|\\bm{x}_k\\|^2 \\le \\gamma_0\\,\\|\\bm{d}_{\\mathrm{res},k}\\|\\) 이다. 이 균형점이 목표 반경 안 에 위치하려면 \\(\\|\\bm{x}_k\\|=r\\) 에서의 주입이 소산을 넘지 않아야 한다.\n\\[\n\\gamma_0\\,\\|\\bm{d}_{\\mathrm{res},k}\\| \\;\\le\\; c_x\\,r^2\n\\quad\\Longleftrightarrow\\quad\n\\|\\bm{d}_{\\mathrm{res},k}\\| \\;\\le\\; \\bar{d}_{\\mathrm{res}}\n\\;\\triangleq\\; \\frac{c_x\\,r^2}{\\gamma_0}.\n\\tag{13}\\]\n\n정의 1 허용 잔차. 스칼라 \\(\\bar{d}_{\\mathrm{res}} \\triangleq c_x r^2 / \\gamma_0\\) 을 허용 잔차(admissible residual budget) 이라 한다. 이는 NMPC-DOB가 추적 오차를 반경 \\(r\\) 안에 유지하면서 흡수할 수 있는 최대 잔차 크기이다.\n\n식 13 에 등장하는 세 양의 역할은 명료하다. \\(c_x\\) 가 클수록 (제어기 수렴이 강할수록) 범위가 늘어나고, \\(r\\) 이 클수록 (목표가 느슨할수록) 범위가 \\(r^2\\) 으로 빠르게 늘어나며, \\(\\gamma_0\\) 이 클수록 (외란에 민감할수록) 줄어든다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#rl-계층이-활성화된-경우의-iss-부등식",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#rl-계층이-활성화된-경우의-iss-부등식",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "6.2 RL 계층이 활성화된 경우의 ISS 부등식",
+    "text": "6.2 RL 계층이 활성화된 경우의 ISS 부등식\n\\(\\bm{u}_{\\mathrm{RL},k} \\ne \\bm{0}\\) 일 때, 기저 시스템이 보는 유효 외란은\n\\[\n\\bm{d}_{\\mathrm{eff},k}\n\\;\\triangleq\\;\n\\bm{d}_{\\mathrm{res},k} - \\bm{u}_{\\mathrm{RL},k}\n\\tag{14}\\]\n로 시프트되며, 이에 따라 ISS 부등식 식 12 는 다음과 같이 갱신된다.\n\\[\nV_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\n\\;\\le\\;\n-c_x\\,\\|\\bm{x}_k\\|^2\n\\;+\\; \\gamma_0\\,\\|\\bm{d}_{\\mathrm{res},k} - \\bm{u}_{\\mathrm{RL},k}\\|.\n\\tag{15}\\]"
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#안정성-보존-기준",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#안정성-보존-기준",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "5.3 안정성 보존 기준",
+    "text": "5.3 안정성 보존 기준\nRL 계층이 단계 \\(k\\) 에서 admissible 하다는 것을, 자신이 상쇄하려는 잔차를 키우지 않는다는 조건으로 정의한다.\n\\[\n\\boxed{\\quad\n\\|\\bm{d}_{\\mathrm{res},k} - \\bm{u}_{\\mathrm{RL},k}\\|\n\\;\\le\\; \\|\\bm{d}_{\\mathrm{res},k}\\|.\n\\quad}\n\\tag{16}\\]\n식 16 이 성립하면 식 15 은 식 12 보다 나빠질 수 없으므로, 기저 시스템의 ISS 인증서가 동일한 상수로 그대로 이어진다.\n식 16 은 기하학적 조건이며, 측정 불가능한 내부량 \\(\\bm{d}_{\\mathrm{res},k}\\) 에 의존한다. 이를 측정 가능한 \\(\\|\\bm{u}_{\\mathrm{RL},k}\\|\\) 만의 조건으로 바꿔야한다.\n단계 1 — 양변 제곱. 식 16 의 양변을 제곱하고 좌변의 내적을 전개하면\n\\[\n\\|\\bm{d}_{\\mathrm{res},k}\\|^2\n- 2\\,\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k}\n+ \\|\\bm{u}_{\\mathrm{RL},k}\\|^2\n\\;\\le\\;\n\\|\\bm{d}_{\\mathrm{res},k}\\|^2,\n\\]\n이는 다음과 같이 단순화된다.\n\\[\n\\|\\bm{u}_{\\mathrm{RL},k}\\|^2\n\\;\\le\\;\n2\\,\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k}.\n\\tag{17}\\]\n단계 2 — Cauchy–Schwarz 부등식과 알려진 상한. 식 17 우변의 내적은 측정 불가능한 \\(\\bm{d}_{\\mathrm{res},k}\\) 에 의존한다. \\(\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k} =\n\\|\\bm{d}_{\\mathrm{res},k}\\|\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|\\cos\\theta\\) 로 쓰고 (\\(\\theta \\in [0,\\pi]\\) 는 두 벡터 사이의 각도) Cauchy–Schwarz 로 \\(\\cos\\theta \\le 1\\), 그리고 식 13 으로부터 \\(\\|\\bm{d}_{\\mathrm{res},k}\\| \\le \\bar{d}_{\\mathrm{res}}\\) 를 함께 사용하면\n\\[\n\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k}\n\\;\\le\\;\n\\|\\bm{d}_{\\mathrm{res},k}\\|\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|\n\\;\\le\\;\n\\bar{d}_{\\mathrm{res}}\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|\n\\tag{18}\\]\n이 얻어진다.\n단계 3 — \\(\\|\\bm{u}_{\\mathrm{RL},k}\\|\\) 에 대한 해. 식 18 를 식 17 에 대입하면\n\\[\n\\|\\bm{u}_{\\mathrm{RL},k}\\|^2\n\\;\\le\\;\n2\\,\\bar{d}_{\\mathrm{res}}\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|\n\\]\n이며, 양변을 \\(\\|\\bm{u}_{\\mathrm{RL},k}\\| &gt; 0\\) (영벡터인 경우는 자명히 성립) 으로 나누면 최종 상한이 나온다.\n\n정리 2 정리 2 (ISS 행동 크기 상한). ?@asm-lyap 이 성립하고 기저 시스템이 Theorem 1 을 만족한다고 하자. 단계 \\(k\\) 에서 보존 기준 식 16 을 요구할 때, RL action의 크기는 다음 부등식을 만족해야 한다. \\[\n\\|\\bm{u}_{\\mathrm{RL},k}\\|\n\\;\\le\\;\n2\\,\\bar{d}_{\\mathrm{res}}\n\\;=\\;\n\\frac{2\\,c_x\\,r^2}{\\gamma_0}.\n\\tag{19}\\]"
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-magbound",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-magbound",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "6.4 보존 기준으로부터 크기 한계로",
+    "text": "6.4 보존 기준으로부터 크기 한계로\n식 16 은 기하학적 조건이며, 측정 불가능한 내부량 \\(\\bm{d}_{\\mathrm{res},k}\\) 에 의존한다. 이를 측정 가능한 \\(\\|\\bm{u}_{\\mathrm{RL},k}\\|\\) 만의 조건으로 환원하는 세 단계 대수 유도를 다음에 보인다.\n단계 1 — 양변 제곱. 식 16 의 양변을 제곱하고 좌변의 내적을 전개하면\n\\[\n\\|\\bm{d}_{\\mathrm{res},k}\\|^2\n- 2\\,\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k}\n+ \\|\\bm{u}_{\\mathrm{RL},k}\\|^2\n\\;\\le\\;\n\\|\\bm{d}_{\\mathrm{res},k}\\|^2,\n\\]\n이는 다음과 같이 단순화된다.\n\\[\n\\|\\bm{u}_{\\mathrm{RL},k}\\|^2\n\\;\\le\\;\n2\\,\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k}.\n\\tag{17}\\]\n단계 2 — Cauchy–Schwarz 부등식과 알려진 상한. 식 17 우변의 내적은 측정 불가능한 \\(\\bm{d}_{\\mathrm{res},k}\\) 에 의존한다. \\(\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k} =\n\\|\\bm{d}_{\\mathrm{res},k}\\|\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|\\cos\\theta\\) 로 쓰고 (\\(\\theta \\in [0,\\pi]\\) 는 두 벡터 사이의 각도) Cauchy–Schwarz 로 \\(\\cos\\theta \\le 1\\), 그리고 식 13 으로부터 \\(\\|\\bm{d}_{\\mathrm{res},k}\\| \\le \\bar{d}_{\\mathrm{res}}\\) 를 함께 사용하면\n\\[\n\\bm{d}_{\\mathrm{res},k}^{\\!\\top}\\bm{u}_{\\mathrm{RL},k}\n\\;\\le\\;\n\\|\\bm{d}_{\\mathrm{res},k}\\|\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|\n\\;\\le\\;\n\\bar{d}_{\\mathrm{res}}\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|\n\\tag{18}\\]\n이 얻어진다.\n단계 3 — \\(\\|\\bm{u}_{\\mathrm{RL},k}\\|\\) 에 대한 해. 식 18 를 식 17 에 대입하면\n\\[\n\\|\\bm{u}_{\\mathrm{RL},k}\\|^2\n\\;\\le\\;\n2\\,\\bar{d}_{\\mathrm{res}}\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|\n\\]\n이며, 양변을 \\(\\|\\bm{u}_{\\mathrm{RL},k}\\| &gt; 0\\) (영벡터인 경우는 자명히 성립) 으로 나누면 최종 상한이 나온다.\n\n정리 2 정리 2 (ISS 행동 크기 상한). 가정 1 이 성립하고 기저 시스템이 Theorem 1 을 만족한다고 하자. 단계 \\(k\\) 에서 보존 기준 식 16 을 요구할 때, RL 행동의 크기는 다음 부등식을 만족해야 한다. \\[\n\\|\\bm{u}_{\\mathrm{RL},k}\\|\n\\;\\le\\;\n2\\,\\bar{d}_{\\mathrm{res}}\n\\;=\\;\n\\frac{2\\,c_x\\,r^2}{\\gamma_0}.\n\\tag{19}\\]"
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-cliplaw",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-cliplaw",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "5.4 Action Clipping",
+    "text": "5.4 Action Clipping\n상한 식 19 은 actor 신경망과 관절 명령 사이에 강제된다.\n\n정의 2 정의 2 (ISS 클리핑 법칙). 전체 시스템에 적용되는 클리핑된 RL 토크는 다음과 같이 정의된다. \\[\n\\boxed{\\quad\n\\bm{u}_{\\mathrm{RL},k}^{\\mathrm{clip}}\n\\;=\\;\n\\bm{u}_{\\mathrm{RL},k}\\cdot\n\\min\\!\\Bigl[\\,1,\\;\n\\frac{2\\,c_x\\,r^2}{\\gamma_0\\,\\|\\bm{u}_{\\mathrm{RL},k}\\|}\n\\Bigr].\n\\quad}\n\\tag{20}\\]\n\n상수 \\(c_x, \\gamma_0, r\\) (한 번 결정 후 고정) 과 현재의 \\(\\bm{u}_{\\mathrm{RL},k}\\) 에만 의존한다. 상태 \\(\\bm{x}_k\\) 나 잔차 \\(\\bm{d}_{\\mathrm{res},k}\\) 와 무관하다.\nAction Clipping이 보장하는 것은, RL action이 잔차와 최악으로 반대 방향 일 때조차 삼각 부등식으로부터\n\\[\n\\|\\bm{d}_{\\mathrm{eff},k}\\|\n\\;\\le\\;\n\\|\\bm{d}_{\\mathrm{res},k}\\| + \\|\\bm{u}_{\\mathrm{RL},k}^{\\mathrm{clip}}\\|\n\\;\\le\\;\n\\bar{d}_{\\mathrm{res}} + 2\\,\\bar{d}_{\\mathrm{res}}\n\\;=\\;\n3\\,\\bar{d}_{\\mathrm{res}}\n\\]\n가 성립한다는 점이다. 이를 식 12 의 \\(\\|\\bm{d}_{\\mathrm{res}}\\|\\) 자리에 대입하면 폐루프는 여전히 ISS 이며, 확대되었지만 유한한 최종 반경 \\(\\sqrt{3}\\,r\\) 안에 머문다. 안전 범위는 초과하지 않는다.\n\n\n\n\n\n\nTip클립이 보장하는 것 (한 문장)\n\n\n\nRL 정책이 잔차와 정렬되도록 학습된 정상 작동 시에는 오차가 목표 반경 \\(r\\) 안에서 정착하며, 정책이 임의로 실패하더라도 오차는 \\(\\sqrt{3}\\,r\\) 안에 갇힌다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-geom",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-geom",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "6.6 기하학적 해석과 정직한 한계",
+    "text": "6.6 기하학적 해석과 정직한 한계\n식 19 은 식 16 이 성립할 수 있기 위한 필요조건 이지, 일반적인 충분조건이 아니다. 식 17 를 엄밀히 읽으면 보존 기준은 \\(\\|\\bm{u}_{\\mathrm{RL},k}\\| \\le 2\\,\\|\\bm{d}_{\\mathrm{res},k}\\|\\,\\cos\\theta\\) 와 동치이며, 우변의 최댓값은 모든 허용 잔차와 모든 각도에 대해 \\(2\\,\\bar{d}_{\\mathrm{res}}\\) 이고, 이는 행동이 잔차와 완벽히 정렬 된 (\\(\\theta=0\\)) 동시에 잔차의 최악 크기 일 때만 달성된다. 따라서 \\(2\\,\\bar{d}_{\\mathrm{res}}\\) 은 외측 포락선 (outer envelope) 으로 이해해야 한다. 이를 초과하는 행동은 어떤 정렬에서도 보존 기준을 만족할 수 없으므로 증명 가능하게 안전하지 않다. 클립은 정확히 이 영역만 제거한다.\n포락선 안쪽에서 의 정렬은 보상 함수의 역할이지 클립의 역할이 아니다. 클립이 보장하는 것은, 클리핑된 행동이 잔차와 최악으로 반대 방향 일 때조차 삼각 부등식으로부터\n\\[\n\\|\\bm{d}_{\\mathrm{eff},k}\\|\n\\;\\le\\;\n\\|\\bm{d}_{\\mathrm{res},k}\\| + \\|\\bm{u}_{\\mathrm{RL},k}^{\\mathrm{clip}}\\|\n\\;\\le\\;\n\\bar{d}_{\\mathrm{res}} + 2\\,\\bar{d}_{\\mathrm{res}}\n\\;=\\;\n3\\,\\bar{d}_{\\mathrm{res}}\n\\]\n가 성립한다는 점이다. 이를 식 12 의 \\(\\|\\bm{d}_{\\mathrm{res}}\\|\\) 자리에 대입하면 폐루프는 여전히 ISS 이며, 확대되었지만 유한한 최종 반경 \\(\\sqrt{3}\\,r\\) 안에 머문다. 안전 우리는 열리지 않는다.\n\n\n\n\n\n\nTip클립이 보장하는 것 (한 문장)\n\n\n\nRL 정책이 잔차와 정렬되도록 학습된 정상 작동 시에는 오차가 목표 반경 \\(r\\) 안에서 정착하며, 정책이 임의로 실패하더라도 오차는 \\(\\sqrt{3}\\,r\\) 안에 갇힌다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-estim-cx",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-estim-cx",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "6.1 수렴 계수 \\(c_x\\)",
+    "text": "6.1 수렴 계수 \\(c_x\\)\n가정 (A2) 에 따르면 \\(c_x\\) 는 \\(\\ell(\\bm{x},\\kappa_N(\\bm{x})) \\ge c_x \\|\\bm{x}\\|^2\\) 을 만족하는 가장 큰 양수이다. 등가적으로, Lemma 1 로부터 \\(c_x\\)\n\\[\n\\frac{V_N^*(\\bm{x}_k) - V_N^*(\\bm{x}_{k+1}^{\\mathrm{nom}})}\n     {\\|\\bm{x}_k\\|^2}\n\\;\\ge\\; c_x\n\\quad\\text{임의의 공칭 } \\bm{x}_k\\in\\mathcal{X}\\text{ 에 대해}\n\\tag{21}\\]\n을 만족하는 가장 큰 양수이다. 실제 하드웨어에서 quiet 조건 (인위적 외란 없음, 외부 외란 없음)환경을 만든 후 다양한 궤적명령을 내리고 아래 식을 이용해 추정한다.\n\n정의 3 정의 3 (경험적 수렴 계수). \\(\\{(\\bm{x}_k, V_N^*(\\bm{x}_k))\\}_{k=1}^{K}\\) 은 quiet 운영 상황에서 기록된 상태-cost 쌍. \\[\n\\hat{c}_x \\;=\\;\n\\mathrm{percentile}_{5}\\!\\Biggl\\{\\;\n\\frac{V_N^*(\\bm{x}_k) - V_N^*(\\bm{x}_{k+1})}\n     {\\|\\bm{x}_k\\|^2}\n\\;:\\;\n\\|\\bm{x}_k\\| &gt; \\epsilon,\\;\\;\nV_N^*(\\bm{x}_k) &gt; V_N^*(\\bm{x}_{k+1})\n\\;\\Biggr\\}.\n\\tag{22}\\] 여기서 \\(\\epsilon\\) 은 원점 근처에서 비율이 발산하지 않도록 두는 작은 하한 (예: \\(10^{-3}\\,\\)m) 이다.\n\n\n\n\n\n\n\nTip실제 로봇에서 얻어야되는게 맞나?\n\n\n\n실제 로봇에서 이 값을 얻으면 모델링오차로 인한 외란이 포함되니까 quiet가 아닐수도있겠다. 시뮬레이션에서 얻는게 더 나을수도 있겠다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-estim-gamma",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-estim-gamma",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "6.2 외란 이득 \\(\\gamma_0\\)",
+    "text": "6.2 외란 이득 \\(\\gamma_0\\)\n가정 (A3) 와 식 11 의 구성에 따르면, \\(\\gamma_0\\) 은 \\(\\bm{d}_{\\mathrm{res},k}\\) 크기의 상태 변위가 유발하는 비용 변화의 상한을 주는 가장 작은 양수이다. ISS 부등식 식 12 를 정리하면\n\\[\n\\gamma_0 \\;\\ge\\;\n\\frac{-\\bigl[V_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\\bigr]\n       \\;+\\; c_x\\,\\|\\bm{x}_k\\|^2}\n     {\\|\\bm{d}_{\\mathrm{res},k}\\|}\n\\quad (\\|\\bm{d}_{\\mathrm{res},k}\\| &gt; 0)\n\\tag{23}\\]\n가 얻어진다. 분자는 기록된 \\(V_N^*\\) 와 \\(\\|\\bm{x}_k\\|\\) 만으로 계산되지만, 분모는 깨끗한 참값 잔차 (clean ground-truth residual) 를 요구한다.\n\n시뮬레이션 에서 \\(\\bm{d}_{\\mathrm{res},k} = \\bm{d}_{\\mathrm{true},k}^{\\mathrm{sim}}\n- \\bm{d}_{\\mathrm{filter},k}\\) 으로 정확히 계산된다. 여기서 “참값” 외란은 물리 엔진이 제공하는 참값 관절 가속도를 사용한 역동역학 (inverse dynamics) 으로 얻어진다.\n\n\n정의 4 정의 4 (경험적 외란 이득). 전체 외란이 활성화된 시뮬레이션에서 기록된 \\(\\{(\\bm{x}_k, V_N^*(\\bm{x}_k), \\bm{d}_{\\mathrm{res},k}^{\\mathrm{sim}})\\}_{k=1}^{K}\\) 에 대해, 경험적 외란 이득은 95% 신뢰구간에서 정의된다. \\[\n\\hat{\\gamma}_0 \\;=\\;\n\\mathrm{percentile}_{95}\\!\\Biggl\\{\\;\n\\frac{-\\Delta V_k + \\hat{c}_x\\,\\|\\bm{x}_k\\|^2}\n     {\\|\\bm{d}_{\\mathrm{res},k}^{\\mathrm{sim}}\\|}\n\\;:\\;\n\\|\\bm{d}_{\\mathrm{res},k}^{\\mathrm{sim}}\\| &gt; \\delta,\n\\;\\;\\text{(비율)} &gt; 0\n\\;\\Biggr\\},\n\\] 여기서 \\(\\Delta V_k = V_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\\) 이고 \\(\\delta\\) 는 분모가 0 에 가까워지지 않도록 두는 작은 하한이다.\n\n\n\n\n\n\n\nTip\n\n\n\n따러서 \\(\\gamma_0\\) 은 시뮬레이션에서만 추정하고 실측에 그대로 전이한다. \\(\\gamma_0\\) 은 \\(V_N^*\\) 의 성질이며, \\(V_N^*\\) 이 시뮬레이션과 실측에서 수학적으로 동일한 함수 (동일한 NMPC 가중치, 동일한 URDF, 동일한 지평과 샘플 시간) 이기 때문에 시뮬레이션에서 추정해도 괜찮을것 같다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-estim-r",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-estim-r",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "6.3 목표 반경 \\(r\\)",
+    "text": "6.3 목표 반경 \\(r\\)\n반경 \\(r\\) 은 클리핑 법칙에서 유일한 설계 변수 이다. 측정되는 양이 아니라 사용자가 선택하는 양이며, 인증하고자 하는 실용적 추적 정확도를 나타낸다. 선택 시 다음 세 가지를 고려한다.\n\n클립 상한은 \\(r^2\\) 으로 스케일링된다. \\(r\\) 을 절반으로 줄이면 상한이 4 배로 좁아지고, 2 배로 늘리면 16 배로 넓어진다. 공격적인 (작은) \\(r\\) 은 더 빡빡한 보장을 주지만 RL 의 기여 여지를 거의 남기지 않으며, 관대한 (큰) \\(r\\) 은 보장 영역을 넓혀 정책이 더 활발히 기여할 수 있게 해 준다.\n\\(r\\) 은 기저 시스템이 도달 가능한 정확도와 정합되어야 한다. NMPC–DOB 단독 추적 오차가 정상상태에서 \\(\\|\\bm{x}_k\\| \\approx r_{\\mathrm{base}}\\) 정도라면, \\(r \\ll r_{\\mathrm{base}}\\) 으로 잡는 것은 클립을 무의미하게 빡빡하게 만든다. 실용적인 선택은 \\(r \\approx r_{\\mathrm{base}}\\), 또는 RL 이 좁힐 것으로 기대되는 정도만 더 작게 잡는 것이다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#sec-estim-flow",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#sec-estim-flow",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "7.4 시뮬레이션–실측 혼합 절차",
+    "text": "7.4 시뮬레이션–실측 혼합 절차\n세 추정량을 종합하면 다음과 같다.\n\n\n\n\n\n\n\n\n상수\n측정 장소\n이유\n\n\n\n\n\\(c_x\\)\n양쪽 측정, \\(\\min\\) 사용\nNMPC + 플랜트 동역학의 성질; 실측이 마찰로 작을 수 있음\n\n\n\\(\\gamma_0\\)\n시뮬레이션 전용\n\\(V_N^*\\) 만의 성질; 실측에 정확히 전이됨\n\n\n\\(r\\)\n설계 선택\n측정 대상이 아님\n\n\n\n런타임에 사용하는 최종 클립 상한은\n\\[\n\\|\\bm{u}_{\\mathrm{RL}}\\|\n\\;\\le\\;\n\\frac{2\\,\\hat{c}_x\\,r^2}{\\hat{\\gamma}_0},\n\\qquad\n\\hat{c}_x = \\min(\\hat{c}_x^{\\mathrm{sim}}, \\hat{c}_x^{\\mathrm{real}}),\n\\quad\n\\hat{\\gamma}_0 = \\hat{\\gamma}_0^{\\mathrm{sim}}\n\\tag{24}\\]\n이다.\n\\(c_x\\) 에 대한 \\(\\min\\) 과 \\(\\gamma_0\\) 에 대한 percentile 상한이 모두 보수적 방향 으로 잡혀 있으므로, 추정 오차는 클립 상한이 약간 더 작아지는 방향으로만 흡수된다. 따라서 추정 오차에 대해 안정성은 유지되며 RL 의 자유도만 일부 감소한다. 이는 본 인증서가 갖추어야 할 강건성 성질이다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#tracking-error-state-and-the-control-law",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#tracking-error-state-and-the-control-law",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "2.1 Tracking-error state and the control law",
+    "text": "2.1 Tracking-error state and the control law\n6자유도 매니퓰레이터의 \\(k\\)번째 샘플에서 측정된 관절 위치를 \\(\\bm{q}_k \\in \\mathbb{R}^6\\), 관절 속도를 \\(\\bm{v}_k \\in \\mathbb{R}^6\\), 그리고 직교 좌표계 (Cartesian) 말단 위치 목표로부터 역기구학으로 얻은 시간 가변 관절 공간 기준 궤적을 \\(\\bm{q}^{\\mathrm{ref}}_k, \\bm{v}^{\\mathrm{ref}}_k\\) 로 표기한다. 추적 오차 상태는 다음과 같이 정의된다.\n\\[\n\\bm{x}_k \\;\\triangleq\\;\n\\begin{bmatrix}\n\\bm{q}_k - \\bm{q}^{\\mathrm{ref}}_k \\\\[2pt]\n\\bm{v}_k - \\bm{v}^{\\mathrm{ref}}_k\n\\end{bmatrix}\n\\;\\in\\; \\mathbb{R}^{12}.\n\\tag{1}\\]\n원점 \\(\\bm{x}_k = \\bm{0}\\) 은 완벽한 추적을 의미한다.\n매니퓰레이터의 joint에 들어가는 제어입력은 다음과 같다.\n\\[\n\\bm{u}_{\\mathrm{cmd},k}\n\\;=\\;\n\\underbrace{\\bm{u}_{\\mathrm{MPC},k}}_{\\text{nominal NMPC}}\n\\;-\\;\n\\underbrace{\\bm{d}_{\\mathrm{filter},k}}_{\\text{DOB}}\n\\;-\\;\n\\underbrace{\\bm{u}_{\\mathrm{RL},k}}_{\\text{RL}}.\n\\tag{2}\\]\n세 구성 요소 모두 동일한 물리적 관절 토크 공간 \\(\\mathbb{R}^6\\) 에 속한다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#plant-dynamics-under-the-residual-disturbance",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#plant-dynamics-under-the-residual-disturbance",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "2.2 Plant dynamics under the residual disturbance",
+    "text": "2.2 Plant dynamics under the residual disturbance\nURDF 모델로 기술된 공칭 폐루프 동역학을 \\(\\bm{f}(\\bm{x},\\bm{u})\\) 라 하자. 마찰, 베이스 가진, 적재량 변화, 파라미터 표류 등 모든 모델 불일치를 집약한 외란을 \\(\\bm{w}_k\\) 라 할 때, 실제 시스템 (실험 하드웨어 또는 물리 시뮬레이션) 의 동역학은 다음과 같이 표현된다.\n\\[\n\\bm{x}_{k+1} \\;=\\; \\bm{f}\\bigl(\\bm{x}_k,\\bm{u}_{\\mathrm{cmd},k}\\bigr)\n\\;+\\; \\bm{w}_k.\n\\tag{3}\\]\nDOB 는 \\(\\bm{w}_k\\) 의 통과 대역 (in-band) 성분 을 추정하여 \\(\\bm{d}_{\\mathrm{filter},k}\\) 로 차감하고, DOB가 잡지 못한 잔여 성분은 아래와 같이 정의한다.\n\\[\n\\bm{d}_{\\mathrm{res},k} \\;\\triangleq\\;\n\\bm{w}_k \\;-\\; \\bm{d}_{\\mathrm{filter},k}\n\\;\\in\\;\\mathbb{R}^6\n\\tag{4}\\]\n이후 전개되는 ISS 해석에서 외부 입력으로 등장하는 유일한 양은 이 잔차 외란이다. 표기의 편의를 위해 흔히 \\(\\bm{x}_{k+1} = \\bm{x}_{k+1}^{\\mathrm{nom}} + \\bm{d}_{\\mathrm{res},k}\\) 로 쓰는데, 여기서 \\(\\bm{x}_{k+1}^{\\mathrm{nom}}\\) 은 외란이 없을 때 nominal 폐루프에서의 다음 상태를 의미한다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#lipschitz-bound-on-the-perturbation-term",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#lipschitz-bound-on-the-perturbation-term",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "4.2 Lipschitz bound on the perturbation term",
+    "text": "4.2 Lipschitz bound on the perturbation term\n식 10 의 첫 번째 대괄호 항은 가정 (A3) 으로 직접 상한이 잡힌다.\n\\[\nV_N^*\\bigl(\\bm{x}_{k+1}^{\\mathrm{nom}} + \\bm{d}_{\\mathrm{res},k}\\bigr)\n- V_N^*\\bigl(\\bm{x}_{k+1}^{\\mathrm{nom}}\\bigr)\n\\;\\le\\; \\gamma_0\\,\\bigl\\|\\bm{d}_{\\mathrm{res},k}\\bigr\\|.\n\\tag{11}\\]\n상수 \\(\\gamma_0\\) 은 외란 이득 (disturbance gain) 이다. 물리적으로는 상태 변위 (미터 단위) 를 비용 단위로 환산하는 discount factor의 역할을 한다. \\(\\gamma_0\\) 이 크면 cost 변화가 가파르다는 뜻이므로 작은 외란에도 시스템이 민감해진다. 반대로 \\(\\gamma_0\\) 이 작으면 시스템이 외란에 관대해진다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#the-baseline-iss-inequality",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#the-baseline-iss-inequality",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "4.3 The baseline ISS inequality",
+    "text": "4.3 The baseline ISS inequality\nLemma 1 와 식 11 을 식 10 에 대입하면 ISS 부등식이 얻어진다.\n\n정리 1 정리 1 (기저 시스템의 ISS). ?@asm-lyap 과 표준 NMPC 종단 조건이 성립할 때, 다음을 만족한다. \\[\nV_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\n\\;\\le\\;\n-c_x\\,\\|\\bm{x}_k\\|^2\n\\;+\\; \\gamma_0\\,\\|\\bm{d}_{\\mathrm{res},k}\\|.\n\\tag{12}\\]\n\n부등식 식 12 는 안정성의 정량적 표현이다. 우변의 첫 항은 제어기에 의한 cost의 소산으로 \\(\\|\\bm{x}_k\\|^2\\) 에 비례하여 원점에서 멀어질수록 커진다. 두 번째 항은 외란에 의한 cost의 주입으로 \\(\\|\\bm{d}_{\\mathrm{res},k}\\|\\) 에 선형이다. 소산과 주입이 균형을 이루는 지점이 추적 오차의 정상상태 (steady-state) 반경을 결정한다."
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#iss-inequality-with-the-rl",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#iss-inequality-with-the-rl",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "5.2 ISS inequality with the RL",
+    "text": "5.2 ISS inequality with the RL\n\\(\\bm{u}_{\\mathrm{RL},k} \\ne \\bm{0}\\) 일 때, 기저 시스템이 보는 유효 외란은\n\\[\n\\bm{d}_{\\mathrm{eff},k}\n\\;\\triangleq\\;\n\\bm{d}_{\\mathrm{res},k} - \\bm{u}_{\\mathrm{RL},k}\n\\tag{14}\\]\n로 시프트되며, 이에 따라 ISS 부등식 식 12 는 다음과 같이 갱신된다.\n\\[\nV_N^*(\\bm{x}_{k+1}) - V_N^*(\\bm{x}_k)\n\\;\\le\\;\n-c_x\\,\\|\\bm{x}_k\\|^2\n\\;+\\; \\gamma_0\\,\\|\\bm{d}_{\\mathrm{res},k} - \\bm{u}_{\\mathrm{RL},k}\\|.\n\\tag{15}\\]"
+  },
+  {
+    "objectID": "posts/paper-review/Residual_RL_ISS_ko.html#시뮬레이션-측정",
+    "href": "posts/paper-review/Residual_RL_ISS_ko.html#시뮬레이션-측정",
+    "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
+    "section": "6.4 시뮬레이션 측정",
+    "text": "6.4 시뮬레이션 측정\n세 추정량을 종합하면 다음과 같다.\n\n\n\n\n\n\n\n\n상수\n측정 장소\n이유\n\n\n\n\n\\(c_x\\)\n양쪽 측정 가능\nNMPC + 플랜트 동역학의 성질; 실측이 마찰로 작을 수 있음\n\n\n\\(\\gamma_0\\)\n시뮬레이션 전용\n\\(V_N^*\\) 만의 성질; 실측에 정확히 전이됨\n\n\n\\(r\\)\n설계 선택\n측정 대상이 아님\n\n\n\n런타임에 사용하는 최종 클립 상한은\n\\[\n\\|\\bm{u}_{\\mathrm{RL}}\\|\n\\;\\le\\;\n\\frac{2\\,\\hat{c}_x\\,r^2}{\\hat{\\gamma}_0},\n\\qquad\n\\hat{c}_x = \\hat{c}_x^{\\mathrm{real}},\n\\quad\n\\hat{\\gamma}_0 = \\hat{\\gamma}_0^{\\mathrm{sim}}\n\\tag{24}\\]\n이다."
   }
 ]
