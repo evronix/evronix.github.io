@@ -2,42 +2,42 @@
 title: "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller"
 author: "Jihong Kim"
 date: "2026-05-29"
-format:
-  pdf:
-    toc: true
-    toc-depth: 3
-    number-sections: true
-    documentclass: article
-    fontsize: 11pt
-    pdf-engine: lualatex
-    geometry:
-      - margin=1in
-    include-in-header:
-      text: |
-        \usepackage{amsmath,amssymb,amsthm}
-        \usepackage{mathtools}
-        \usepackage{luatexja-fontspec}
-        \setmainjfont{Noto Serif CJK KR}
-        \setsansjfont{Noto Sans CJK KR}
+format: html
+#   pdf:
+#     toc: true
+#     toc-depth: 3
+#     number-sections: true
+#     documentclass: article
+#     fontsize: 11pt
+#     pdf-engine: lualatex
+#     geometry:
+#       - margin=1in
+#     include-in-header:
+#       text: |
+#         \usepackage{amsmath,amssymb,amsthm}
+#         \usepackage{mathtools}
+#         \usepackage{luatexja-fontspec}
+#         \setmainjfont{Noto Serif CJK KR}
+#         \setsansjfont{Noto Sans CJK KR}
 
-        \let\bm\relax
-        \newcommand{\bm}[1]{\boldsymbol{#1}}
+#         \let\bm\relax
+#         \newcommand{\bm}[1]{\boldsymbol{#1}}
 
-        \let\remark\relax
-        \let\endremark\relax
-crossref:
-  thm-title: "정리"
-  def-title: "정의"
-  lem-title: "보조정리"
-  cor-title: "따름정리"
-  fig-title: "그림"
-  eq-prefix: "식"
-  custom:
-    - kind: float
-      key: asm
-      reference-prefix: "가정"
-      caption-prefix: "가정"
-      latex-env: "assumption"
+#         \let\remark\relax
+#         \let\endremark\relax
+# crossref:
+#   thm-title: "정리"
+#   def-title: "정의"
+#   lem-title: "보조정리"
+#   cor-title: "따름정리"
+#   fig-title: "그림"
+#   eq-prefix: "식"
+#   custom:
+#     - kind: float
+#       key: asm
+#       reference-prefix: "가정"
+#       caption-prefix: "가정"
+#       latex-env: "assumption"
 
 ---
 ::: {.content-visible when-format="html"}
