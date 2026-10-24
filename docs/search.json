@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "WorkSpace",
     "section": "",
-    "text": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller\n\n\n\n\n\n\n\n\nMay 29, 2026\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nRL based compensation methods 리뷰\n\n\n\npaper\n\nRL\n\nmanipulator\n\n\n\n\n\n\n\n\n\nMar 11, 2026\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nPACE: System-ID for Sim-to-Real 리뷰\n\n\n\npaper\n\nRL\n\nlocomotion\n\nsim2real\n\n\n\n\n\n\n\n\n\nDec 4, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nHybrid Internal Model (HIM) 리뷰\n\n\n\npaper\n\nRL\n\nlocomotion\n\ncontrastive-learning\n\n\n\n\n\n\n\n\n\nNov 20, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nFR-Net 리뷰\n\n\n\npaper\n\nquadruped\n\nRL\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 10, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nUnified Force and Position Control 리뷰\n\n\n\npaper\n\nRL\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 1, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nCOMPASS 리뷰\n\n\n\npaper\n\nDOB\n\nRL\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 21, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nDiAReL 리뷰\n\n\n\npaper\n\nDOB\n\nRL\n\nanalysis\n\nsim2real\n\n\n\n\n\n\n\n\n\nJul 17, 2025\n\n\nJihong Kim\n\n\n\n\n\nNo matching items"
+    "text": "PIE (Parkour with Implicit-Explicit Learning) 리뷰\n\n\n\npaper\n\nRL\n\nlocomotion\n\nparkour\n\nVAE\n\n\n\n\n\n\n\n\n\nOct 24, 2026\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nInput-to-State Stability Analysis and Action-Clipping Law for a residual RL controller\n\n\n\n\n\n\n\n\nMay 29, 2026\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nRL based compensation methods 리뷰\n\n\n\npaper\n\nRL\n\nmanipulator\n\n\n\n\n\n\n\n\n\nMar 11, 2026\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nPACE: System-ID for Sim-to-Real 리뷰\n\n\n\npaper\n\nRL\n\nlocomotion\n\nsim2real\n\n\n\n\n\n\n\n\n\nDec 4, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nHybrid Internal Model (HIM) 리뷰\n\n\n\npaper\n\nRL\n\nlocomotion\n\ncontrastive-learning\n\n\n\n\n\n\n\n\n\nNov 20, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nFR-Net 리뷰\n\n\n\npaper\n\nquadruped\n\nRL\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 10, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nUnified Force and Position Control 리뷰\n\n\n\npaper\n\nRL\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 1, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nCOMPASS 리뷰\n\n\n\npaper\n\nDOB\n\nRL\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 21, 2025\n\n\nJihong Kim\n\n\n\n\n\n\n\n\n\n\n\n\nDiAReL 리뷰\n\n\n\npaper\n\nDOB\n\nRL\n\nanalysis\n\nsim2real\n\n\n\n\n\n\n\n\n\nJul 17, 2025\n\n\nJihong Kim\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/paper-review/PACE_Review.html",
@@ -509,5 +509,201 @@
     "title": "Input-to-State Stability Analysis and Action-Clipping Law for a residual RL controller",
     "section": "6.4 시뮬레이션 측정",
     "text": "6.4 시뮬레이션 측정\n세 추정량을 종합하면 다음과 같다.\n\n\n\n\n\n\n\n\n상수\n측정 장소\n이유\n\n\n\n\n\\(c_x\\)\n양쪽 측정 가능\nNMPC + 플랜트 동역학의 성질; 실측이 마찰로 작을 수 있음\n\n\n\\(\\gamma_0\\)\n시뮬레이션 전용\n\\(V_N^*\\) 만의 성질; 실측에 정확히 전이됨\n\n\n\\(r\\)\n설계 선택\n측정 대상이 아님\n\n\n\n런타임에 사용하는 최종 클립 상한은\n\\[\n\\|\\bm{u}_{\\mathrm{RL}}\\|\n\\;\\le\\;\n\\frac{2\\,\\hat{c}_x\\,r^2}{\\hat{\\gamma}_0},\n\\qquad\n\\hat{c}_x = \\hat{c}_x^{\\mathrm{real}},\n\\quad\n\\hat{\\gamma}_0 = \\hat{\\gamma}_0^{\\mathrm{sim}}\n\\tag{24}\\]\n이다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html",
+    "href": "posts/paper-review/PIE_Review.html",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "",
+    "text": "Note🔗 Links\n\n\n\n\n📄 Paper (arXiv)\n📄 IEEE RA-L (DOI)\n📦 Code: 공개되지 않음 (2026-10 기준, arXiv와 논문 본문 모두 코드 링크 없음)\n본 포스트는 PIE의 전체 학습 프레임워크를 분석합니다. 특히 각 관측값이 어떤 센서에서 오는지, Estimator가 state를 어떻게 가공해서 Policy에 넣는지, 그리고 Teacher–Student 없이 one-stage로 학습하는 구조를 개발 관점에서 정리합니다. 학습 원리(PPO, VAE의 수학적 배경)는 다음 포스트에서 다룹니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#contribution",
+    "href": "posts/paper-review/PIE_Review.html#contribution",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "1.1 Contribution",
+    "text": "1.1 Contribution\n\nDual-level implicit-explicit estimation을 쓰는 one-stage parkour 학습 프레임워크.\n로봇 높이의 3배 단차(0.75 m) 오르내리기, 로봇 길이의 3배 gap(1 m), 로봇 높이만 한 계단(0.25 m).\n별도 fine-tuning 없이 실내와 실외 모두에서 zero-shot sim-to-real."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#actor-입력",
+    "href": "posts/paper-review/PIE_Review.html#actor-입력",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "4.1 Actor 입력",
+    "text": "4.1 Actor 입력\nActor가 직접 받는 고유감각 관측 \\(\\mathbf{o}_t\\)는 관절 엔코더와 IMU에서 바로 측정되는 45차원 벡터입니다.\n\\[\n\\mathbf{o}_t = \\begin{bmatrix} \\boldsymbol{\\omega}_t & \\mathbf{g}_t & \\mathbf{c}_t & \\boldsymbol{\\theta}_t & \\dot{\\boldsymbol{\\theta}}_t & \\mathbf{a}_{t-1} \\end{bmatrix}^T \\tag{1}\n\\]\n\n\n\n\n\n\n\n\n\n항목\n기호\n차원\n출처\n\n\n\n\n몸통 각속도\n\\(\\boldsymbol{\\omega}_t\\)\n3\nIMU 자이로\n\n\nbody frame 중력 방향\n\\(\\mathbf{g}_t\\)\n3\nIMU 자세 추정\n\n\n속도 명령\n\\(\\mathbf{c}_t\\)\n3\n조작자 (\\(v_x, v_y, \\omega_{yaw}\\)로 추정)\n\n\n관절각\n\\(\\boldsymbol{\\theta}_t\\)\n12\n관절 엔코더\n\n\n관절 각속도\n\\(\\dot{\\boldsymbol{\\theta}}_t\\)\n12\n관절 엔코더\n\n\n이전 행동\n\\(\\mathbf{a}_{t-1}\\)\n12\n정책 출력\n\n\n합계\n\n45\n명령 3차원은 45에서 나머지를 뺀 계산값\n\n\n\nPolicy 네트워크의 최종 입력은 \\(\\mathbf{o}_t\\)에 Estimator 출력 4개를 이어 붙인 벡터입니다.\n\\[\n\\pi\\left(\\mathbf{a}_t \\mid \\mathbf{o}_t,\\ \\hat{\\mathbf{v}}_t,\\ \\hat{\\mathbf{h}}^f_t,\\ \\mathbf{z}^m_t,\\ \\mathbf{z}_t\\right)\n\\]\n몸통 선속도는 Actor에 직접 들어가지 않습니다. 실기에서 선속도를 정확히 측정할 센서가 없으므로 Estimator가 추정한 \\(\\hat{\\mathbf{v}}_t\\)를 대신 씁니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#critic-입력",
+    "href": "posts/paper-review/PIE_Review.html#critic-입력",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "4.2 Critic 입력",
+    "text": "4.2 Critic 입력\n\\[\n\\mathbf{s}_t = \\begin{bmatrix} \\mathbf{o}_t & \\mathbf{v}_t & \\mathbf{m}_t \\end{bmatrix}^T \\tag{2}\n\\]\n\n\\(\\mathbf{v}_t\\): 시뮬레이션의 실제 몸통 속도.\n\\(\\mathbf{m}_t\\): 시뮬레이션의 실제 height map scan dots (로봇 주변 지형 높이 샘플).\nCritic은 depth 이미지와 Estimator 출력을 쓰지 않습니다 (식 (2) 기준)."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#estimator-입력",
+    "href": "posts/paper-review/PIE_Review.html#estimator-입력",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "4.3 Estimator 입력",
+    "text": "4.3 Estimator 입력\n\nDepth history \\(\\mathbf{d}_t\\): 최근 depth 이미지 2프레임을 채널 방향으로 쌓은 텐서.\n고유감각 history \\(\\mathbf{o}^{H}_t\\): 최근 10스텝의 \\(\\mathbf{o}_t\\)를 이어 붙인 벡터 (45 × 10 = 450차원, 계산값).\n\n\n\n\n\n\n\nWarning원문 표기 불일치\n\n\n\n본문은 “depth를 \\(\\mathbf{d}^{H_1}_t\\), 고유감각을 \\(\\mathbf{o}^{H_2}_t\\)로 쓰고 \\(H_1 = 2\\), \\(H_2 = 10\\)”이라고 설명합니다. 그런데 Fig. 2와 식 (4)는 위첨자를 반대로(\\(\\mathbf{o}^{H_1}_t\\), \\(\\mathbf{d}^{H_2}_t\\)) 표기합니다. 본 포스트는 본문 설명을 따라 depth 2프레임, 고유감각 10스텝으로 정리했습니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#원문에-없는-차원-정보",
+    "href": "posts/paper-review/PIE_Review.html#원문에-없는-차원-정보",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "4.4 원문에 없는 차원 정보",
+    "text": "4.4 원문에 없는 차원 정보\n논문은 아래 항목의 크기를 밝히지 않습니다. 구현할 때 출발점으로 쓸 수 있는 값을 함께 적었지만, PIE 원문의 값이 아닙니다.\n\n\n\n\n\n\n\n\n항목\n원문\n구현 출발점 (근거)\n\n\n\n\nDepth 해상도\n미기재\n58 × 87 정도로 축소 (Extreme Parkour 관례)\n\n\nHeight map \\(\\mathbf{m}_t\\) 점 수\n미기재\n187 = 17 × 11 (QuadLab critic의 기존 height scan)\n\n\n\\(\\mathbf{z}_t\\) 차원\n미기재\n16 (DreamWaQ, QuadLab cenet.py)\n\n\n\\(\\mathbf{z}^m_t\\) 차원\n미기재\n정해진 근거 없음. 16–32 범위에서 실험\n\n\n\\(\\hat{\\mathbf{h}}^f_t\\) 차원\n미기재\n4 (발마다 1개로 추정)\n\n\n\\(\\hat{\\mathbf{v}}_t\\) 차원\n미기재\n3 (몸통 선속도)\n\n\nCNN, Transformer, GRU 크기\n미기재\n소규모로 시작\n\n\nPPO 하이퍼파라미터\n미기재\nQuadLab 기존 PPO 설정 재사용"
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#step-1-시계열-입력-쌓기",
+    "href": "posts/paper-review/PIE_Review.html#step-1-시계열-입력-쌓기",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "5.1 [Step 1] 시계열 입력 쌓기",
+    "text": "5.1 [Step 1] 시계열 입력 쌓기\n\n\n\n\n\n\nNote핵심 직관\n\n\n\n“한 장의 사진과 한 순간의 감각으로는 부족하니, 짧은 과거를 함께 보자.”\n\n\n\nDepth: 최근 2프레임을 채널 방향으로 쌓아 \\((B, 2, H, W)\\) 텐서를 만듭니다. 두 프레임의 차이에서 움직임 정보를 얻을 수 있습니다.\n고유감각: 최근 10스텝을 이어 붙여 \\((B, 450)\\) 벡터를 만듭니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#step-2-modality별-인코딩",
+    "href": "posts/paper-review/PIE_Review.html#step-2-modality별-인코딩",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "5.2 [Step 2] Modality별 인코딩",
+    "text": "5.2 [Step 2] Modality별 인코딩\n\nCNN: depth 텐서에서 2D depth feature map을 뽑습니다. Feature map의 공간 위치 하나하나가 visual token이 됩니다.\nMLP: 고유감각 history에서 proprioceptive feature를 뽑습니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#step-3-shared-transformer-encoder-cross-modal-attention",
+    "href": "posts/paper-review/PIE_Review.html#step-3-shared-transformer-encoder-cross-modal-attention",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "5.3 [Step 3] Shared Transformer Encoder (cross-modal attention)",
+    "text": "5.3 [Step 3] Shared Transformer Encoder (cross-modal attention)\n\n\n\n\n\n\nNote핵심 직관\n\n\n\n“보이는 것(depth)과 느끼는 것(고유감각)을 서로 대조하게 하자.”\n\n\nVisual token들과 고유감각 feature를 하나의 transformer encoder에 함께 넣습니다. Self-attention 안에서 각 visual token은 고유감각 feature를 참고하고, 고유감각 feature도 visual token들을 참고합니다. 저자들은 이를 두 modality 사이의 cross-modal reasoning이라고 설명합니다. 비슷한 구조는 Yang et al.의 cross-modal transformer(원문 [11])에서 쓰였습니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#step-4-gru-기억",
+    "href": "posts/paper-review/PIE_Review.html#step-4-gru-기억",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "5.4 [Step 4] GRU (기억)",
+    "text": "5.4 [Step 4] GRU (기억)\n전방 카메라 한 대로는 몸 아래와 뒤의 지형을 볼 수 없습니다. 그래서 transformer를 거친 depth feature와 고유감각 feature를 이어 붙여 GRU에 넣고, 지나온 지형과 상태를 기억하게 합니다. 예를 들어 앞발이 이미 지나간 모서리의 위치는 지금 카메라에 보이지 않아도 GRU의 hidden state에 남아 있어야 뒷발이 그 모서리를 처리할 수 있습니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#step-5-4개의-추정-벡터",
+    "href": "posts/paper-review/PIE_Review.html#step-5-4개의-추정-벡터",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "5.5 [Step 5] 4개의 추정 벡터",
+    "text": "5.5 [Step 5] 4개의 추정 벡터\nGRU 출력에서 Policy 입력이 될 4개의 벡터를 만듭니다.\n\n\n\n\n\n\n\n\n벡터\n종류\n의미\n\n\n\n\n\\(\\hat{\\mathbf{v}}_t\\)\n물리량 (explicit)\n몸통 선속도 추정값\n\n\n\\(\\hat{\\mathbf{h}}^f_t\\)\n물리량 (explicit)\n발과 지형 사이 높이(foot clearance) 추정값\n\n\n\\(\\mathbf{z}^m_t\\)\nlatent (autoencoder)\n주변 height map의 압축 표현\n\n\n\\(\\mathbf{z}_t\\)\nlatent (VAE)\n로봇 상태와 주변 환경의 순수 latent\n\n\n\n\\(\\mathbf{z}_t\\)는 VAE 구조로 만듭니다. GRU 출력에서 평균 \\(\\boldsymbol{\\mu}\\)와 분산 \\(\\boldsymbol{\\sigma}^2\\)를 예측하고 reparameterization으로 샘플링합니다.\n\\[\n\\mathbf{z}_t = \\boldsymbol{\\mu} + \\boldsymbol{\\sigma} \\odot \\boldsymbol{\\epsilon}, \\quad \\boldsymbol{\\epsilon} \\sim \\mathcal{N}(0, I)\n\\]"
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#step-6-decoder로-복원-학습-신호",
+    "href": "posts/paper-review/PIE_Review.html#step-6-decoder로-복원-학습-신호",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "5.6 [Step 6] Decoder로 복원 (학습 신호)",
+    "text": "5.6 [Step 6] Decoder로 복원 (학습 신호)\n\n\n\n\n\n\nImportantDecoder는 학습용입니다\n\n\n\nDecoder 출력(\\(\\hat{\\mathbf{o}}_{t+1}\\), \\(\\hat{\\mathbf{m}}_t\\))은 Policy에 들어가지 않습니다. 정답과 비교해 loss를 만드는 데만 쓰이므로, 배포할 때는 Estimator의 인코딩 부분과 Actor만 있으면 됩니다. \\(\\hat{\\mathbf{m}}_t\\)는 실기에서 지형 추정이 맞는지 시각화하는 디버깅 용도로 쓸 수 있습니다.\n\n\n\nSuccessor state decoder (빨간색): \\([\\hat{\\mathbf{v}}_t, \\hat{\\mathbf{h}}^f_t, \\mathbf{z}_t, \\mathbf{z}^m_t] \\rightarrow \\hat{\\mathbf{o}}_{t+1}\\). 다음 스텝의 고유감각 관측을 예측합니다.\nHeight map decoder (파란색): \\(\\mathbf{z}^m_t \\rightarrow \\hat{\\mathbf{m}}_t\\). 주변 height map을 복원합니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#step-7-policy-출력과-pd-제어",
+    "href": "posts/paper-review/PIE_Review.html#step-7-policy-출력과-pd-제어",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "5.7 [Step 7] Policy 출력과 PD 제어",
+    "text": "5.7 [Step 7] Policy 출력과 PD 제어\nAction \\(\\mathbf{a}_t\\)는 12개 관절에 대한 12차원 벡터이고, 서 있는 기본자세 \\(\\boldsymbol{\\theta}_{stand}\\)에 더해져 관절 목표각이 됩니다.\n\\[\n\\boldsymbol{\\theta}_{target} = \\boldsymbol{\\theta}_{stand} + \\mathbf{a}_t \\tag{3}\n\\]\n원문에는 action scale이 따로 없습니다. 목표각은 관절 PD 제어기가 추종하고, PD gain은 도메인 랜덤화(\\(K_p\\), \\(K_d\\) factor 0.9–1.1)의 대상입니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#estimator-loss",
+    "href": "posts/paper-review/PIE_Review.html#estimator-loss",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "7.1 Estimator Loss",
+    "text": "7.1 Estimator Loss\n\\[\n\\begin{aligned}\n\\mathcal{L} = {} & D_{KL}\\left(q(\\mathbf{z}_t \\mid \\mathbf{o}^{H}_t, \\mathbf{d}_t) \\,\\|\\, p(\\mathbf{z}_t)\\right) + \\text{MSE}(\\hat{\\mathbf{o}}_{t+1}, \\mathbf{o}_{t+1}) \\\\\n& + \\text{MSE}(\\hat{\\mathbf{m}}_t, \\mathbf{m}_t) + \\text{MSE}(\\hat{\\mathbf{v}}_t, \\mathbf{v}_t) + \\text{MSE}(\\hat{\\mathbf{h}}^f_t, \\mathbf{h}^f_t)\n\\end{aligned} \\tag{4}\n\\]\n\n\n\n\n\n\n\n\n항\n정답(label) 출처\n역할\n\n\n\n\n\\(D_{KL}\\)\n사전분포 \\(p(\\mathbf{z}_t) = \\mathcal{N}(0, I)\\)\n\\(\\mathbf{z}_t\\)의 분포를 표준정규분포에 가깝게 정렬\n\n\n\\(\\text{MSE}(\\hat{\\mathbf{o}}_{t+1}, \\mathbf{o}_{t+1})\\)\n다음 스텝에 실제로 관측된 \\(\\mathbf{o}_{t+1}\\)\nImplicit 추정 (successor state)\n\n\n\\(\\text{MSE}(\\hat{\\mathbf{m}}_t, \\mathbf{m}_t)\\)\n시뮬레이션 GT height map\nExplicit 지형 추정\n\n\n\\(\\text{MSE}(\\hat{\\mathbf{v}}_t, \\mathbf{v}_t)\\)\n시뮬레이션 GT 몸통 속도\nExplicit 속도 추정\n\n\n\\(\\text{MSE}(\\hat{\\mathbf{h}}^f_t, \\mathbf{h}^f_t)\\)\n시뮬레이션 GT foot clearance\nExplicit 발밑 지형 추정\n\n\n\n식 (4)에는 항별 가중치가 없습니다. 참고로 QuadLab의 DreamWaQ 구현(cenet.py)은 vel_loss + 4.0 * recon_loss + 0.01 * kl_loss로 가중치를 둡니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#vae-관점-생성모델-요소",
+    "href": "posts/paper-review/PIE_Review.html#vae-관점-생성모델-요소",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "7.2 VAE 관점 (생성모델 요소)",
+    "text": "7.2 VAE 관점 (생성모델 요소)\n\\(\\mathbf{z}_t\\)는 VAE의 latent입니다. KL 항은 가우시안끼리라 닫힌 형태로 계산됩니다.\n\\[\nD_{KL} = -\\frac{1}{2} \\sum_{j} \\left(1 + \\log \\sigma_j^2 - \\mu_j^2 - \\sigma_j^2\\right)\n\\]\nAblation “PIE using predicted \\(\\mathbf{o}_{t+1}\\)”은 \\(\\mathbf{z}_t\\) 대신 복원된 \\(\\hat{\\mathbf{o}}_{t+1}\\)을 Policy에 넣은 경우입니다. 이 경우 step과 stairs에서 성능이 크게 떨어집니다. 저자들은 \\(\\mathbf{z}_t\\)는 표준정규분포라는 사전분포로 정돈되어 있는 반면 \\(\\mathbf{o}_{t+1}\\)의 분포는 복잡해서 Policy가 정보를 꺼내기 어렵다고 해석합니다. VAE의 KL 항이 Policy가 읽기 좋은 표현을 만드는 역할도 한다는 근거입니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#actor-critic-loss와-gradient-흐름",
+    "href": "posts/paper-review/PIE_Review.html#actor-critic-loss와-gradient-흐름",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "7.3 Actor-Critic Loss와 Gradient 흐름",
+    "text": "7.3 Actor-Critic Loss와 Gradient 흐름\nActor-Critic은 PPO로 학습합니다. Fig. 2 설명에 따르면 Actor-Critic은 PPO로, Estimator는 회귀로 각각 최적화됩니다.\n\n\n\n\n\n\nImportantEstimator 출력을 detach하는가\n\n\n\n원문은 Estimator 출력이 Policy에 들어갈 때 gradient를 끊는지(detach) 명시하지 않습니다. DreamWaQ 계열의 관례는 Estimator 출력을 detach해서 PPO loss가 Estimator를 바꾸지 않게 하는 것입니다. QuadLab의 DreamWaQ runner도 est_vel.detach(), context_vec.detach() 후 Actor에 넣습니다. 구현할 때는 이 관례를 따르고, 필요하면 detach 여부를 ablation으로 확인하는 것이 안전합니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#보상-함수",
+    "href": "posts/paper-review/PIE_Review.html#보상-함수",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "9.1 보상 함수",
+    "text": "9.1 보상 함수\n저자들은 parkour 전용 보상 없이 blind walking 연구에서 쓰던 단순한 보상만 썼다는 점을 강조합니다. Waypoint나 방향 유도 보상이 없습니다.\n\n\n\n\n\n\n\n\n보상\n식\n가중치\n\n\n\n\n선속도 추종\n\\(\\exp\\{-4(\\mathbf{v}^{cmd}_{xy} - \\mathbf{v}_{xy})^2\\}\\)\n1.5\n\n\n각속도 추종\n\\(\\exp\\{-4(\\omega^{cmd}_{yaw} - \\omega_{yaw})^2\\}\\)\n0.5\n\n\nz 선속도\n\\(v_z^2\\)\n−1.0\n\n\nxy 각속도\n\\(\\boldsymbol{\\omega}_{xy}^2\\)\n−0.05\n\n\n자세\n\\(\\lVert \\mathbf{g} \\rVert^2\\)\n−1.0\n\n\n관절 가속도\n\\(\\ddot{\\boldsymbol{\\theta}}^2\\)\n−2.5 × 10⁻⁷\n\n\n관절 power\n\\(\\lvert \\boldsymbol{\\tau} \\rvert \\lvert \\dot{\\boldsymbol{\\theta}} \\rvert\\)\n−2 × 10⁻⁵\n\n\n충돌\n\\(n_{collision}\\) (발 외 충돌 점 수)\n−10.0\n\n\nAction rate\n\\((\\mathbf{a}_t - \\mathbf{a}_{t-1})^2\\)\n−0.01\n\n\nSmoothness\n\\((\\mathbf{a}_t - 2\\mathbf{a}_{t-1} + \\mathbf{a}_{t-2})^2\\)\n−0.01"
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#학습-환경과-커리큘럼",
+    "href": "posts/paper-review/PIE_Review.html#학습-환경과-커리큘럼",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "9.2 학습 환경과 커리큘럼",
+    "text": "9.2 학습 환경과 커리큘럼\n\n시뮬레이터: Isaac Gym, 4096 병렬 환경. NVIDIA Warp를 활용해 10,000 iteration을 RTX 4090에서 20시간 이내에 학습.\n지형 커리큘럼: 난이도가 점점 올라가는 지형 커리큘럼(Rudin et al.). 최대 난이도는 gap 1 m, step 0.75 m, hurdle 0.75 m, 계단 0.25 m.\n지형 랜덤화: 큰 gap이 “두 step 사이의 평지”로 오인되지 않도록 gap의 깊이와 폭을 랜덤화.\n명령 범위: 원문은 “lateral velocity [0.0, 1.5] m/s, horizontal angular velocity [−1.2, 1.2] rad/s”라고 적었습니다. 범위가 0부터 시작하는 것으로 보아 전진 속도를 뜻하는 것으로 보입니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#도메인-랜덤화",
+    "href": "posts/paper-review/PIE_Review.html#도메인-랜덤화",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "9.3 도메인 랜덤화",
+    "text": "9.3 도메인 랜덤화\n\n\n\n\n\n\n\n\n파라미터\n범위\n단위\n\n\n\n\nPayload\n[−1, 2]\nkg\n\n\n\\(K_p\\) factor\n[0.9, 1.1]\n–\n\n\n\\(K_d\\) factor\n[0.9, 1.1]\n–\n\n\nMotor strength factor\n[0.9, 1.1]\n–\n\n\n무게중심 이동\n[−50, 50]\nmm\n\n\n마찰계수\n[0.2, 1.2]\n–\n\n\n초기 관절 위치\n[0.5, 1.5]\n(원문 단위 rad, 범위로 보아 배율로 추정)\n\n\nSystem delay\n[0, 15]\nms\n\n\n카메라 위치 x, y, z\n각 [−10, 10]\nmm\n\n\n카메라 pitch\n[−1, 1]\ndeg\n\n\n카메라 수평 FOV\n[86, 88]\ndeg\n\n\n\n카메라 위치, 각도, FOV를 랜덤화하는 것이 depth 기반 정책의 특징입니다. 실기에서 카메라 장착 오차와 캘리브레이션 오차를 흡수하기 위한 설정입니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#ablation-시뮬레이션",
+    "href": "posts/paper-review/PIE_Review.html#ablation-시뮬레이션",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "10.1 Ablation (시뮬레이션)",
+    "text": "10.1 Ablation (시뮬레이션)\n각 지형마다 10단계 난이도 열을 40세트 만들고 로봇 100대를 동시에 시험했습니다. 가장 쉬운 단계에서 출발해 넘어지거나 충돌할 때까지 도달한 평균 난이도를 비교합니다 (최대 10).\n\n\n\n방법\nGap\nStairs\nStep\n\n\n\n\nPIE (ours)\n9.9\n9.86\n9.81\n\n\nPIE w/o \\(\\hat{\\mathbf{o}}_{t+1}\\)\n9.51\n9.45\n9.62\n\n\nPIE w/o \\(\\hat{\\mathbf{h}}^f_t\\)\n7.41\n7.36\n3.09\n\n\nPIE w/o \\(\\hat{\\mathbf{v}}_t\\)\n8.7\n8.22\n8.48\n\n\nPIE w/o \\(\\hat{\\mathbf{m}}_t\\)\n9.75\n4.25\n1.67\n\n\nPIE using predicted \\(\\mathbf{o}_{t+1}\\)\n9.23\n7.28\n3.29\n\n\n\n\n\n\n\n\n\n\n제거한 요소\n해석 (저자)\n\n\n\n\n\\(\\hat{\\mathbf{o}}_{t+1}\\)\n시뮬레이션에서는 괜찮지만 지형 이해가 explicit 추정에만 의존해 가장 어려운 지형에서 foothold의 작은 오차로 넘어짐. 실기에서 더 크게 하락\n\n\n\\(\\hat{\\mathbf{h}}^f_t\\)\n발밑 지형을 직접 알지 못해 모서리를 밟는 동작이 어려워짐. Step에서 3.09로 급락\n\n\n\\(\\hat{\\mathbf{v}}_t\\)\n속도 추종 편향이 커져 높은 난이도에서 기동성 저하\n\n\n\\(\\hat{\\mathbf{m}}_t\\)\nDepth에서 쓸모 있는 지형 정보를 뽑지 못함. Stairs 4.25, Step 1.67\n\n\n\\(\\mathbf{z}_t\\) 대신 \\(\\hat{\\mathbf{o}}_{t+1}\\) 입력\n\\(\\mathbf{o}_{t+1}\\)의 분포가 복잡해 Policy가 정보를 꺼내기 어려움\n\n\n\n본문은 “4가지 ablation”이라고 쓰고 실제로는 5가지를 나열합니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#카메라-오류에-대한-강건성",
+    "href": "posts/paper-review/PIE_Review.html#카메라-오류에-대한-강건성",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "10.2 카메라 오류에 대한 강건성",
+    "text": "10.2 카메라 오류에 대한 강건성\n\n\n\nFig. 3 (원문). 다섯 종류의 카메라 오류를 표준 랜덤화보다 크게 넣었을 때의 평균 성공률. 파란색이 PIE, 주황색이 PIE w/o ô_t+1.\n\n\n\n오류 종류: depth가 실제보다 뒤로 밀린 편향, 카메라 위치 노이즈, 카메라 pitch 노이즈, depth 가우시안 노이즈, salt-and-pepper 노이즈.\n일반 랜덤화 범위 안에서는 두 방법의 성능이 비슷합니다.\n오류가 커질수록 차이가 벌어집니다. 다음 상태 예측(\\(\\hat{\\mathbf{o}}_{t+1}\\))이 있으면 시각이 고유감각과 어긋날 때 고유감각을 더 믿게 된다는 것이 저자들의 해석입니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#실기-실내-실험",
+    "href": "posts/paper-review/PIE_Review.html#실기-실내-실험",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "10.3 실기 실내 실험",
+    "text": "10.3 실기 실내 실험\n\n\n\nFig. 4 (원문). 실내 실기 실험. 지형 난이도별 10회 시도 성공률. 학습하지 않은 경사로(ramp)도 시험했습니다.\n\n\n\n\n\n방법\n로봇\nStep\nGap\nStairs\n\n\n\n\nHoeller et al.\nANYmal C\n2×\n1.5×\n0.5×\n\n\nZhuang et al.\nUnitree A1\n1.6×\n1.5×\n–\n\n\nCheng et al.\nUnitree A1\n2×\n2×\n–\n\n\nPIE\nDEEP Robotics Lite3\n3×\n3×\n1×\n\n\n\n로봇 높이·길이 대비 상대 크기입니다. PIE는 0.75 m 단차, 1 m gap, 0.25 m 계단을 통과했고 시뮬레이션과 실기 성공률이 비슷하게 유지되었습니다. 실기에서는 PIE w/o \\(\\hat{\\mathbf{m}}_t\\)가 거의 모든 지형에서 성공률 0에 가까웠습니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#실기-실외-실험과-회복-동작",
+    "href": "posts/paper-review/PIE_Review.html#실기-실외-실험과-회복-동작",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "10.4 실기 실외 실험과 회복 동작",
+    "text": "10.4 실기 실외 실험과 회복 동작\n\n\n\nFig. 5 (원문). 저장대학교(ZJU) Yuquan 캠퍼스에서 Laohe 산 정상까지 왕복 2 km, 고도 상승 153 m 하이킹.\n\n\n\n곡선 계단, 불규칙한 단차, 급경사, 변형되거나 미끄러운 지면, 바위를 포함한 경로를 40분 만에 멈춤 없이 완주했습니다.\n빛이 거의 없는 야간에도 높은 단차와 바위를 넘었습니다 (Fig. 6). D435i는 적외선 패턴을 투사하는 active stereo 방식이라 가시광이 적어도 depth를 얻을 수 있습니다.\n\n\n\n\nFig. 6 (원문). 야간 실외 시험.\n\n\n\n\n\nFig. 7 (원문). 추정이 부정확해도 빠르게 안정을 되찾는 모습. Gap 도약 직전 앞뒤 다리가 플랫폼을 완전히 딛지 못했을 때, 계단에서 갑자기 발밑이 빈 경우."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#저자가-밝힌-한계",
+    "href": "posts/paper-review/PIE_Review.html#저자가-밝힌-한계",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "11.1 저자가 밝힌 한계",
+    "text": "11.1 저자가 밝힌 한계\n\n지형의 3D 이해가 없어 장애물 아래로 웅크려 지나가는 동작을 못 합니다.\nDepth만 쓰고 RGB의 의미 정보를 쓰지 않습니다.\n학습이 정적 환경에 한정되어 움직이는 물체가 있으면 시각 추정이 혼란스러울 수 있습니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#분석하며-확인한-점",
+    "href": "posts/paper-review/PIE_Review.html#분석하며-확인한-점",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "11.2 분석하며 확인한 점",
+    "text": "11.2 분석하며 확인한 점\n\n재현 정보 부족: 코드가 없고, depth 해상도, latent 차원, 네트워크 크기, PPO 하이퍼파라미터가 모두 빠져 있습니다. 구조는 분명하지만 수치는 직접 정해야 합니다.\n표기 불일치: \\(H_1\\), \\(H_2\\) 위첨자가 본문과 Fig. 2·식 (4)에서 서로 반대입니다.\n정의 누락: Foot clearance \\(\\mathbf{h}^f_t\\)의 정확한 정의(발 높이 − 발 아래 지형 높이인지, 차원은 몇인지)가 없습니다.\n명령 표현: “lateral velocity [0.0, 1.5]”는 전진 속도의 오기로 보입니다.\n시뮬레이션 depth 비용: Depth 렌더링이 들어가므로 blind 정책보다 학습이 무겁습니다. 저자들은 Warp로 이 비용을 줄였다고만 언급합니다."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#이미-가지고-있는-것",
+    "href": "posts/paper-review/PIE_Review.html#이미-가지고-있는-것",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "13.1 이미 가지고 있는 것",
+    "text": "13.1 이미 가지고 있는 것\nPIE의 implicit 부분은 DreamWaQ(원문 [5])를 그대로 확장한 구조입니다. QuadLab에는 DreamWaQ 구현이 이미 있으므로 출발점이 가깝습니다.\n\n\n\n\n\n\n\n\nPIE 구성 요소\nQuadLab의 대응 코드\n차이\n\n\n\n\n고유감각 \\(\\mathbf{o}_t\\) (45)\nGo1, pipe(12 DoF) env의 policy 관측 (45)\n같은 구성\n\n\n고유감각 history\nwaq_on_policy_runner.py의 history buffer (5스텝)\nPIE는 10스텝\n\n\nVAE latent \\(\\mathbf{z}_t\\) + 속도 \\(\\hat{\\mathbf{v}}_t\\)\ncenet.py encoder → [속도 3, μ 16, logvar 16]\nPIE는 transformer + GRU 뒤에서 생성\n\n\nSuccessor state decoder\ncenet.py decoder [속도, z] (19) → \\(\\hat{\\mathbf{o}}_{t+1}\\) (45)\nPIE는 \\(\\hat{\\mathbf{h}}^f_t\\), \\(\\mathbf{z}^m_t\\)도 함께 입력\n\n\nEstimator 출력 detach\nrunner에서 .detach() 후 Actor에 입력\n같은 관례\n\n\nCritic privileged 입력\n실제 속도 + 외력 + height scan 187\nPIE는 실제 속도 + height map"
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#새로-필요한-것",
+    "href": "posts/paper-review/PIE_Review.html#새로-필요한-것",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "13.2 새로 필요한 것",
+    "text": "13.2 새로 필요한 것\n\nDepth 카메라 시뮬레이션: Isaac Lab의 RayCasterCamera는 Warp로 static mesh에 ray casting해서 distance_to_image_plane depth를 만듭니다. PIE가 Warp를 쓴 방식과 가장 가깝고, RTX 렌더링 카메라보다 훨씬 가볍습니다. 다만 static mesh만 맞히므로 로봇 자기 몸에 의한 가림은 표현되지 않습니다.\nDepth 인코더 경로: CNN → Transformer encoder → GRU. 기존 CENet은 MLP뿐이라 이 부분이 가장 큰 추가 작업입니다.\nHeight map decoder: Critic에 이미 있는 height scan(17 × 11)을 정답 \\(\\mathbf{m}_t\\)로 재사용할 수 있습니다.\nFoot clearance 정답: 발 위치와 그 아래 지형 높이의 차이로 정의해야 합니다. 발마다 ray cast 한 개를 두는 방식이 간단합니다.\n카메라 랜덤화: 위치 ±10 mm, pitch ±1°, FOV 86–88°, system delay 0–15 ms."
+  },
+  {
+    "objectID": "posts/paper-review/PIE_Review.html#pipe-로봇에서-기대할-점과-주의할-점",
+    "href": "posts/paper-review/PIE_Review.html#pipe-로봇에서-기대할-점과-주의할-점",
+    "title": "PIE (Parkour with Implicit-Explicit Learning) 리뷰",
+    "section": "13.3 Pipe 로봇에서 기대할 점과 주의할 점",
+    "text": "13.3 Pipe 로봇에서 기대할 점과 주의할 점\n\nFoot clearance의 비중: Ablation에서 \\(\\hat{\\mathbf{h}}^f_t\\)를 빼면 step 성능이 9.81에서 3.09로 떨어졌습니다. 좁은 곡면인 배관 위에서는 “발밑이 배관 위인지 바깥인지”가 핵심이므로 이 항이 특히 중요할 것으로 예상합니다.\n카메라 시야: 전방 카메라는 몸 아래를 보지 못합니다. 배관 위에서는 뒷발 위치의 배관 형상을 GRU가 기억해야 합니다.\n학습 시간 감각: PIE는 RTX 4090에서 10,000 iteration에 20시간 이내입니다. 연구실 RTX A4000에서 QuadLab DreamWaQ 학습은 14,567 iteration에 약 14시간이 걸렸습니다. PIE식 구성은 depth 렌더링과 transformer가 더해지므로 이보다 길어질 것이고, 실제 시간은 짧은 시험 학습으로 재 봐야 합니다.\n\n\n\n\n\n\n\nTip단계적 접근 제안\n\n\n\n\n기존 DreamWaQ에 foot clearance 추정과 height map 복원만 먼저 추가합니다 (critic의 height scan을 estimator 입력 대신 정답으로만 사용). Depth 없이도 dual-level의 절반을 확인할 수 있습니다.\n그다음 RayCasterCamera depth와 CNN 경로를 붙여 explicit 지형 추정을 실제 센서 입력으로 바꿉니다.\n마지막으로 Transformer와 GRU를 넣어 원문 구조를 완성합니다."
   }
 ]
