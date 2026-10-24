@@ -4,6 +4,7 @@ author: "Jihong Kim"
 date: "2026-10-24"
 categories: [paper, RL, locomotion, parkour, VAE]
 format: html
+lightbox: true
 ---
 
 ::: {.callout-note title="🔗 Links"}
@@ -100,7 +101,7 @@ Fig. 2에서 놓치기 쉬운 디테일이 두 가지 있습니다.
 -   **빨간 점선 상자**는 $\hat{\mathbf{v}}_t, \hat{\mathbf{h}}^f_t, \mathbf{z}_t, \mathbf{z}^m_t$ **4개 모두**를 감쌉니다. 이 4개가 Actor로 들어가고, 동시에 빨간 MLP Decoder로 들어가 $\hat{\mathbf{o}}_{t+1}$을 복원합니다.
 -   **파란 점선 상자**는 $\mathbf{z}^m_t$**만** 감쌉니다. 파란 MLP Decoder는 $\mathbf{z}^m_t$만으로 height map $\hat{\mathbf{m}}_t$를 복원합니다.
 
-배포 시의 데이터 흐름을 센서부터 관절 PD까지 다시 그리면 다음과 같습니다.
+배포 시의 데이터 흐름을 센서부터 관절 PD까지 다시 그리면 다음과 같습니다. 학습 시의 흐름은 뒤의 "학습 단계 설계" 절에서 따로 다룹니다.
 
 ```{mermaid}
 flowchart TD
@@ -327,6 +328,115 @@ Actor-Critic은 PPO로 학습합니다. Fig. 2 설명에 따르면 Actor-Critic�
 ### Estimator 출력을 detach하는가
 원문은 Estimator 출력이 Policy에 들어갈 때 gradient를 끊는지(detach) 명시하지 않습니다. DreamWaQ 계열의 관례는 Estimator 출력을 detach해서 **PPO loss가 Estimator를 바꾸지 않게** 하는 것입니다. QuadLab의 DreamWaQ runner도 `est_vel.detach()`, `context_vec.detach()` 후 Actor에 넣습니다. 구현할 때는 이 관례를 따르고, 필요하면 detach 여부를 ablation으로 확인하는 것이 안전합니다.
 :::
+
+# 학습 단계 설계: 데이터 흐름과 두 갈래 갱신
+
+학습은 매 iteration마다 **rollout으로 데이터를 모으고**, 모은 데이터로 **Estimator와 Actor-Critic을 각각 갱신**하는 과정의 반복입니다. 배포 때와 가장 큰 차이는 시뮬레이션에서만 얻을 수 있는 값(privileged 정보와 정답)이 함께 흐른다는 점입니다.
+
+## [Rollout] 한 스텝의 데이터 흐름 (센서 → 관절 PD)
+
+![그림 A. 학습 중 rollout 한 스텝의 데이터 흐름. 주황색 점선은 시뮬레이션에서만 얻을 수 있는 정보, 초록색 점선은 update를 위해 버퍼에 저장하는 값입니다.](PIE_Review_img/train_rollout.svg){.column-page}
+
+1.  **시뮬레이터가 센서 값을 만듭니다.** IMU에 해당하는 $\boldsymbol{\omega}_t, \mathbf{g}_t$, 관절 $\boldsymbol{\theta}_t, \dot{\boldsymbol{\theta}}_t$, Warp ray cast로 만든 depth 이미지가 나옵니다. 같은 시점에 실제 속도 $\mathbf{v}_t$, height map $\mathbf{m}_t$, foot clearance $\mathbf{h}^f_t$, 보상 $r_t$도 계산합니다.
+2.  **관측 버퍼를 갱신합니다.** $\mathbf{o}_t$에 관측 노이즈를 더하고, 고유감각 history(10스텝)와 depth 버퍼(2프레임)를 한 칸씩 밀어 넣습니다. Depth는 실기처럼 10 Hz로 갱신하는 것이 자연스럽지만 원문은 이 부분을 밝히지 않습니다.
+3.  **Estimator를 forward만 합니다.** MLP와 CNN → Transformer → GRU → 4개 벡터. GRU hidden은 다음 스텝으로 넘기고, 에피소드가 끝난 env는 0으로 초기화합니다. 이 단계에서는 decoder를 계산하지 않습니다.
+4.  **Actor와 Critic이 동작합니다.** Actor는 $[\mathbf{o}_t, \text{sg}(\text{4개 벡터})]$로 $\mathbf{a}_t$를 샘플링하고, Critic은 $\mathbf{s}_t = [\mathbf{o}_t, \mathbf{v}_t, \mathbf{m}_t]$로 $\hat{V}_t$를 계산합니다.
+5.  **관절 PD로 실행합니다.** $\boldsymbol{\theta}_{target} = \boldsymbol{\theta}_{stand} + \mathbf{a}_t$를 PD가 추종해 토크를 만들고, 물리 엔진이 decimation만큼 스텝을 진행해 다음 상태를 만듭니다.
+6.  **버퍼에 저장합니다.** Update에 필요한 값을 모두 저장합니다. 다음 관측 $\mathbf{o}_{t+1}$은 다음 스텝에 도착하므로 한 스텝 늦게 정답 자리에 채워집니다.
+
+배포할 때는 이 중 GT 값, Critic, 버퍼 저장이 모두 빠지고, 실제 센서가 시뮬레이터 자리를 대신합니다.
+
+## [Update] 두 갈래 갱신
+
+![그림 B. Rollout이 끝난 뒤의 갱신 단계. Estimator는 회귀 loss(식 4)로, Actor-Critic은 PPO loss로 따로 갱신합니다.](PIE_Review_img/train_update.svg){.column-page}
+
+**① Estimator 갱신 (식 4)**
+
+-   GRU가 있으므로 전이를 마구 섞지 않고 **done에서 자른 시퀀스 단위**로 미니배치를 만듭니다. 저장해 둔 시작 hidden $\mathbf{h}_0$에서 GRU를 시간 순서대로 펼쳐 계산합니다 (truncated BPTT).
+-   이번에는 Decoder$_o$, Decoder$_m$까지 계산해서 5개 loss를 만들고, Estimator 전용 optimizer로 갱신합니다.
+
+**② Actor–Critic 갱신 (PPO)**
+
+-   Rollout 때 저장한 **actor 입력을 그대로** 씁니다. Estimator를 다시 돌리지 않으므로, ①에서 Estimator가 바뀌어도 $\pi_{new}/\pi_{old}$ 비율 계산이 같은 입력 위에서 이루어집니다.
+-   Advantage $A_t$와 return $R_t$는 rollout이 끝난 직후 GAE로 계산해 둡니다.
+-   역전파는 Actor와 Critic에만 흐릅니다.
+
+QuadLab DreamWaQ runner도 같은 구조입니다. Rollout은 `torch.inference_mode()` 안에서 돌고, actor 입력은 `est_vel.detach()`, `context_vec.detach()`를 붙여 저장하며, update는 `cenet.update()` → `alg.update()` 순서입니다.
+
+## 각 loss가 학습시키는 모듈
+
+먼저 결론은 세 가지입니다.
+
+1.  **Transformer encoder와 GRU에는 전용 loss가 없습니다.** CNN, MLP와 함께 공유 몸통을 이루고, 식 (4)의 다섯 항에서 오는 gradient를 모두 합쳐서 받습니다.
+2.  **Head는 gradient를 두 곳에서 받고, decoder는 한 곳에서만 받습니다.** 각 head는 자기 전용 loss와 빨간 decoder의 복원 loss를 함께 받습니다. Decoder는 자기 loss 하나로만 학습됩니다.
+3.  **"가중치가 바뀌는 곳"과 "값이 바뀌는 곳"은 다릅니다.** 한 loss가 일부 가중치만 바꿔도, 공유 몸통이 바뀌면 모든 head의 출력 값이 함께 바뀝니다.
+
+### Loss는 어디서 계산되는가
+
+빨간 decoder를 거치는 loss는 $\text{MSE}(\hat{\mathbf{o}}_{t+1}, \mathbf{o}_{t+1})$ 하나뿐입니다. 나머지 네 항은 head 출력이나 파란 decoder에서 바로 계산됩니다.
+
+| 벡터 | 전용 loss (계산 위치) | 빨간 decoder로도 들어가는가 |
+| :--- | :--- | :---: |
+| $\hat{\mathbf{v}}_t$ | $\text{MSE}(\hat{\mathbf{v}}_t, \mathbf{v}_t)$ (head 출력에서 바로) | O |
+| $\hat{\mathbf{h}}^f_t$ | $\text{MSE}(\hat{\mathbf{h}}^f_t, \mathbf{h}^f_t)$ (head 출력에서 바로) | O |
+| $\mathbf{z}_t$ | $D_{KL}$ ($\boldsymbol{\mu}, \boldsymbol{\sigma}$에서 바로) | O |
+| $\mathbf{z}^m_t$ | $\text{MSE}(\hat{\mathbf{m}}_t, \mathbf{m}_t)$ (파란 decoder를 거쳐서) | O |
+
+네 벡터를 이어 붙인 $[\hat{\mathbf{v}}_t, \hat{\mathbf{h}}^f_t, \mathbf{z}_t, \mathbf{z}^m_t]$가 빨간 decoder로 들어가 $\hat{\mathbf{o}}_{t+1}$을 만들고, 여기서 다섯 번째 loss $\text{MSE}(\hat{\mathbf{o}}_{t+1}, \mathbf{o}_{t+1})$이 계산됩니다.
+
+### 각 loss가 gradient를 주는 가중치
+
+| Loss 항 | 공유 몸통 | $\hat{\mathbf{v}}$ head | $\hat{\mathbf{h}}^f$ head | $\mathbf{z}$ head | $\mathbf{z}^m$ head | 빨간 dec. | 파란 dec. |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| $\text{MSE}(\hat{\mathbf{v}}_t, \mathbf{v}_t)$ | O | O | | | | | |
+| $\text{MSE}(\hat{\mathbf{h}}^f_t, \mathbf{h}^f_t)$ | O | | O | | | | |
+| $D_{KL}$ | O | | | O | | | |
+| $\text{MSE}(\hat{\mathbf{m}}_t, \mathbf{m}_t)$ | O | | | | O | | O |
+| $\text{MSE}(\hat{\mathbf{o}}_{t+1}, \mathbf{o}_{t+1})$ | O | O | O | O | O | O | |
+
+공유 몸통은 MLP·CNN·Transformer·GRU, $\mathbf{z}$ head는 $\boldsymbol{\mu}, \boldsymbol{\sigma}$를 내는 층, dec.은 decoder입니다. 표를 세로로 읽으면 구조가 보입니다.
+
+-   **Head 열**에는 O가 두 개씩 있습니다. 자기 전용 loss와 $\hat{\mathbf{o}}_{t+1}$ 복원 loss입니다. 예를 들어 $\hat{\mathbf{v}}_t$는 "실제 속도에 가까워지는 방향"과 "다음 상태 예측에 쓸모 있는 방향"으로 동시에 당겨집니다.
+-   **Decoder 열**에는 O가 하나씩입니다. 빨간 decoder는 $\hat{\mathbf{o}}_{t+1}$ 복원으로만, 파란 decoder는 height map 복원으로만 학습됩니다.
+-   **공유 몸통 열**은 전부 O입니다. 다섯 항의 gradient가 여기서 합쳐집니다.
+-   PPO loss는 Estimator 출력을 detach한다는 가정 아래 이 표의 어떤 가중치에도 gradient를 주지 않습니다.
+
+QuadLab DreamWaQ(`cenet.py`)도 같은 구조입니다. 속도 MSE는 decoder 가중치를 건드리지 않고, $\hat{\mathbf{v}}_t$는 속도 MSE와 복원 loss 두 곳에서 gradient를 받습니다.
+
+### 가중치가 안 바뀌어도 값은 바뀐다
+
+::: {.callout-note}
+### 핵심 직관
+"$\mathbf{z}$ head의 가중치가 그대로여도, 그 head가 읽는 GRU 출력이 바뀌면 $\mathbf{z}_t$의 값은 바뀐다."
+:::
+
+축소한 Estimator로 $\text{MSE}(\hat{\mathbf{h}}^f_t, \mathbf{h}^f_t)$ 하나만 걸고 한 번 업데이트한 뒤 전후를 비교했습니다.
+
+| 모듈 | 가중치 변화 | 다음 forward의 출력 변화 (평균 절댓값) |
+| :--- | :---: | :--- |
+| 공유 몸통 | O | – |
+| $\hat{\mathbf{h}}^f$ head | O | $\hat{\mathbf{h}}^f_t$: 0.0064 |
+| $\hat{\mathbf{v}}$ head | X | $\hat{\mathbf{v}}_t$: 0.0019 |
+| $\mathbf{z}$ head | X | $\mathbf{z}_t$: 0.0012 |
+| $\mathbf{z}^m$ head | X | $\mathbf{z}^m_t$: 0.0012 |
+
+$\hat{\mathbf{h}}^f$ loss는 $\mathbf{z}$ head의 가중치를 바꾸지 않지만, 공유 몸통을 바꾸기 때문에 다음 스텝의 $\hat{\mathbf{v}}_t$, $\mathbf{z}_t$, $\mathbf{z}^m_t$ 값도 함께 바뀝니다. 이 성질은 MLP만의 특징이 아니라, 층을 공유하고 끝에서 head가 갈라지는 multi-task 구조 전반에 해당합니다.
+
+실제 학습에서는 다섯 항이 한 번에 합쳐져 업데이트되므로, 한 항이 만든 부수적인 변화는 다른 항들이 다시 끌어당깁니다. 그래서 **항 사이의 스케일 균형**이 중요합니다. 한 항의 loss가 지나치게 크면 공유 몸통이 그 항에 맞춰 끌려가 다른 추정이 나빠질 수 있습니다. 식 (4)는 다섯 항을 가중치 없이 더하므로, 정답 값을 정규화하거나 항별 가중치를 두는 것이 사실상 필요합니다.
+
+## 설계 체크리스트 (원문에 없는 결정 사항)
+
+| 결정 | 선택지 | 권장 시작점 |
+| :--- | :--- | :--- |
+| Estimator 출력 detach | detach / detach 안 함 | detach (DreamWaQ 관례, QuadLab 코드) |
+| Rollout에서 $\mathbf{z}_t$ | 샘플 / 평균 $\boldsymbol{\mu}$ | 학습 중에는 샘플 (QuadLab `cenet.py`). 배포 때 $\boldsymbol{\mu}$를 쓸지는 시험해서 결정 |
+| $\mathbf{o}_{t+1}$ 정답 | 모든 스텝 / done 스텝 제외 | done 스텝 제외. 리셋 직후 관측이 정답이 되는 것을 막음. 현재 QuadLab runner는 제외하지 않음 |
+| GRU 학습 | 스텝 단위 / 시퀀스 단위 | 시퀀스 단위 truncated BPTT, 저장된 hidden에서 시작 |
+| Depth 갱신 주기 | 매 스텝 / 10 Hz | 10 Hz (실기와 맞추고 렌더링 비용도 줄임) |
+| Loss 가중치 | 모두 1 / 항별 지정 | 1에서 시작하되 KL은 작게 (QuadLab: recon 4.0, KL 0.01) |
+| 갱신 순서 | Estimator 먼저 / PPO 먼저 | 같은 rollout 데이터를 쓰므로 영향이 작음. QuadLab은 Estimator → PPO |
+| Optimizer | 공유 / 분리 | 분리 (Estimator 전용 Adam, QuadLab lr 1e-3) |
+| PPO 계수 $c_v$, $c_e$ | 원문 미기재 | QuadLab 기존 PPO 설정 |
 
 # Teacher–Student 구조를 쓰는가?
 
